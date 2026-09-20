@@ -36,16 +36,23 @@ export default function Navbar() {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
+
   const handleNavClick = () => {
     setMenuOpen(false);
-    document.body.style.overflow = "";
   };
 
   const toggleMenu = () => {
-    setMenuOpen((prev) => {
-      document.body.style.overflow = !prev ? "hidden" : "";
-      return !prev;
-    });
+    setMenuOpen((prev) => !prev);
   };
 
   const scrollTo = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -94,15 +101,37 @@ export default function Navbar() {
           />
         </a>
 
+                <style dangerouslySetInnerHTML={{ __html: [
+          ".mobile-hamburger {",
+          "            display: none !important;",
+          "          }",
+          "          @media (max-width: 768px) {",
+          "            .desktop-nav {",
+          "              display: none !important;",
+          "            }",
+          "            .mobile-hamburger {",
+          "              display: flex !important;",
+          "            }",
+          "            .mobile-nav-link {",
+          "              font-size: 14.5px !important;",
+          "              font-weight: 500 !important;",
+          "            }",
+          "            .mobile-nav-btn {",
+          "              font-size: 13px !important;",
+          "              font-weight: 600 !important;",
+          "            }",
+          "          }"
+        ].join('\n') }} />
+
         {/* Desktop Nav */}
         <ul
+          className="desktop-nav"
           style={{
             display: "flex",
             listStyle: "none",
             gap: 8,
             alignItems: "center",
           }}
-          className="hidden md:flex"
         >
           {navItems.map((item) => (
             <li key={item.href}>
@@ -157,10 +186,10 @@ export default function Navbar() {
           </li>
         </ul>
 
-        {/* Hamburger */}
+                {/* Hamburger */}
         <button
           onClick={toggleMenu}
-          className="flex md:hidden"
+          className="mobile-hamburger"
           aria-label="Toggle Menu"
           style={{
             background: "none",
@@ -214,6 +243,7 @@ export default function Navbar() {
               key={item.href}
               href={item.href}
               onClick={(e) => scrollTo(e, item.href)}
+              className="mobile-nav-link"
               style={{
                 color: "#fff",
                 fontWeight: 500,
@@ -229,6 +259,7 @@ export default function Navbar() {
           <a
             href="#contact"
             onClick={(e) => scrollTo(e, "#contact")}
+            className="mobile-nav-btn"
             style={{
               background: "linear-gradient(135deg, #1967D2, #4A9EF5)",
               color: "#fff",
@@ -244,6 +275,7 @@ export default function Navbar() {
           <Link
             href="/training"
             onClick={handleNavClick}
+            className="mobile-nav-btn"
             style={{
               color: "#F5A623",
               fontWeight: 600,
@@ -260,3 +292,4 @@ export default function Navbar() {
     </nav>
   );
 }
+

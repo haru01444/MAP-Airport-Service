@@ -186,7 +186,8 @@ export default function TrainingPage() {
           <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px" }}>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 64, alignItems: "center" }}>
               <div>
-                <span style={{ display: "inline-block", background: "rgba(25,103,210,0.1)", color: "#1967D2", border: "1px solid rgba(25,103,210,0.2)", fontSize: "0.75rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", padding: "6px 16px", borderRadius: 100, marginBottom: 16 }}>
+                <span style={{ display: "inline-flex", alignItems: "center", gap: 10, color: "#1967D2", fontSize: "0.85rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 16 }}>
+                  <span style={{ width: 20, height: 2, background: "#F5A623", borderRadius: 2, display: "inline-block", flexShrink: 0 }} />
                   Tentang Kami
                 </span>
                 <h2 style={{ fontFamily: "var(--font-poppins)", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", fontWeight: 800, color: "#0F172A", lineHeight: 1.25, marginBottom: 20 }}>
@@ -233,7 +234,8 @@ export default function TrainingPage() {
         <section style={{ padding: "100px 0", background: "#F8FAFC" }}>
           <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px" }}>
             <div style={{ textAlign: "center", marginBottom: 56 }}>
-              <span style={{ display: "inline-block", background: "rgba(25,103,210,0.1)", color: "#1967D2", border: "1px solid rgba(25,103,210,0.2)", fontSize: "0.75rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", padding: "6px 16px", borderRadius: 100, marginBottom: 16 }}>
+              <span style={{ display: "inline-flex", alignItems: "center", gap: 10, color: "#1967D2", fontSize: "0.85rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 16 }}>
+                <span style={{ width: 20, height: 2, background: "#F5A623", borderRadius: 2, display: "inline-block", flexShrink: 0 }} />
                 Keunggulan Kami
               </span>
               <h2 style={{ fontFamily: "var(--font-poppins)", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", fontWeight: 800, color: "#0F172A", lineHeight: 1.25, marginBottom: 16 }}>
@@ -259,7 +261,8 @@ export default function TrainingPage() {
         {/* ── PROGRAM PELATIHAN HEADER ── */}
         <section id="programs" style={{ padding: "80px 0 40px", background: "linear-gradient(135deg, #001F5B, #0D2461)" }}>
           <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px", textAlign: "center" }}>
-            <span style={{ display: "inline-block", background: "rgba(245,166,35,0.15)", color: "#F5A623", border: "1px solid rgba(245,166,35,0.3)", fontSize: "0.75rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", padding: "6px 16px", borderRadius: 100, marginBottom: 16 }}>
+            <span style={{ display: "inline-flex", alignItems: "center", gap: 10, color: "#fff", fontSize: "0.85rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 16 }}>
+              <span style={{ width: 20, height: 2, background: "#F5A623", borderRadius: 2, display: "inline-block", flexShrink: 0 }} />
               Kurikulum Kami
             </span>
             <h2 style={{ fontFamily: "var(--font-poppins)", fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 900, color: "#fff", lineHeight: 1.2, marginBottom: 16 }}>
@@ -292,7 +295,7 @@ export default function TrainingPage() {
                   </h3>
                   <p style={{ color: "#475569", lineHeight: 1.8, marginBottom: 28 }}>{prog.desc}</p>
                   <ul style={{ listStyle: "none", padding: 0, display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px 16px" }}>
-                    {prog.items.map((item, i) => (
+                    {prog.items?.map((item, i) => (
                       <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: 10, color: "#475569", fontSize: "0.875rem" }}>
                         <i className="fas fa-check-circle" style={{ color: prog.color, fontSize: "0.85rem", marginTop: 2, flexShrink: 0 }} />
                         {item}
@@ -325,7 +328,8 @@ export default function TrainingPage() {
           <div style={{ position: "absolute", top: -200, right: -200, width: 500, height: 500, borderRadius: "50%", background: "rgba(74,158,245,0.05)" }} />
           <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px", position: "relative", zIndex: 1 }}>
             <div style={{ textAlign: "center", marginBottom: 56 }}>
-              <span style={{ display: "inline-block", background: "rgba(255,255,255,0.1)", color: "#fff", border: "1px solid rgba(255,255,255,0.2)", fontSize: "0.75rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", padding: "6px 16px", borderRadius: 100, marginBottom: 16 }}>
+              <span style={{ display: "inline-flex", alignItems: "center", gap: 10, color: "#fff", fontSize: "0.85rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 16 }}>
+                <span style={{ width: 20, height: 2, background: "#F5A623", borderRadius: 2, display: "inline-block", flexShrink: 0 }} />
                 Infrastruktur
               </span>
               <h2 style={{ fontFamily: "var(--font-poppins)", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", fontWeight: 800, color: "#fff", lineHeight: 1.25, marginBottom: 16 }}>
@@ -354,7 +358,8 @@ export default function TrainingPage() {
           <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px" }}>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 56, alignItems: "center" }}>
               <div>
-                <span style={{ display: "inline-block", background: "rgba(245,166,35,0.1)", color: "#e8941f", border: "1px solid rgba(245,166,35,0.3)", fontSize: "0.75rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", padding: "6px 16px", borderRadius: 100, marginBottom: 16 }}>
+                <span style={{ display: "inline-flex", alignItems: "center", gap: 10, color: "#1967D2", fontSize: "0.85rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 16 }}>
+                  <span style={{ width: 20, height: 2, background: "#F5A623", borderRadius: 2, display: "inline-block", flexShrink: 0 }} />
                   Pengakuan Industri
                 </span>
                 <h2 style={{ fontFamily: "var(--font-poppins)", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", fontWeight: 800, color: "#0F172A", lineHeight: 1.25, marginBottom: 20 }}>
@@ -418,7 +423,8 @@ export default function TrainingPage() {
           </div>
           <div style={{ position: "relative", zIndex: 1, maxWidth: 800, margin: "0 auto", padding: "0 24px", textAlign: "center" }}>
             <i className="fas fa-plane-departure" style={{ fontSize: "2.5rem", color: "#F5A623", marginBottom: 20, display: "block" }} />
-            <span style={{ display: "inline-block", background: "rgba(255,255,255,0.1)", color: "#fff", border: "1px solid rgba(255,255,255,0.2)", fontSize: "0.75rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", padding: "6px 16px", borderRadius: 100, marginBottom: 16 }}>
+            <span style={{ display: "inline-flex", alignItems: "center", gap: 10, color: "#fff", fontSize: "0.85rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 16 }}>
+              <span style={{ width: 20, height: 2, background: "#F5A623", borderRadius: 2, display: "inline-block", flexShrink: 0 }} />
               Terima Kasih
             </span>
             <h2 style={{ fontFamily: "var(--font-poppins)", fontSize: "clamp(1.8rem, 3vw, 2.6rem)", fontWeight: 800, color: "#fff", lineHeight: 1.25, marginBottom: 16 }}>
