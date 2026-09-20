@@ -1,11 +1,11 @@
 import { Resend } from "resend";
 import { NextRequest, NextResponse } from "next/server";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
 const TO_EMAIL = process.env.CONTACT_TO_EMAIL || "mawaddahangkasaprima@gmail.com";
 
 export async function POST(req: NextRequest) {
   try {
+    const resend = new Resend(process.env.RESEND_API_KEY);
     const { name, company, email, service, message } = await req.json();
 
     // Validasi basic
