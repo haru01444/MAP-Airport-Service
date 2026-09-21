@@ -18,7 +18,8 @@ export default function MapSection() {
 
   return (
     <section id="map" className="map-section">
-      <style dangerouslySetInnerHTML={{ __html: [
+      <style dangerouslySetInnerHTML={{
+        __html: [
           ".map-section {",
           "          padding: 100px 0;",
           "          background: #F8FAFC;",
@@ -213,7 +214,7 @@ export default function MapSection() {
           "          .indonesia-map-wrapper {",
           "            overflow-x: auto;",
           "            overflow-y: hidden;",
-          "            padding: 40px 24px 60px 24px; /* Top/bottom padding for tooltips, left/right for scroll */",
+          "            padding: 110px 24px 60px 24px; /* Top/bottom padding for tooltips, left/right for scroll */",
           "            border-radius: 20px 0 0 20px; /* Flat edge on the right */",
           "            border-right: none;",
           "            ",
@@ -223,8 +224,15 @@ export default function MapSection() {
           "          }",
           "          .indonesia-map-wrapper::-webkit-scrollbar {",
           "            display: none;",
-          "          }",
-          "          .map-inner {",
+          "          }",            "          .pulsing-dot-wrapper:nth-child(3) .map-tooltip { left: 0; transform: translateX(-15%) translateY(10px); }",
+            "          .pulsing-dot-wrapper:nth-child(3).active .map-tooltip,",
+            "          .pulsing-dot-wrapper:nth-child(3):hover .map-tooltip { transform: translateX(-15%) translateY(0); }",
+            "          .pulsing-dot-wrapper:nth-child(3) .map-tooltip::after { left: 30px; }",
+            "          .pulsing-dot-wrapper:nth-child(6) .map-tooltip { left: auto; right: 0; transform: translateX(10%) translateY(10px); }",
+            "          .pulsing-dot-wrapper:nth-child(6).active .map-tooltip,",
+            "          .pulsing-dot-wrapper:nth-child(6):hover .map-tooltip { transform: translateX(10%) translateY(0); }",
+            "          .pulsing-dot-wrapper:nth-child(6) .map-tooltip::after { left: auto; right: 30px; }",
+            "          .map-inner {",
           "            width: 170%; /* Scaled perfectly so Bali is visible */",
           "            left: 0;",
           "            padding-right: 24px;",
@@ -235,7 +243,8 @@ export default function MapSection() {
           "            right: 40px !important; /* Offset for padding */",
           "          }",
           "        }"
-        ].join('\n') }} />
+        ].join('\n')
+      }} />
 
       <div className="map-container">
         <div className="map-header">
@@ -281,4 +290,13 @@ export default function MapSection() {
     </section>
   );
 }
+
+
+
+
+
+
+
+
+
 

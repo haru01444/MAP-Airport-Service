@@ -9,7 +9,8 @@ const stats = [
 export default function AboutSection() {
   return (
     <section id="about" className="about-section" style={{ background: "#F8FAFC" }}>
-      <style dangerouslySetInnerHTML={{ __html: [
+      <style dangerouslySetInnerHTML={{
+        __html: [
           "/* --- DESKTOP STYLES (Default) --- */",
           "        .about-section { padding: 100px 0; }",
           "        .about-grid {",
@@ -202,27 +203,27 @@ export default function AboutSection() {
           "          .about-quote-icon { display: none !important; }",
           "          .about-quote p { font-size: 14.5px !important; color: #64748B !important; }",
           "        }"
-        ].join('\n') }} />
+        ].join('\n')
+      }} />
 
       <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px" }}>
         <div className="about-grid">
-          
+
           <div className="about-text-area">
             <span className="about-eyebrow">
               <span className="about-eyebrow-dash"></span>
               Tentang Perusahaan
             </span>
             <h2 className="about-title">
-              Berpengalaman sejak 2017 dalam layanan aviasi terintegrasi
+              Berpengalaman dalam Layanan Aviasi Terintegrasi
             </h2>
             <p className="about-desc">
-              Berdiri sejak 2017 melalui unit usaha MAP Ground Handling, Mawaddah Angkasa Prima
-              tumbuh menjadi salah satu penyedia layanan aviasi terintegrasi terkemuka di Indonesia — 
-              mulai dari Ramp Handling, Passenger Services, Trucking, General Aviation, hingga 
-              Airport Lounge Management.
+              Melalui unit usaha MAP Ground Handling, Mawaddah Angkasa Prima
+              tumbuh menjadi salah satu penyedia layanan aviasi terintegrasi terkemuka di Indonesia —
+              mulai dari Ramp Handling, Check In and Gate Handling Services, Trucking, hingga General Aviation.
             </p>
             <p className="about-desc second hide-on-mobile">
-              Selama lebih dari tujuh tahun perjalanan kami, komitmen terhadap kualitas dan kepercayaan mitra
+              Komitmen terhadap kualitas dan kepercayaan mitra
               menjadi landasan setiap layanan yang kami berikan, menjadikan kami mitra strategis bagi maskapai
               dan operator bandara di berbagai kota di Indonesia.
             </p>
@@ -236,10 +237,6 @@ export default function AboutSection() {
                 fill
                 style={{ objectFit: "cover" }}
               />
-            </div>
-            <div className="about-badge-responsive">
-              <span className="about-badge-year">2017</span>
-              <span className="about-badge-text">Tahun Berdiri</span>
             </div>
           </div>
 

@@ -1,22 +1,23 @@
 import Image from "next/image";
 
 const milestones = [
+
   {
     year: "2017",
     title: "Awal Operasional",
-    desc: "Memulai kerja sama operasional dengan Kokapura & Trimoa Rasadi, serta menghadirkan layanan Passenger Bus Service.",
+    desc: "Memulai kerja sama operasional dengan Trinusa Ekasakti, serta menghadirkan layanan Passenger Bus Service dan Crew Transport.",
     future: false,
   },
   {
     year: "2018",
     title: "Perluasan Layanan",
-    desc: "GSE Handling, VIP Service, Ticketing, Passenger & Baggage Handling, Crew Transport, kerja sama dengan Exxon Mobile, LST/WST Service.",
+    desc: "GSE Handling, VIP Service, Ticketing, Passenger & Baggage Handling, Crew Transport,  dan LST/WST Service.",
     future: false,
   },
   {
     year: "2022",
     title: "Pertumbuhan Operasional",
-    desc: "Laundry Service, Water Service, Citilink Crew Transport, Terminal Handling Support, dan Land Transport Outsourcing.",
+    desc: "Lavatory Service, Water Service, Crew Transport, Terminal Handling Support, Passanger Bus, dan Land Transport Outsourcing.",
     future: false,
   },
   {
@@ -71,50 +72,52 @@ export default function MilestoneSection() {
         </div>
 
         {/* Timeline */}
-        <style dangerouslySetInnerHTML={{ __html: [
-          "@media (max-width: 768px) {",
-          "            .ms-header-wrap { margin-bottom: 32px !important; }",
-          "            .ms-eyebrow { margin-bottom: 12px !important; }",
-          "            .ms-h2 { font-size: 23px !important; line-height: 1.25 !important; margin-bottom: 16px !important; }",
-          "            .ms-intro { font-size: 13.5px !important; line-height: 1.7 !important; }",
-          "            ",
-          "            .timeline-item-responsive {",
-          "              justify-content: flex-start !important;",
-          "            }",
-          "            .timeline-center-line {",
-          "              left: 12px !important;",
-          "              transform: translateX(-50%) !important;",
-          "              background: rgba(74, 158, 245, 0.2) !important;",
-          "            }",
-          "            .timeline-dot-responsive {",
-          "              left: 12px !important;",
-          "              top: 5px !important; /* aligns beautifully with text */",
-          "              transform: translateX(-50%) !important;",
-          "              width: 14px !important;",
-          "              height: 14px !important;",
-          "            }",
-          "            .timeline-card-responsive {",
-          "              width: calc(100% - 36px) !important;",
-          "              margin-left: 36px !important;",
-          "              padding: 0 !important;",
-          "              background: transparent !important;",
-          "              border: none !important;",
-          "              backdrop-filter: none !important;",
-          "            }",
-          "            .ms-year {",
-          "              font-size: 1.05rem !important;",
-          "              margin-bottom: 2px !important;",
-          "            }",
-          "            .ms-title {",
-          "              font-size: 1.05rem !important;",
-          "              margin-bottom: 8px !important;",
-          "            }",
-          "            .ms-desc {",
-          "              font-size: 0.88rem !important;",
-          "              color: rgba(255,255,255,0.6) !important;",
-          "              line-height: 1.6 !important;",
-          "            }"
-        ].join('\n') }} />
+        <style dangerouslySetInnerHTML={{
+          __html: [
+            "@media (max-width: 768px) {",
+            "            .ms-header-wrap { margin-bottom: 32px !important; }",
+            "            .ms-eyebrow { margin-bottom: 12px !important; }",
+            "            .ms-h2 { font-size: 23px !important; line-height: 1.25 !important; margin-bottom: 16px !important; }",
+            "            .ms-intro { font-size: 13.5px !important; line-height: 1.7 !important; }",
+            "            ",
+            "            .timeline-item-responsive {",
+            "              justify-content: flex-start !important;",
+            "            }",
+            "            .timeline-center-line {",
+            "              left: 12px !important;",
+            "              transform: translateX(-50%) !important;",
+            "              background: rgba(74, 158, 245, 0.2) !important;",
+            "            }",
+            "            .timeline-dot-responsive {",
+            "              left: 12px !important;",
+            "              top: 5px !important; /* aligns beautifully with text */",
+            "              transform: translateX(-50%) !important;",
+            "              width: 14px !important;",
+            "              height: 14px !important;",
+            "            }",
+            "            .timeline-card-responsive {",
+            "              width: calc(100% - 36px) !important;",
+            "              margin-left: 36px !important;",
+            "              padding: 0 !important;",
+            "              background: transparent !important;",
+            "              border: none !important;",
+            "              backdrop-filter: none !important;",
+            "            }",
+            "            .ms-year {",
+            "              font-size: 1.05rem !important;",
+            "              margin-bottom: 2px !important;",
+            "            }",
+            "            .ms-title {",
+            "              font-size: 1.05rem !important;",
+            "              margin-bottom: 8px !important;",
+            "            }",
+            "            .ms-desc {",
+            "              font-size: 0.88rem !important;",
+            "              color: rgba(255,255,255,0.6) !important;",
+            "              line-height: 1.6 !important;",
+            "            }"
+          ].join('\n')
+        }} />
         <div style={{ position: "relative" }}>
           {/* Center line */}
           <div

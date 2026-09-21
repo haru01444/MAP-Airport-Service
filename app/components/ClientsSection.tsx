@@ -1,6 +1,18 @@
 import Image from "next/image";
 
-const clientData = [
+interface ClientItem {
+  no: number;
+  client: string;
+  displayName: string;
+  subText?: string;
+  logo: string | null;
+  action: string;
+  actionUpper: string;
+  shortLoc: string;
+  location: string;
+}
+
+const clientData: ClientItem[] = [
   {
     no: 1,
     client: "PT. AIRASIA INDONESIA",
@@ -51,17 +63,17 @@ const clientData = [
     shortLoc: "UPG · Sultan Hasanuddin, Makassar",
     location: "UPG (Sultan Hasanuddin - Makassar)",
   },
-  {
-    no: 6,
-    client: "KOKAPURA",
-    displayName: "Kokapura",
-    subText: "Syamsudin Noor",
-    logo: null,
-    action: "Ramp – Ramp",
-    actionUpper: "RAMP - RAMP",
-    shortLoc: "BDJ · Syamsudin Noor, Banjarmasin",
-    location: "BDJ (Syamsudin Noor Airport - Banjarmasin)",
-  },
+  // {
+  //   no: 6,
+  //   client: "KOKAPURA",
+  //   displayName: "Kokapura",
+  //   subText: "Syamsudin Noor",
+  //   logo: null,
+  //   action: "Ramp – Ramp",
+  //   actionUpper: "RAMP - RAMP",
+  //   shortLoc: "BDJ · Syamsudin Noor, Banjarmasin",
+  //   location: "BDJ (Syamsudin Noor Airport - Banjarmasin)",
+  // },
 ];
 
 export default function ClientsSection() {
@@ -97,20 +109,22 @@ export default function ClientsSection() {
         </div>
 
         {/* Responsive Table/Card Styles */}
-        <style dangerouslySetInnerHTML={{ __html: [
-          ".desktop-client-table { display: block; }",
-          "          .mobile-client-list { display: none; }",
-          "",
-          "          @media (max-width: 768px) {",
-          "            .cl-header-wrap { margin-bottom: 28px !important; }",
-          "            .cl-eyebrow { margin-bottom: 12px !important; font-size: 11.5px !important; }",
-          "            .cl-h2 { font-size: 23px !important; line-height: 1.25 !important; margin-bottom: 16px !important; }",
-          "            .cl-intro { font-size: 13.5px !important; line-height: 1.7 !important; }",
-          "",
-          "            .desktop-client-table { display: none !important; }",
-          "            .mobile-client-list { display: block !important; }",
-          "          }"
-        ].join('\n') }} />
+        <style dangerouslySetInnerHTML={{
+          __html: [
+            ".desktop-client-table { display: block; }",
+            "          .mobile-client-list { display: none; }",
+            "",
+            "          @media (max-width: 768px) {",
+            "            .cl-header-wrap { margin-bottom: 28px !important; }",
+            "            .cl-eyebrow { margin-bottom: 12px !important; font-size: 11.5px !important; }",
+            "            .cl-h2 { font-size: 23px !important; line-height: 1.25 !important; margin-bottom: 16px !important; }",
+            "            .cl-intro { font-size: 13.5px !important; line-height: 1.7 !important; }",
+            "",
+            "            .desktop-client-table { display: none !important; }",
+            "            .mobile-client-list { display: block !important; }",
+            "          }"
+          ].join('\n')
+        }} />
 
         {/* Card/Table Container */}
         <div

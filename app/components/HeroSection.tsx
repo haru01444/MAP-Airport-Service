@@ -81,7 +81,7 @@ export default function HeroSection() {
           >
             Melayani <br />
             Industri Penerbangan <br />
-            Indonesia Sejak 2017
+            Indonesia
           </h1>
           <p
             className="hero-desc-text"
@@ -93,7 +93,7 @@ export default function HeroSection() {
               marginBottom: 36,
             }}
           >
-            Mawaddah Angkasa Prima — Mitra Terpercaya Layanan Ground Handling & Aviasi di Indonesia.
+            Mawaddah Angkasa Prima â€” Mitra Terpercaya Layanan Ground Handling & Aviasi di Indonesia.
             Kami hadir untuk mendukung kelancaran operasional penerbangan Anda melalui layanan profesional yang
             mengedepankan keselamatan, kecepatan, dan standar internasional di setiap titik layanan.
           </p>
@@ -216,14 +216,9 @@ export default function HeroSection() {
                 }}
               >
                 {extendedPillars.map((p, i) => (
-                  <div key={i} style={{ width: "100%", flexShrink: 0, padding: "24px 20px", display: "flex", alignItems: "center", gap: 16 }}>
-                    <div style={{ width: 44, height: 44, borderRadius: 10, background: "rgba(74,158,245,0.15)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                      <i className={"fas " + p.icon} style={{ color: "#4A9EF5", fontSize: "1.1rem" }} />
-                    </div>
-                    <div>
-                      <strong className="pillar-title-text" style={{ color: "#fff", display: "block", fontSize: "0.9rem", fontWeight: 600 }}>{p.title}</strong>
-                      <span className="pillar-desc-text" style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.78rem" }}>{p.desc}</span>
-                    </div>
+                  <div key={i} style={{ width: "100%", flexShrink: 0, padding: "20px 20px", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "flex-start", textAlign: "left" }}>
+                    <strong className="pillar-title-text" style={{ color: "#fff", display: "block", fontSize: "0.9rem", fontWeight: 600, marginBottom: "4px" }}>{p.title}</strong>
+                    <span className="pillar-desc-text" style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.78rem" }}>{p.desc}</span>
                   </div>
                 ))}
               </div>
@@ -235,3 +230,5 @@ export default function HeroSection() {
     </section>
   );
 }
+
+

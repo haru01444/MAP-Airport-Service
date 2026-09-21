@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
@@ -7,6 +7,7 @@ import Link from "next/link";
 const navItems = [
   { href: "#about", label: "Tentang Kami" },
   { href: "#services", label: "Layanan" },
+  { href: "#map", label: "Peta Layanan" },
   { href: "#milestone", label: "Milestone" },
   { href: "#clients", label: "Klien" },
 ];
@@ -292,4 +293,7 @@ export default function Navbar() {
     </nav>
   );
 }
+
+
+
 
