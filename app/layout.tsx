@@ -17,9 +17,9 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Mawaddah Angkasa Prima — Ground Handling & Aviasi Indonesia",
+  title: "Mawaddah Angkasa Prima | Ground Handling & Aviasi Indonesia",
   description:
-    "Mawaddah Angkasa Prima — Mitra terpercaya layanan ground handling dan aviasi di Indonesia.",
+    "Mawaddah Angkasa Prima. Mitra terpercaya layanan ground handling dan aviasi di Indonesia.",
   keywords: [
     "ground handling",
     "aviation services",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     "passenger services",
   ],
   openGraph: {
-    title: "Mawaddah Angkasa Prima — Ground Handling & Aviasi Indonesia",
+    title: "Mawaddah Angkasa Prima | Ground Handling & Aviasi Indonesia",
     description:
       "Mitra terpercaya layanan ground handling dan aviasi di Indonesia.",
     type: "website",

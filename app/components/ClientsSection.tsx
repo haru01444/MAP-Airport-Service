@@ -20,7 +20,7 @@ const clientData: ClientItem[] = [
     logo: "/logo-Air Asia.jpg",
     action: "Ticket Sales",
     actionUpper: "TICKET SALES",
-    shortLoc: "CGK · Soekarno-Hatta, Tangerang",
+    shortLoc: "CGK - Soekarno-Hatta, Tangerang",
     location: "CGK (Soekarno Hatta Airport - Tangerang)",
   },
   {
@@ -30,7 +30,7 @@ const clientData: ClientItem[] = [
     logo: "/logo-Citilink.svg",
     action: "Ticket Sales",
     actionUpper: "TICKET SALES",
-    shortLoc: "CGK · KNO · UPG · SUB",
+    shortLoc: "CGK - KNO - UPG - SUB",
     location: "CGK (Soekarno Hatta Airport - Tangerang), KNO (Kualanamu International Airport - Medan), UPG (Sultan Hasanuddin - Makassar), SUB (Juanda - Surabaya)",
   },
   {
@@ -40,7 +40,7 @@ const clientData: ClientItem[] = [
     logo: "/logo-Air Asia.jpg",
     action: "Cargo Handling",
     actionUpper: "CARGO HANDLING",
-    shortLoc: "CGK · Soekarno-Hatta, Tangerang",
+    shortLoc: "CGK - Soekarno-Hatta, Tangerang",
     location: "CGK (Soekarno Hatta Airport - Tangerang)",
   },
   {
@@ -48,9 +48,9 @@ const clientData: ClientItem[] = [
     client: "JAS",
     displayName: "JAS",
     logo: "/logo-JAS.png",
-    action: "Ramp – Ramp",
+    action: "Ramp - Ramp",
     actionUpper: "RAMP - RAMP",
-    shortLoc: "SUB · Juanda Int'l, Surabaya",
+    shortLoc: "SUB - Juanda Int'l, Surabaya",
     location: "SUB (Juanda - Surabaya)",
   },
   {
@@ -58,9 +58,9 @@ const clientData: ClientItem[] = [
     client: "GAPURA",
     displayName: "Gapura",
     logo: "/logo-Gapura.webp",
-    action: "Ramp – Ramp",
+    action: "Ramp - Ramp",
     actionUpper: "RAMP - RAMP",
-    shortLoc: "UPG · Sultan Hasanuddin, Makassar",
+    shortLoc: "UPG - Sultan Hasanuddin, Makassar",
     location: "UPG (Sultan Hasanuddin - Makassar)",
   },
   // {
@@ -69,9 +69,9 @@ const clientData: ClientItem[] = [
   //   displayName: "Kokapura",
   //   subText: "Syamsudin Noor",
   //   logo: null,
-  //   action: "Ramp – Ramp",
+  //   action: "Ramp - Ramp",
   //   actionUpper: "RAMP - RAMP",
-  //   shortLoc: "BDJ · Syamsudin Noor, Banjarmasin",
+  //   shortLoc: "BDJ - Syamsudin Noor, Banjarmasin",
   //   location: "BDJ (Syamsudin Noor Airport - Banjarmasin)",
   // },
 ];

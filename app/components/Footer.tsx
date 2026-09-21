@@ -138,7 +138,7 @@ export default function Footer() {
             © {year} Mawaddah Angkasa Prima. Seluruh hak dilindungi.
           </p>
           <p className="ft-copy" style={{ color: "rgba(255,255,255,0.35)", fontSize: "0.82rem", margin: 0 }}>
-            Ground Handling & Aviation Services — Indonesia
+            Ground Handling & Aviation Services | Indonesia
           </p>
         </div>
       </div>

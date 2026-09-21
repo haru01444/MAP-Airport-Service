@@ -219,7 +219,7 @@ export default function AboutSection() {
             </h2>
             <p className="about-desc">
               Melalui unit usaha MAP Ground Handling, Mawaddah Angkasa Prima
-              tumbuh menjadi salah satu penyedia layanan aviasi terintegrasi terkemuka di Indonesia —
+              tumbuh menjadi salah satu penyedia layanan aviasi terintegrasi terkemuka di Indonesia,
               mulai dari Ramp Handling, Check In and Gate Handling Services, Trucking, hingga General Aviation.
             </p>
             <p className="about-desc second hide-on-mobile">

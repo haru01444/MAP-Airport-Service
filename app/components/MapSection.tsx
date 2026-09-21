@@ -1,11 +1,11 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 
 export default function MapSection() {
   const airports = [
     { code: "KNO", city: "Medan", name: "Bandar Udara Internasional Kualanamu", top: "18.5%", left: "14.5%" },
-    { code: "CGK", city: "Jakarta", name: "Soekarnoâ€“Hatta International Airport", top: "66.8%", left: "33.2%" },
+    { code: "CGK", city: "Jakarta", name: "Soekarno-Hatta International Airport", top: "66.8%", left: "33.2%" },
     { code: "SUB", city: "Surabaya", name: "Bandar Udara Internasional Juanda", top: "72.5%", left: "46.7%" },
     { code: "DPS", city: "Bali", name: "Bandar Udara Internasional I Gusti Ngurah Rai", top: "78.5%", left: "52.7%" }
   ];

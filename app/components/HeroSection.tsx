@@ -93,7 +93,7 @@ export default function HeroSection() {
               marginBottom: 36,
             }}
           >
-            Mawaddah Angkasa Prima â€” Mitra Terpercaya Layanan Ground Handling & Aviasi di Indonesia.
+            Mawaddah Angkasa Prima merupakan mitra terpercaya layanan Ground Handling & Aviasi di Indonesia.
             Kami hadir untuk mendukung kelancaran operasional penerbangan Anda melalui layanan profesional yang
             mengedepankan keselamatan, kecepatan, dan standar internasional di setiap titik layanan.
           </p>

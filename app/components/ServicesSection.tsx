@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 
@@ -6,8 +6,8 @@ const services = [
   {
     id: "svc-01",
     label: "Ground Handling for Airlines",
-    tag: "01 Ã¢â‚¬â€œ Ground Handling",
-    short: "GH Ã¢â‚¬Â¢ 01",
+    tag: "01. Ground Handling",
+    short: "GH - 01",
     title: "Ground Handling Services for Airlines",
     desc: "Cakupan layanan ground handling maskapai di berbagai lokasi bandara strategis di Indonesia, dengan standar operasional dan keselamatan internasional.",
     airports: [
@@ -26,8 +26,8 @@ const services = [
   {
     id: "svc-02",
     label: "Passenger & Ticketing Services",
-    tag: "02 Ã¢â‚¬â€œ Ancillary",
-    short: "CLN Ã¢â‚¬Â¢ 02",
+    tag: "02. Ancillary",
+    short: "CLN - 02",
     title: "Passenger & Ticketing Services",
     desc: "Melayani kebutuhan penumpang secara langsung, mulai dari penyambutan di terminal hingga penanganan tiket dan layanan VIP eksklusif.",
     items: ["Transportation", "Greeting Services", "Hand-held Metal Detector Security Services", "Ticket Services", "Check In and Gate Handling Services", "VIP Handling"],
@@ -35,8 +35,8 @@ const services = [
   {
     id: "svc-03",
     label: "Ramp Side Service",
-    tag: "03 Ã¢â‚¬â€œ Ramp",
-    short: "TKT Ã¢â‚¬Â¢ 03",
+    tag: "03. Ramp",
+    short: "TKT - 03",
     title: "Ramp Side Service",
     desc: "Mendukung seluruh aktivitas operasional di sisi udara (ramp area) secara aman, terkoordinasi, dan tepat waktu untuk setiap penerbangan.",
     items: ["Crew Transport (pesawat ke terminal)", "Apron Passenger Bus (APB)", "Aviation Security Transport", "Lavatory & Water Services", "Baggage Towing Tractor (BTT)", "Ground Power Service (GPS)", "Ground Power Unit (GPU)"],
@@ -44,8 +44,8 @@ const services = [
   {
     id: "svc-04",
     label: "Aircraft & Cabin Cleaning",
-    tag: "04 Ã¢â‚¬â€œ Cleaning",
-    short: "AVS Ã¢â‚¬Â¢ 04",
+    tag: "04. Cleaning",
+    short: "AVS - 04",
     title: "Aircraft & Cabin Cleaning Services",
     desc: "Menjaga standar kebersihan dan kenyamanan kabin pesawat secara konsisten di setiap siklus penerbangan, dari transit cepat hingga deep cleaning berkala.",
     items: ["Lavatory Soaking", "Daily Interior Cabin Cleaning", "Transit Cleaning", "Deep / Weekly Cabin Cleaning", "Aircraft Exterior Washing", "Aircraft Exterior Polishing"],
@@ -53,16 +53,16 @@ const services = [
   {
     id: "svc-05",
     label: "Equipment Rental Support",
-    tag: "05 Ã¢â‚¬â€œ Equipment",
-    short: "EQP Ã¢â‚¬Â¢ 05",
+    tag: "05. Equipment",
+    short: "EQP - 05",
     title: "Equipment Rental Support",
     desc: "Penyewaan peralatan Ground Support Equipment (GSE) berkualitas tinggi untuk menunjang kelancaran operasional di area bandara.",
     items: ["GPU (Ground Power Unit) Rental Support", "GTC (Ground Tow Coupling) Rental Support", "ACU (Air Conditioning Unit) Rental Support", "BTT(Baggage Towing Tractor) Rental Support", "Aircraft Maintenance Stair Rental Support"],  },
   {
     id: "svc-06",
     label: "Outsourcing Staff",
-    tag: "06 — Staff",
-    short: "STF — 06",
+    tag: "06. Staff",
+    short: "STF - 06",
     title: "Outsourcing Staff",
     desc: "Menyediakan tenaga kerja profesional dan terlatih untuk mendukung berbagai lini operasional bandara dan maskapai.",
     items: ["Ground Staff", "Aviation Security", "GSE Operator", "Porter"],
@@ -70,8 +70,8 @@ const services = [
   {
     id: "svc-07",
     label: "Training Center",
-    tag: "07 — Training",
-    short: "TRN — 07",
+    tag: "07. Training",
+    short: "TRN - 07",
     title: "Training Center",
     desc: "Pusat pelatihan terpadu untuk mencetak tenaga profesional aviasi yang kompeten dan tersertifikasi.",
     items: ["Aviation Security", "GSE Training Center"],

@@ -20,7 +20,7 @@ export async function POST(req: NextRequest) {
       from: "MAP Website <onboarding@resend.dev>",
       to: TO_EMAIL,
       replyTo: email,
-      subject: `[MAP Website] Permintaan Layanan — ${name}`,
+      subject: `[MAP Website] Permintaan Layanan - ${name}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 32px; background: #f8fafc; border-radius: 12px;">
           
