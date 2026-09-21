@@ -128,7 +128,7 @@ if (contactForm) {
       `Layanan: ${service || '-'}\n\n` +
       `Pesan:\n${message}`
     );
-    const mailtoUrl = `mailto:mawaddahangkasaprima@gmail.com?subject=${subject}&body=${body}`;
+    const mailtoUrl = `mailto:contact@map-airportservices.id?subject=${subject}&body=${body}`;
 
     // Open email client
     window.location.href = mailtoUrl;

@@ -101,7 +101,7 @@ export default function ContactSection() {
             <h3 style={{ color: "#fff", fontWeight: 700, fontSize: "1.2rem", marginBottom: 28 }}>Informasi Kontak</h3>
             {[
               { icon: "fa-phone", label: "Telepon", value: "+62 831 7029 3216", href: "tel:+6283170293216" },
-              { icon: "fa-envelope", label: "Email", value: "mawaddahangkasaprima@gmail.com", href: "mailto:mawaddahangkasaprima@gmail.com" },
+              { icon: "fa-envelope", label: "Email", value: "contact@map-airportservices.id", href: "mailto:contact@map-airportservices.id" },
               { icon: "fa-location-dot", label: "Alamat", value: "Sentul Village, Jl. Cikeas Raya No. 123, Sukaraja, Kab. Bogor, Jawa Barat 16711" },
             ].map((item, i) => (
               <div key={i} style={{ display: "flex", gap: 16, marginBottom: 24 }}>
@@ -124,25 +124,27 @@ export default function ContactSection() {
           </div>
 
           {/* Form */}
-          <style dangerouslySetInnerHTML={{ __html: [
-          "@media (max-width: 768px) {",
-          "              .ct-header-wrap { margin-bottom: 28px !important; }",
-          "              .ct-eyebrow { margin-bottom: 12px !important; }",
-          "              .ct-h2 { font-size: 23px !important; line-height: 1.25 !important; margin-bottom: 16px !important; }",
-          "              .ct-intro { font-size: 13.5px !important; line-height: 1.7 !important; }",
-          "              .ct-label { font-size: 12px !important; }",
-          "              .ct-input { font-size: 15px !important; }",
-          "              .ct-btn { font-size: 14px !important; } .ct-btn-call { width: 100% !important; }",
-          "            }",
-          "            @media (max-width: 640px) {",
-          "              .contact-form-grid {",
-          "                grid-template-columns: 1fr !important;",
-          "              }",
-          "              .contact-card-wrap {",
-          "                padding: 24px 20px !important;",
-          "              }",
-          "            }"
-        ].join('\n') }} />
+          <style dangerouslySetInnerHTML={{
+            __html: [
+              "@media (max-width: 768px) {",
+              "              .ct-header-wrap { margin-bottom: 28px !important; }",
+              "              .ct-eyebrow { margin-bottom: 12px !important; }",
+              "              .ct-h2 { font-size: 23px !important; line-height: 1.25 !important; margin-bottom: 16px !important; }",
+              "              .ct-intro { font-size: 13.5px !important; line-height: 1.7 !important; }",
+              "              .ct-label { font-size: 12px !important; }",
+              "              .ct-input { font-size: 15px !important; }",
+              "              .ct-btn { font-size: 14px !important; } .ct-btn-call { width: 100% !important; }",
+              "            }",
+              "            @media (max-width: 640px) {",
+              "              .contact-form-grid {",
+              "                grid-template-columns: 1fr !important;",
+              "              }",
+              "              .contact-card-wrap {",
+              "                padding: 24px 20px !important;",
+              "              }",
+              "            }"
+            ].join('\n')
+          }} />
           <div className="contact-card-wrap" style={{ background: "rgba(255,255,255,0.05)", backdropFilter: "blur(12px)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 16, padding: 36 }}>
             {!submitted ? (
               <form onSubmit={handleSubmit} noValidate>

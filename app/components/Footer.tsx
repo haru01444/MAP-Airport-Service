@@ -10,7 +10,8 @@ export default function Footer() {
 
   return (
     <footer style={{ background: "#060B19", padding: "64px 0 0", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
-      <style dangerouslySetInnerHTML={{ __html: [
+      <style dangerouslySetInnerHTML={{
+        __html: [
           ".mobile-training-link { display: none; }",
           "        .ft-contact-icon { display: block; color: #4A9EF5; margin-top: 3px; flex-shrink: 0; }",
           "        .ft-contact-item { display: flex; align-items: flex-start; gap: 10px; color: rgba(255,255,255,0.5); font-size: 0.88rem; }",
@@ -62,7 +63,8 @@ export default function Footer() {
           "            color: #64748B !important;",
           "          }",
           "        }"
-        ].join('\n') }} />
+        ].join('\n')
+      }} />
       <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px" }}>
         <div className="footer-grid">
 
@@ -115,7 +117,7 @@ export default function Footer() {
             <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: 12 }}>
               {[
                 { icon: "fa-phone", text: "+62 831 7029 3216" },
-                { icon: "fa-envelope", text: "mawaddahangkasaprima@gmail.com" },
+                { icon: "fa-envelope", text: "contact@map-airportservices.id" },
                 { icon: "fa-location-dot", text: "Sentul Village, Kab. Bogor, Jawa Barat" },
               ].map((item, i) => (
                 <li key={i} className="ft-contact-item">

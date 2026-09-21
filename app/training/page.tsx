@@ -441,7 +441,7 @@ export default function TrainingPage() {
                 <i className="fas fa-phone" /> +62 831 7029 3216
               </a>
               <a
-                href="mailto:mawaddahangkasaprima@gmail.com"
+                href="mailto:contact@map-airportservices.id"
                 style={{ display: "inline-flex", alignItems: "center", gap: 10, border: "2px solid rgba(255,255,255,0.35)", color: "#fff", fontWeight: 600, padding: "14px 28px", borderRadius: 10, fontSize: "0.9rem" }}
               >
                 <i className="fas fa-envelope" /> Email Kami

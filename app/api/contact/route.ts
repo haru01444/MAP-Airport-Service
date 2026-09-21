@@ -1,7 +1,7 @@
 import { Resend } from "resend";
 import { NextRequest, NextResponse } from "next/server";
 
-const TO_EMAIL = process.env.CONTACT_TO_EMAIL || "mawaddahangkasaprima@gmail.com";
+const TO_EMAIL = process.env.CONTACT_TO_EMAIL || "contact@map-airportservices.id";
 
 export async function POST(req: NextRequest) {
   try {
@@ -73,7 +73,7 @@ export async function POST(req: NextRequest) {
           <!-- Footer -->
           <p style="text-align: center; color: #94A3B8; font-size: 12px; margin-top: 24px;">
             Email ini dikirim otomatis dari form kontak di<br/>
-            <strong>mawaddahangkasaprima.com</strong>
+            <strong>contact@map-airportservices.id</strong>
           </p>
         </div>
       `,
