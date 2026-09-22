@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
@@ -171,13 +171,29 @@ export default function Navbar() {
           </li>
           <li>
             <Link
-              href="/training"
+              href="/advertising"
               style={{
                 color: "#F5A623",
                 fontWeight: 600,
                 fontSize: "0.85rem",
                 padding: "8px 16px",
                 border: "1px solid rgba(245,166,35,0.4)",
+                borderRadius: 8,
+                transition: "all 0.2s",
+              }}
+            >
+              Advertising
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/training"
+              style={{
+                color: "rgba(255,255,255,0.8)",
+                fontWeight: 600,
+                fontSize: "0.85rem",
+                padding: "8px 16px",
+                border: "1px solid rgba(255,255,255,0.2)",
                 borderRadius: 8,
                 transition: "all 0.2s",
               }}
@@ -274,7 +290,7 @@ export default function Navbar() {
             Kontak
           </a>
           <Link
-            href="/training"
+            href="/advertising"
             onClick={handleNavClick}
             className="mobile-nav-btn"
             style={{
@@ -282,6 +298,21 @@ export default function Navbar() {
               fontWeight: 600,
               padding: "12px 16px",
               border: "1px solid rgba(245,166,35,0.4)",
+              borderRadius: 8,
+              textAlign: "center",
+            }}
+          >
+            Airport Advertising
+          </Link>
+          <Link
+            href="/training"
+            onClick={handleNavClick}
+            className="mobile-nav-btn"
+            style={{
+              color: "rgba(255,255,255,0.85)",
+              fontWeight: 600,
+              padding: "12px 16px",
+              border: "1px solid rgba(255,255,255,0.2)",
               borderRadius: 8,
               textAlign: "center",
             }}

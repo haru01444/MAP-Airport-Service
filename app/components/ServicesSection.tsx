@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 
 const services = [
   {
@@ -75,6 +76,30 @@ const services = [
     title: "Training Center",
     desc: "Pusat pelatihan terpadu untuk mencetak tenaga profesional aviasi yang kompeten dan tersertifikasi.",
     items: ["Aviation Security", "GSE Training Center"],
+    ctaLink: "/training",
+    ctaText: "Kunjungi Halaman Training Center →",
+  },
+  {
+    id: "svc-08",
+    label: "Airport Advertising",
+    tag: "08. Advertising",
+    short: "ADV - 08",
+    title: "Airport Shuttle Bus Advertising",
+    desc: "Media promosi bergerak eksklusif di 6 armada shuttle bus bandara MAP (CGK, SUB, KNO, UPG). Jangkau captive audience ribuan penumpang penerbangan setiap hari.",
+    airports: [
+      { code: "CGK", city: "Jakarta", name: "Soekarno-Hatta Int'l" },
+      { code: "SUB", city: "Surabaya", name: "Juanda Int'l" },
+      { code: "KNO", city: "Deli / Medan", name: "Kualanamu Int'l" },
+      { code: "UPG", city: "Makassar", name: "Sultan Hasanuddin Int'l" },
+    ],
+    items: [
+      "Full Bus Wrap (360° Exterior)",
+      "Side Panel & Rear Window Branding",
+      "Interior Overhead Passenger Cards",
+      "Pilihan Durasi Campaign Fleksibel (1, 3, 6 Bulan)",
+    ],
+    ctaLink: "/advertising",
+    ctaText: "Lihat Katalog & Media Kit Advertising →",
   }
 ];
 
@@ -333,6 +358,29 @@ export default function ServicesSection() {
                 ))}
               </ul>
             )}
+
+            {current.ctaLink && (
+              <div style={{ marginTop: 28 }}>
+                <Link
+                  href={current.ctaLink}
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 8,
+                    background: "linear-gradient(135deg, #F5A623, #D97706)",
+                    color: "#001F5B",
+                    fontWeight: 700,
+                    padding: "12px 24px",
+                    borderRadius: 10,
+                    fontSize: "0.9rem",
+                    textDecoration: "none",
+                    boxShadow: "0 6px 18px rgba(245,166,35,0.25)",
+                  }}
+                >
+                  {current.ctaText || "Lihat Selengkapnya →"}
+                </Link>
+              </div>
+            )}
           </div>
         </div>
 
@@ -391,6 +439,29 @@ export default function ServicesSection() {
                             <li key={idx}>{item}</li>
                           ))}
                         </ul>
+                      )}
+
+                      {svc.ctaLink && (
+                        <div style={{ marginTop: 20 }}>
+                          <Link
+                            href={svc.ctaLink}
+                            style={{
+                              display: "inline-flex",
+                              alignItems: "center",
+                              gap: 8,
+                              background: "linear-gradient(135deg, #F5A623, #D97706)",
+                              color: "#001F5B",
+                              fontWeight: 700,
+                              padding: "10px 18px",
+                              borderRadius: 8,
+                              fontSize: "0.85rem",
+                              textDecoration: "none",
+                              boxShadow: "0 4px 14px rgba(245,166,35,0.25)",
+                            }}
+                          >
+                            {svc.ctaText || "Lihat Selengkapnya →"}
+                          </Link>
+                        </div>
                       )}
                     </div>
                   </div>

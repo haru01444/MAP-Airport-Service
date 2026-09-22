@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 
@@ -118,7 +118,8 @@ export default function RootLayout({
                 "Aircraft & Cabin Cleaning Services",
                 "Ground Support Equipment (GSE) Rental Support",
                 "Aviation Staff Outsourcing",
-                "MAP Aviation Training Center"
+                "MAP Aviation Training Center",
+                "Airport Shuttle Bus Advertising"
               ],
               "hasOfferCatalog": {
                 "@type": "OfferCatalog",
@@ -198,6 +199,16 @@ export default function RootLayout({
                       { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "GSE (Ground Support Equipment) Operator Training" } },
                       { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Aircraft Maintenance Training" } },
                       { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Pramugari & Pramugara Flight Attendant Training" } }
+                    ]
+                  },
+                  {
+                    "@type": "OfferCatalog",
+                    "name": "Airport Shuttle Bus Advertising",
+                    "itemListElement": [
+                      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Full Bus Wrap (360° Exterior)" } },
+                      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Side Panel Branding" } },
+                      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Rear Panel & Back Window Branding" } },
+                      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Interior Overhead Passenger Cards" } }
                     ]
                   }
                 ]

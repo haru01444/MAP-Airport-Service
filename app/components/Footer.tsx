@@ -80,8 +80,11 @@ export default function Footer() {
             <p className="brand-desc" style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.88rem", lineHeight: 1.75, maxWidth: 300 }}>
               Mitra terpercaya layanan ground handling & aviasi di Indonesia.
             </p>
-            <div style={{ marginTop: 20 }}>
-              <Link href="/training" className="desktop-training-link" style={{ display: "inline-block", background: "rgba(245,166,35,0.1)", border: "1px solid rgba(245,166,35,0.4)", color: "#F5A623", padding: "8px 16px", borderRadius: 8, fontSize: "0.82rem", fontWeight: 600, textDecoration: "none" }}>
+            <div style={{ marginTop: 20, display: "flex", flexDirection: "column", gap: 8, alignItems: "flex-start" }}>
+              <Link href="/advertising" className="desktop-training-link" style={{ display: "inline-block", background: "rgba(245,166,35,0.12)", border: "1px solid rgba(245,166,35,0.4)", color: "#F5A623", padding: "8px 16px", borderRadius: 8, fontSize: "0.82rem", fontWeight: 600, textDecoration: "none" }}>
+                📢 Airport Advertising ↗
+              </Link>
+              <Link href="/training" className="desktop-training-link" style={{ display: "inline-block", background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.15)", color: "#fff", padding: "8px 16px", borderRadius: 8, fontSize: "0.82rem", fontWeight: 600, textDecoration: "none" }}>
                 ✈ MAP Training Center ↗
               </Link>
             </div>
@@ -108,6 +111,11 @@ export default function Footer() {
               {footerServices.map((s) => (
                 <li key={s} className="ft-link" style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.88rem" }}>{s}</li>
               ))}
+              <li>
+                <Link href="/advertising" className="ft-link" style={{ color: "#F5A623", fontSize: "0.88rem", textDecoration: "none", fontWeight: 600 }}>
+                  Airport Advertising ✦
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -126,9 +134,14 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-            <Link href="/training" className="mobile-training-link" style={{ color: "#F5A623", fontWeight: 700, fontSize: "14px", textDecoration: "none", marginTop: 12 }}>
-              ▶ MAP Training Center
-            </Link>
+            <div style={{ marginTop: 16 }}>
+              <Link href="/advertising" className="mobile-training-link" style={{ color: "#F5A623", fontWeight: 700, fontSize: "14px", textDecoration: "none", display: "block", marginBottom: 8 }}>
+                ▶ Airport Advertising
+              </Link>
+              <Link href="/training" className="mobile-training-link" style={{ color: "rgba(255,255,255,0.85)", fontWeight: 700, fontSize: "14px", textDecoration: "none", display: "block" }}>
+                ▶ MAP Training Center
+              </Link>
+            </div>
           </div>
         </div>
 
