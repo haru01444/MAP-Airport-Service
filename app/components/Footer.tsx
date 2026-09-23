@@ -1,9 +1,18 @@
 import Image from "next/image";
 import Link from "next/link";
 
-const navLinks = ["Tentang Kami", "Layanan", "Milestone", "Klien"];
-const navHrefs = ["#about", "#services", "#milestone", "#clients"];
-const footerServices = ["Ground Handling Airlines", "Passenger & Trucking", "Ramp Site Service", "Equipment Support"];
+const navLinks = ["Tentang Kami", "Layanan", "Peta Layanan", "Milestone", "Klien"];
+const navHrefs = ["/#about", "/#services", "/#map", "/#milestone", "/#clients"];
+const footerServices = [
+  { name: "Ground Handling for Airlines", href: "/#services" },
+  { name: "Passenger & Ticketing Services", href: "/#services" },
+  { name: "Ramp Side Service", href: "/#services" },
+  { name: "Aircraft & Cabin Cleaning", href: "/#services" },
+  { name: "Equipment Rental Support", href: "/#services" },
+  { name: "Outsourcing Staff", href: "/#services" },
+  { name: "MAP Training Center", href: "/training" },
+  { name: "Airport Advertising", href: "/advertising" },
+];
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -18,7 +27,7 @@ export default function Footer() {
           "        ",
           "        .footer-grid {",
           "          display: grid;",
-          "          grid-template-columns: 2fr 1fr 1fr 1.5fr;",
+          "          grid-template-columns: 2fr 1fr 1.2fr 1.5fr;",
           "          gap: 40px;",
           "          margin-bottom: 48px;",
           "        }",
@@ -32,7 +41,7 @@ export default function Footer() {
           "            grid-template-columns: 1fr 1fr !important;",
           "            grid-template-areas:",
           "              \"brand brand\"",
-          "              \"nav services\"",
+          "              \"services nav\"",
           "              \"contact contact\" !important;",
           "            gap: 32px 16px !important;",
           "            margin-bottom: 32px !important;",
@@ -70,24 +79,32 @@ export default function Footer() {
 
           {/* Brand */}
           <div className="ft-brand">
-            <Image
-              src="/LOGO MAP NO BACKGROUND.png"
-              alt="Logo Mawaddah Angkasa Prima"
-              width={140}
-              height={48}
-              style={{ height: 48, width: "auto", objectFit: "contain", marginBottom: 16 }}
-            />
+            <Link href="/" style={{ display: "inline-block" }}>
+              <Image
+                src="/LOGO MAP NO BACKGROUND.png"
+                alt="Logo Mawaddah Angkasa Prima"
+                width={140}
+                height={48}
+                style={{ height: 48, width: "auto", objectFit: "contain", marginBottom: 16 }}
+              />
+            </Link>
             <p className="brand-desc" style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.88rem", lineHeight: 1.75, maxWidth: 300 }}>
               Mitra terpercaya layanan ground handling & aviasi di Indonesia.
             </p>
-            <div style={{ marginTop: 20, display: "flex", flexDirection: "column", gap: 8, alignItems: "flex-start" }}>
-              <Link href="/advertising" className="desktop-training-link" style={{ display: "inline-block", background: "rgba(245,166,35,0.12)", border: "1px solid rgba(245,166,35,0.4)", color: "#F5A623", padding: "8px 16px", borderRadius: 8, fontSize: "0.82rem", fontWeight: 600, textDecoration: "none" }}>
-                📢 Airport Advertising ↗
-              </Link>
-              <Link href="/training" className="desktop-training-link" style={{ display: "inline-block", background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.15)", color: "#fff", padding: "8px 16px", borderRadius: 8, fontSize: "0.82rem", fontWeight: 600, textDecoration: "none" }}>
-                ✈ MAP Training Center ↗
-              </Link>
-            </div>
+          </div>
+
+          {/* Services */}
+          <div className="ft-services">
+            <h4 className="ft-title" style={{ color: "#fff", fontWeight: 700, fontSize: "0.9rem", marginBottom: 20 }}>Layanan Utama</h4>
+            <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: 10 }}>
+              {footerServices.map((s) => (
+                <li key={s.name}>
+                  <Link href={s.href} className="ft-link" style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.88rem", textDecoration: "none" }}>
+                    {s.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
 
           {/* Navigation */}
@@ -96,26 +113,11 @@ export default function Footer() {
             <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: 12 }}>
               {navLinks.map((l, i) => (
                 <li key={l}>
-                  <a className="ft-link" href={navHrefs[i]} style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.88rem", textDecoration: "none", transition: "color 0.2s" }}>
+                  <Link className="ft-link" href={navHrefs[i]} style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.88rem", textDecoration: "none", transition: "color 0.2s" }}>
                     {l}
-                  </a>
+                  </Link>
                 </li>
               ))}
-            </ul>
-          </div>
-
-          {/* Services */}
-          <div className="ft-services">
-            <h4 className="ft-title" style={{ color: "#fff", fontWeight: 700, fontSize: "0.9rem", marginBottom: 20 }}>Layanan Utama</h4>
-            <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: 12 }}>
-              {footerServices.map((s) => (
-                <li key={s} className="ft-link" style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.88rem" }}>{s}</li>
-              ))}
-              <li>
-                <Link href="/advertising" className="ft-link" style={{ color: "#F5A623", fontSize: "0.88rem", textDecoration: "none", fontWeight: 600 }}>
-                  Airport Advertising ✦
-                </Link>
-              </li>
             </ul>
           </div>
 
@@ -134,14 +136,6 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-            <div style={{ marginTop: 16 }}>
-              <Link href="/advertising" className="mobile-training-link" style={{ color: "#F5A623", fontWeight: 700, fontSize: "14px", textDecoration: "none", display: "block", marginBottom: 8 }}>
-                ▶ Airport Advertising
-              </Link>
-              <Link href="/training" className="mobile-training-link" style={{ color: "rgba(255,255,255,0.85)", fontWeight: 700, fontSize: "14px", textDecoration: "none", display: "block" }}>
-                ▶ MAP Training Center
-              </Link>
-            </div>
           </div>
         </div>
 

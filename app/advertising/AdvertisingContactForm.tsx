@@ -8,11 +8,11 @@ export default function AdvertisingContactForm() {
     company: "",
     email: "",
     phone: "",
-    spaceType: "Full Bus Wrap (360°)",
-    duration: "3 Bulan (Brand Awareness)",
+    spaceType: "Hand Strap / Handgrip (6 Buses Full Fleet)",
+    duration: "1 Bulan",
+    airportTarget: "Bali (DPS) - 6 Buses",
     message: "",
   });
-
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
@@ -25,11 +25,6 @@ export default function AdvertisingContactForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.name || !form.company || !form.email) {
-      alert("Mohon lengkapi nama PIC, nama brand/perusahaan, dan email.");
-      return;
-    }
-
     setLoading(true);
     setErrorMsg("");
 
@@ -39,8 +34,12 @@ export default function AdvertisingContactForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Gagal mengirim formulir.");
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || "Gagal mengirim formulir.");
+      }
+
       setSubmitted(true);
     } catch (err: unknown) {
       setErrorMsg(err instanceof Error ? err.message : "Terjadi kendala. Silakan coba lagi.");
@@ -52,7 +51,7 @@ export default function AdvertisingContactForm() {
   const inputStyle: React.CSSProperties = {
     width: "100%",
     padding: "12px 16px",
-    borderRadius: 10,
+    borderRadius: 8,
     border: "1px solid #CBD5E1",
     background: "#fff",
     color: "#0F172A",
@@ -74,7 +73,7 @@ export default function AdvertisingContactForm() {
       <div
         style={{
           background: "#fff",
-          borderRadius: 20,
+          borderRadius: 16,
           padding: "48px 32px",
           textAlign: "center",
           boxShadow: "0 20px 40px rgba(0,0,0,0.06)",
@@ -101,7 +100,7 @@ export default function AdvertisingContactForm() {
           Permintaan Terkirim!
         </h3>
         <p style={{ color: "#64748B", lineHeight: 1.7, maxWidth: 440, margin: "0 auto 28px" }}>
-          Terima kasih telah tertarik beriklan di armada shuttle bus MAP. Tim Sales Advertising kami akan segera menghubungi Anda dengan Media Kit & penawaran resmi.
+          Terima kasih telah tertarik beriklan di armada shuttle bus MAP. Tim Sales Advertising kami akan segera menghubungi Anda dengan proposal & penawaran resmi.
         </p>
         <button
           onClick={() => {
@@ -111,8 +110,9 @@ export default function AdvertisingContactForm() {
               company: "",
               email: "",
               phone: "",
-              spaceType: "Full Bus Wrap (360°)",
-              duration: "3 Bulan (Brand Awareness)",
+              spaceType: "Hand Strap / Handgrip (6 Buses Full Fleet)",
+              duration: "1 Bulan",
+              airportTarget: "Bali (DPS) - 6 Buses",
               message: "",
             });
           }}
@@ -121,7 +121,7 @@ export default function AdvertisingContactForm() {
             color: "#fff",
             border: "none",
             padding: "12px 28px",
-            borderRadius: 10,
+            borderRadius: 8,
             fontWeight: 600,
             cursor: "pointer",
             fontSize: "0.9rem",
@@ -138,13 +138,13 @@ export default function AdvertisingContactForm() {
       onSubmit={handleSubmit}
       style={{
         background: "#fff",
-        borderRadius: 24,
-        padding: "40px",
+        borderRadius: 16,
+        padding: "36px",
         boxShadow: "0 20px 50px rgba(0,31,91,0.08)",
         border: "1px solid #E2E8F0",
       }}
     >
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginBottom: 20 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 16 }}>
         <div>
           <label style={labelStyle}>
             Nama Penanggung Jawab / PIC <span style={{ color: "#EF4444" }}>*</span>
@@ -175,7 +175,7 @@ export default function AdvertisingContactForm() {
         </div>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginBottom: 20 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 16 }}>
         <div>
           <label style={labelStyle}>
             Email Bisnis <span style={{ color: "#EF4444" }}>*</span>
@@ -191,7 +191,7 @@ export default function AdvertisingContactForm() {
           />
         </div>
         <div>
-          <label style={labelStyle}>Nomor WhatsApp / Telepon</label>
+          <label style={labelStyle}>Nomor WhatsApp / Telepon <span style={{ color: "#EF4444" }}>*</span></label>
           <input
             type="tel"
             name="phone"
@@ -199,52 +199,69 @@ export default function AdvertisingContactForm() {
             onChange={handleChange}
             placeholder="0812xxxxxxx"
             style={inputStyle}
+            required
           />
         </div>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginBottom: 20 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 16 }}>
         <div>
-          <label style={labelStyle}>Jenis Advertising Space</label>
+          <label style={labelStyle}>Pilihan Media / Paket</label>
           <select
             name="spaceType"
             value={form.spaceType}
             onChange={handleChange}
             style={inputStyle}
           >
-            <option value="Full Bus Wrap (360°)">Full Bus Wrap (360° Exterior)</option>
-            <option value="Side Panel (Kiri / Kanan)">Side Panel (Kiri / Kanan)</option>
-            <option value="Rear Panel / Back Wrap">Rear Panel / Back Wrap</option>
-            <option value="Interior Cards / Overhead Panels">Interior Cards / Overhead Panels</option>
-            <option value="Kombinasi Eksterior & Interior">Kombinasi Eksterior & Interior</option>
-            <option value="Konsultasi Terlebih Dahulu">Konsultasi Terlebih Dahulu</option>
+            <option value="Hand Strap / Handgrip (6 Buses Full Fleet)">Hand Strap / Handgrip (6 Buses - Rp 55 Jt)</option>
+            <option value="Hand Strap / Handgrip (3 Buses)">Hand Strap / Handgrip (3 Buses - Rp 30 Jt)</option>
+            <option value="Hand Strap / Handgrip (1 Bus)">Hand Strap / Handgrip (1 Bus - Rp 12 Jt)</option>
+            <option value="Full Bus Branding (15 Jt/bln/bus)">Full Bus Branding (Rp 15 Jt/bln)</option>
+            <option value="Interior Branding (7 Jt/bln/bus)">Interior Branding (Rp 7 Jt/bln)</option>
+            <option value="Window Sticker (4 Jt/bln/bus)">Window Sticker (Rp 4 Jt/bln)</option>
+            <option value="Campaign Takeover (Custom)">Campaign Takeover (Custom Package)</option>
+            <option value="Konsultasi Terlebih Dahulu">Konsultasi / Paket Lainnya</option>
           </select>
         </div>
         <div>
-          <label style={labelStyle}>Rencana Durasi Campaign</label>
+          <label style={labelStyle}>Target Lokasi Bandara</label>
           <select
-            name="duration"
-            value={form.duration}
+            name="airportTarget"
+            value={form.airportTarget}
             onChange={handleChange}
             style={inputStyle}
           >
-            <option value="1 Bulan (Tactical / Event)">1 Bulan (Tactical / Event Launch)</option>
-            <option value="3 Bulan (Brand Awareness)">3 Bulan (Brand Awareness - Rekomendasi)</option>
-            <option value="6 Bulan (Maksimal Reach)">6 Bulan (Maksimal Reach)</option>
-            <option value="1 Tahun (Brand Dominance)">1 Tahun (Brand Dominance Exclusive)</option>
-            <option value="Custom Duration">Custom / Konsultasi Durasi</option>
+            <option value="Bali (DPS) - 6 Buses">I Gusti Ngurah Rai (DPS) - Bali (6 Buses)</option>
+            <option value="Jakarta (CGK) - 2 Buses">Soekarno-Hatta (CGK) - Jakarta (2 Buses)</option>
+            <option value="Keduanya (Bali & Jakarta)">Keduanya (Bali & Jakarta - 8 Buses)</option>
           </select>
         </div>
       </div>
 
-      <div style={{ marginBottom: 28 }}>
-        <label style={labelStyle}>Brief / Pertanyaan Tambahan</label>
+      <div style={{ marginBottom: 16 }}>
+        <label style={labelStyle}>Rencana Durasi Campaign</label>
+        <select
+          name="duration"
+          value={form.duration}
+          onChange={handleChange}
+          style={inputStyle}
+        >
+          <option value="1 Bulan">1 Bulan</option>
+          <option value="3 Bulan">3 Bulan (Brand Awareness)</option>
+          <option value="6 Bulan">6 Bulan (Maksimal Reach)</option>
+          <option value="12 Bulan / 1 Tahun">12 Bulan / 1 Tahun (Exclusive Dominance)</option>
+          <option value="Custom Duration">Custom Duration</option>
+        </select>
+      </div>
+
+      <div style={{ marginBottom: 24 }}>
+        <label style={labelStyle}>Brief / Catatan Tambahan (Opsional)</label>
         <textarea
           name="message"
           value={form.message}
           onChange={handleChange}
-          rows={4}
-          placeholder="Jelaskan kebutuhan campaign, target bandara (CGK/SUB/KNO/UPG), atau periode tayang yang diinginkan..."
+          rows={3}
+          placeholder="Tuliskan periode tayang yang diinginkan atau pertanyaan khusus untuk tim kami..."
           style={{ ...inputStyle, resize: "vertical" }}
         />
       </div>
@@ -257,15 +274,15 @@ export default function AdvertisingContactForm() {
           background: loading ? "#94A3B8" : "linear-gradient(135deg, #001F5B, #1967D2)",
           color: "#fff",
           fontWeight: 700,
-          padding: "16px",
-          borderRadius: 12,
+          padding: "15px",
+          borderRadius: 8,
           border: "none",
           cursor: loading ? "not-allowed" : "pointer",
-          fontSize: "1rem",
+          fontSize: "0.95rem",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          gap: 12,
+          gap: 10,
           boxShadow: "0 10px 24px rgba(0,31,91,0.2)",
           transition: "all 0.2s",
         }}
@@ -276,12 +293,12 @@ export default function AdvertisingContactForm() {
 
       {errorMsg && (
         <p style={{ color: "#EF4444", fontSize: "0.85rem", textAlign: "center", marginTop: 12 }}>
-          ⚠ {errorMsg}
+          {errorMsg}
         </p>
       )}
 
-      <p style={{ color: "#94A3B8", fontSize: "0.8rem", textAlign: "center", marginTop: 16 }}>
-        🔒 Informasi perusahaan Anda aman dan hanya digunakan untuk korespondensi penawaran resmi MAP.
+      <p style={{ color: "#94A3B8", fontSize: "0.78rem", textAlign: "center", marginTop: 14, marginBottom: 0 }}>
+        Informasi perusahaan Anda aman dan hanya digunakan untuk korespondensi penawaran resmi MAP.
       </p>
     </form>
   );

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 export const metadata: Metadata = {
@@ -172,66 +173,8 @@ const facilities = [
 export default function TrainingPage() {
   return (
     <>
-      {/* ── NAVBAR ── */}
-      <nav
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          right: 0,
-          zIndex: 1000,
-          background: "rgba(1,13,46,0.97)",
-          backdropFilter: "blur(12px)",
-          borderBottom: "1px solid rgba(255,255,255,0.08)",
-          padding: "14px 0",
-        }}
-      >
-        <div
-          style={{
-            maxWidth: 1200,
-            margin: "0 auto",
-            padding: "0 24px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          <Link href="/">
-            <Image
-              src="/LOGO MAP NO BACKGROUND.png"
-              alt="Logo MAP"
-              width={140}
-              height={48}
-              style={{ height: 44, width: "auto", objectFit: "contain" }}
-            />
-          </Link>
-          <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-            <Link
-              href="/"
-              style={{
-                color: "rgba(255,255,255,0.65)",
-                fontWeight: 500,
-                fontSize: "0.88rem",
-              }}
-            >
-              ← MAP Airport Service
-            </Link>
-            <a
-              href="#programs"
-              style={{
-                background: "linear-gradient(135deg, #F5A623, #e8941f)",
-                color: "#fff",
-                fontWeight: 600,
-                padding: "10px 20px",
-                borderRadius: 8,
-                fontSize: "0.88rem",
-              }}
-            >
-              Program Pelatihan
-            </a>
-          </div>
-        </div>
-      </nav>
+      {/* ── REUSABLE NAVBAR COMPONENT ── */}
+      <Navbar />
 
       <main>
         {/* ── HERO ── */}
