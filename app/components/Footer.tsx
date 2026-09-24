@@ -1,15 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
 
-const navLinks = ["Tentang Kami", "Layanan", "Peta Layanan", "Milestone", "Klien"];
-const navHrefs = ["/#about", "/#services", "/#map", "/#milestone", "/#clients"];
+const navLinks = ["Tentang Kami", "Layanan", "Peta Layanan", "Perjalanan Kami", "Klien"];
+const navHrefs = ["/about", "/services", "/#map", "/about#milestone", "/#clients"];
 const footerServices = [
-  { name: "Ground Handling for Airlines", href: "/#services" },
-  { name: "Passenger & Ticketing Services", href: "/#services" },
-  { name: "Ramp Side Service", href: "/#services" },
-  { name: "Aircraft & Cabin Cleaning", href: "/#services" },
-  { name: "Equipment Rental Support", href: "/#services" },
-  { name: "Outsourcing Staff", href: "/#services" },
+  { name: "Ground Handling for Airlines", href: "/services#ground-handling" },
+  { name: "Passenger & Ticketing Services", href: "/services#passenger-services" },
+  { name: "Ramp Side Service", href: "/services#ramp-services" },
+  { name: "Aircraft & Cabin Cleaning", href: "/services#cabin-cleaning" },
+  { name: "Equipment Rental Support", href: "/services#equipment-rental" },
+  { name: "Outsourcing Staff", href: "/services#outsourcing-staff" },
   { name: "MAP Training Center", href: "/training" },
   { name: "Airport Advertising", href: "/advertising" },
 ];

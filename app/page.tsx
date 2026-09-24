@@ -1,9 +1,8 @@
-﻿import Navbar from "./components/Navbar";
+import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
-import AboutSection from "./components/AboutSection";
+import HomeAboutSection from "./components/HomeAboutSection";
 import ServicesSection from "./components/ServicesSection";
 import MapSection from "./components/MapSection";
-import MilestoneSection from "./components/MilestoneSection";
 import ClientsSection from "./components/ClientsSection";
 import ContactSection from "./components/ContactSection";
 import Footer from "./components/Footer";
@@ -14,10 +13,9 @@ export default function Home() {
       <Navbar />
       <main>
         <HeroSection />
-        <AboutSection />
+        <HomeAboutSection />
         <ServicesSection />
         <MapSection />
-        <MilestoneSection />
         <ClientsSection />
         <ContactSection />
       </main>
@@ -25,4 +23,3 @@ export default function Home() {
     </>
   );
 }
-

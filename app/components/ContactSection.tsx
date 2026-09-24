@@ -12,7 +12,7 @@ const serviceOptions = [
   "Lainnya",
 ];
 
-export default function ContactSection() {
+export default function ContactSection({ id = "contact" }: { id?: string }) {
   const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({ name: "", company: "", email: "", service: "", message: "" });
 
@@ -67,7 +67,7 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" style={{ position: "relative", padding: "100px 0", overflow: "hidden" }}>
+    <section id={id} style={{ position: "relative", padding: "100px 0", overflow: "hidden" }}>
       {/* Background */}
       <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
         <Image

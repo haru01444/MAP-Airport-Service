@@ -1,481 +1,276 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Link from "next/link";
 
-const services = [
+interface CoreService {
+  id: string;
+  code: string;
+  tag: string;
+  title: string;
+  desc: string;
+  icon: string;
+  points: string[];
+  link?: string;
+  linkText?: string;
+}
+
+const coreServices: CoreService[] = [
   {
-    id: "svc-01",
-    label: "Ground Handling for Airlines",
-    tag: "01. Ground Handling",
-    short: "GH - 01",
-    title: "Ground Handling Services for Airlines",
-    desc: "Cakupan layanan ground handling maskapai di berbagai lokasi bandara strategis di Indonesia, dengan standar operasional dan keselamatan internasional.",
-    airports: [
-      { code: "CGK", city: "Jakarta", name: "Soekarno-Hatta Int'l", isNew: true },
-      { code: "SUB", city: "Surabaya", name: "Juanda Int'l", isNew: false },
-      { code: "KNO", city: "Deli / Medan", name: "Kualanamu Int'l", isNew: false },
-      { code: "UPG", city: "Makassar", name: "Sultan Hasanuddin Int'l", isNew: false },
-    ],
-    items: [
-      "Ground Handling Service",
-      "Ramp Handling",
-      "GSE Rental Support",
-      "Passenger Handling Service (Check In counter & Gate Management)",
-    ],
+    id: "gh",
+    code: "01",
+    tag: "Airlines Ground Handling",
+    title: "Ground Handling Services",
+    desc: "Penanganan operasional darat menyeluruh untuk maskapai di 4 hub bandara utama Indonesia (CGK, SUB, KNO, UPG).",
+    icon: "fa-plane-departure",
+    points: ["Ramp Handling & Turnaround", "Passenger Check-In & Gate Management", "Baggage Handling & Load Control"],
   },
   {
-    id: "svc-02",
-    label: "Passenger & Ticketing Services",
-    tag: "02. Ancillary",
-    short: "CLN - 02",
-    title: "Passenger & Ticketing Services",
-    desc: "Melayani kebutuhan penumpang secara langsung, mulai dari penyambutan di terminal hingga penanganan tiket dan layanan VIP eksklusif.",
-    items: ["Transportation", "Greeting Services", "Hand-held Metal Detector Security Services", "Ticket Services", "Check In and Gate Handling Services", "VIP Handling"],
+    id: "passenger",
+    code: "02",
+    tag: "Ancillary Services",
+    title: "Passenger & Ticketing",
+    desc: "Pelayanan penumpang prima, mulai dari penyambutan di terminal, penanganan bagasi, hingga layanan VIP eksklusif.",
+    icon: "fa-user-tie",
+    points: ["Terminal Passenger Transportation", "Greeting & Meet-and-Assist Services", "Check-in & VIP Protocol Handling"],
   },
   {
-    id: "svc-03",
-    label: "Ramp Side Service",
-    tag: "03. Ramp",
-    short: "TKT - 03",
+    id: "ramp",
+    code: "03",
+    tag: "Airside Operations",
     title: "Ramp Side Service",
-    desc: "Mendukung seluruh aktivitas operasional di sisi udara (ramp area) secara aman, terkoordinasi, dan tepat waktu untuk setiap penerbangan.",
-    items: ["Crew Transport (pesawat ke terminal)", "Apron Passenger Bus (APB)", "Aviation Security Transport", "Lavatory & Water Services", "Baggage Towing Tractor (BTT)", "Ground Power Service (GPS)", "Ground Power Unit (GPU)"],
+    desc: "Mendukung kelancaran aktivitas di sisi udara secara aman, terkoordinasi, dan tepat waktu untuk setiap penerbangan.",
+    icon: "fa-gas-pump",
+    points: ["Flight Crew Transport", "Apron Passenger Bus (APB)", "Lavatory & Potable Water Servicing"],
   },
   {
-    id: "svc-04",
-    label: "Aircraft & Cabin Cleaning",
-    tag: "04. Cleaning",
-    short: "AVS - 04",
-    title: "Aircraft & Cabin Cleaning Services",
-    desc: "Menjaga standar kebersihan dan kenyamanan kabin pesawat secara konsisten di setiap siklus penerbangan, dari transit cepat hingga deep cleaning berkala.",
-    items: ["Lavatory Soaking", "Daily Interior Cabin Cleaning", "Transit Cleaning", "Deep / Weekly Cabin Cleaning", "Aircraft Exterior Washing", "Aircraft Exterior Polishing"],
+    id: "cleaning",
+    code: "04",
+    tag: "Hygiene & Sanitization",
+    title: "Aircraft & Cabin Cleaning",
+    desc: "Menjaga kebersihan dan higienitas kabin pesawat dengan standar internasional dan material tersertifikasi Boeing/Airbus.",
+    icon: "fa-broom",
+    points: ["Transit / Quick Turnaround Cleaning", "Daily Interior Disinfection", "Aircraft Exterior Washing & Polishing"],
   },
   {
-    id: "svc-05",
-    label: "Equipment Rental Support",
-    tag: "05. Equipment",
-    short: "EQP - 05",
+    id: "equipment",
+    code: "05",
+    tag: "GSE Fleet Support",
     title: "Equipment Rental Support",
-    desc: "Penyewaan peralatan Ground Support Equipment (GSE) berkualitas tinggi untuk menunjang kelancaran operasional di area bandara.",
-    items: ["GPU (Ground Power Unit) Rental Support", "GTC (Ground Tow Coupling) Rental Support", "ACU (Air Conditioning Unit) Rental Support", "BTT(Baggage Towing Tractor) Rental Support", "Aircraft Maintenance Stair Rental Support"],  },
+    desc: "Penyewaan armada Ground Support Equipment (GSE) motorized dan non-motorized berkualitas tinggi dengan opsi fleksibel.",
+    icon: "fa-truck-ramp-box",
+    points: ["GPU (Ground Power Unit) 90kVA - 140kVA", "GTC, ACU & ASU Support", "Aircraft Maintenance Stairs"],
+  },
   {
-    id: "svc-06",
-    label: "Outsourcing Staff",
-    tag: "06. Staff",
-    short: "STF - 06",
+    id: "staffing",
+    code: "06",
+    tag: "Human Resources",
     title: "Outsourcing Staff",
-    desc: "Menyediakan tenaga kerja profesional dan terlatih untuk mendukung berbagai lini operasional bandara dan maskapai.",
-    items: ["Ground Staff", "Aviation Security", "GSE Operator", "Porter"],
+    desc: "Penyediaan tenaga kerja aviasi profesional, terlatih, dan memiliki lisensi resmi untuk mendukung operasional bandara.",
+    icon: "fa-users-gear",
+    points: ["Certified Aviation Security (AVSEC)", "Ground Staff & Gate Agents", "Licensed GSE Operators & Porters"],
   },
   {
-    id: "svc-07",
-    label: "Training Center",
-    tag: "07. Training",
-    short: "TRN - 07",
-    title: "Training Center",
-    desc: "Pusat pelatihan terpadu untuk mencetak tenaga profesional aviasi yang kompeten dan tersertifikasi.",
-    items: ["Aviation Security", "GSE Training Center"],
-    ctaLink: "/training",
-    ctaText: "Kunjungi Halaman Training Center →",
+    id: "training",
+    code: "07",
+    tag: "Education & Cert",
+    title: "MAP Training Center",
+    desc: "Pusat pelatihan aviasi terpadu untuk mencetak personil yang siap kerja dan tersertifikasi resmi di industri aviasi.",
+    icon: "fa-graduation-cap",
+    points: ["AVSEC Certification Training", "GSE Operator Training", "Cabin Crew & Aviation Hospitality"],
+    link: "/training",
+    linkText: "Info Training Center →",
   },
   {
-    id: "svc-08",
-    label: "Airport Advertising",
-    tag: "08. Advertising",
-    short: "ADV - 08",
-    title: "Airport Shuttle Bus Advertising",
-    desc: "Media promosi bergerak eksklusif di 6 armada shuttle bus bandara MAP (CGK, SUB, KNO, UPG). Jangkau captive audience ribuan penumpang penerbangan setiap hari.",
-    airports: [
-      { code: "CGK", city: "Jakarta", name: "Soekarno-Hatta Int'l" },
-      { code: "SUB", city: "Surabaya", name: "Juanda Int'l" },
-      { code: "KNO", city: "Deli / Medan", name: "Kualanamu Int'l" },
-      { code: "UPG", city: "Makassar", name: "Sultan Hasanuddin Int'l" },
-    ],
-    items: [
-      "Full Bus Wrap (360° Exterior)",
-      "Side Panel & Rear Window Branding",
-      "Interior Overhead Passenger Cards",
-      "Pilihan Durasi Campaign Fleksibel (1, 3, 6 Bulan)",
-    ],
-    ctaLink: "/advertising",
-    ctaText: "Lihat Katalog & Media Kit Advertising →",
-  }
+    id: "advertising",
+    code: "08",
+    tag: "Out-of-Home Media",
+    title: "Airport Shuttle Advertising",
+    desc: "Media promosi bergerak eksklusif di 6 armada shuttle bus bandara MAP, menjangkau captive audience ribuan penumpang.",
+    icon: "fa-bullhorn",
+    points: ["Full 360° Bus Wrap Exterior", "Side Panel & Rear Window Ads", "Interior Overhead Cards"],
+    link: "/advertising",
+    linkText: "Katalog Advertising →",
+  },
 ];
 
 export default function ServicesSection() {
-  const [active, setActive] = useState("svc-01");
-  const current = services.find((s) => s.id === active) || services[0];
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const checkScroll = () => {
+    if (scrollRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+      setCanScrollLeft(scrollLeft > 10);
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
+    }
+  };
+
+  const handleScroll = (direction: "left" | "right") => {
+    if (scrollRef.current) {
+      const scrollAmount = direction === "left" ? -360 : 360;
+      scrollRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    }
+  };
 
   return (
-    <section id="services" style={{ padding: "100px 0", background: "#fff" }}>
+    <section id="services" className="home-services-section" style={{ padding: "96px 0", background: "#FFFFFF", overflow: "hidden" }}>
+      <style dangerouslySetInnerHTML={{
+        __html: [
+          ".home-svc-carousel-wrap { display: flex; gap: 24px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 16px 4px 32px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }",
+          ".home-svc-carousel-wrap::-webkit-scrollbar { display: none; }",
+          ".home-svc-card { flex: 0 0 350px; scroll-snap-align: start; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 16px; padding: 32px 28px; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; }",
+          ".home-svc-card:hover { transform: translateY(-6px); border-color: #1967D2; box-shadow: 0 16px 36px rgba(0,31,91,0.08); background: #FFFFFF; }",
+          ".home-svc-icon-box { width: 48px; height: 48px; border-radius: 12px; background: rgba(25,103,210,0.08); display: flex; align-items: center; justify-content: center; color: #1967D2; font-size: 1.25rem; }",
+          ".home-svc-card:hover .home-svc-icon-box { background: #1967D2; color: #FFFFFF; }",
+          ".home-svc-nav-btn { width: 44px; height: 44px; border-radius: 50%; border: 1px solid #E2E8F0; background: #fff; color: #0F172A; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; font-size: 0.9rem; }",
+          ".home-svc-nav-btn:hover:not(:disabled) { background: #001F5B; color: #fff; border-color: #001F5B; }",
+          ".home-svc-nav-btn:disabled { opacity: 0.35; cursor: not-allowed; }",
+          "@media (max-width: 768px) {",
+          "  .home-services-section { padding: 56px 0 !important; }",
+          "  .home-svc-top { flex-direction: column !important; align-items: flex-start !important; gap: 16px !important; margin-bottom: 24px !important; }",
+          "  .home-svc-title { font-size: 24px !important; }",
+          "  .home-svc-desc { font-size: 14px !important; line-height: 1.7 !important; }",
+          "  .home-svc-card { flex: 0 0 285px !important; padding: 24px 20px !important; border-radius: 12px !important; }",
+          "  .home-svc-nav-desktop { display: none !important; }",
+          "}"
+        ].join('\n')
+      }} />
+
       <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px" }}>
-
-        <style dangerouslySetInnerHTML={{
-          __html: [
-            "/* ================================================= */",
-            "          /* DESKTOP LAYOUT (Tabbed Card UI)                   */",
-            "          /* ================================================= */",
-            "          .desktop-layout {",
-            "            display: flex;",
-            "            align-items: stretch;",
-            "          }",
-            "          .mobile-layout {",
-            "            display: none;",
-            "          }",
-            "",
-            "          .desktop-nav-wrap {",
-            "            width: 360px;",
-            "            flex-shrink: 0;",
-            "            border: 1px solid #E2E8F0;",
-            "            border-right: none;",
-            "            border-radius: 16px 0 0 16px;",
-            "            background: #fff;",
-            "            display: flex;",
-            "            flex-direction: column;",
-            "            overflow: hidden;",
-            "          }",
-            "          ",
-            "          .desktop-nav-btn {",
-            "            display: flex;",
-            "            align-items: center;",
-            "            width: 100%;",
-            "            padding: 24px 20px;",
-            "            border: none;",
-            "            background: #fff;",
-            "            border-bottom: 1px solid #E2E8F0;",
-            "            border-left: 4px solid transparent;",
-            "            cursor: pointer;",
-            "            text-align: left;",
-            "            position: relative;",
-            "            transition: all 0.2s;",
-            "          }",
-            "          .desktop-nav-btn:last-child {",
-            "            border-bottom: none;",
-            "          }",
-            "          .desktop-nav-btn.active {",
-            "            background: #F8FAFC;",
-            "            border-left-color: #F5A623;",
-            "            margin-right: -1px; /* overlays the panel's left border */",
-            "            z-index: 10;",
-            "          }",
-            "          ",
-            "          .d-nav-left {",
-            "            color: #64748B;",
-            "            font-family: var(--font-poppins);",
-            "            font-weight: 600;",
-            "            font-size: 0.95rem;",
-            "            width: 80px;",
-            "            flex-shrink: 0;",
-            "          }",
-            "          .desktop-nav-btn.active .d-nav-left {",
-            "            color: #F5A623;",
-            "          }",
-            "          ",
-            "          .d-nav-title {",
-            "            color: #475569;",
-            "            font-family: var(--font-poppins);",
-            "            font-weight: 600;",
-            "            font-size: 1.05rem;",
-            "            line-height: 1.3;",
-            "            flex-grow: 1;",
-            "            padding-right: 16px;",
-            "          }",
-            "          .desktop-nav-btn.active .d-nav-title {",
-            "            color: #0F172A;",
-            "            font-weight: 700;",
-            "          }",
-            "          ",
-            "          .d-nav-icon {",
-            "            color: #94A3B8;",
-            "            font-size: 0.85rem;",
-            "          }",
-            "          .desktop-nav-btn.active .d-nav-icon {",
-            "            color: #F5A623;",
-            "          }",
-            "",
-            "          .desktop-panel-wrap {",
-            "            flex-grow: 1;",
-            "            background: #F8FAFC;",
-            "            border: 1px solid #E2E8F0;",
-            "            border-radius: 0 16px 16px 0;",
-            "            padding: 48px;",
-            "            position: relative;",
-            "            z-index: 1;",
-            "          }",
-            "",
-            "          /* ================================================= */",
-            "          /* MOBILE ACCORDION STYLES                           */",
-            "          /* ================================================= */",
-            "          .svc-accordion-item { border: 1px solid #E2E8F0; border-radius: 12px; margin-bottom: 16px; overflow: hidden; background: #fff; }",
-            "          .svc-accordion-header { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 20px; background: #F8FAFC; border: none; cursor: pointer; text-align: left; }",
-            "          .svc-accordion-header.active { border-bottom: 1px solid #E2E8F0; transition: border-color 0.4s ease; }",
-            "          .svc-acc-left { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }",
-            "          .svc-acc-code { color: #F5A623; font-family: var(--font-poppins); font-weight: 700; font-size: 0.95rem; letter-spacing: 0.05em; }",
-            "          .svc-acc-title { color: #0F172A; font-family: var(--font-poppins); font-weight: 700; font-size: 1.15rem; }",
-            "          .svc-acc-icon { color: #1967D2; font-size: 1rem; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); }",
-            "          ",
-            "          /* Accordion Animation Classes */",
-            "          .svc-accordion-collapse {",
-            "            display: grid;",
-            "            transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1);",
-            "          }",
-            "          .svc-accordion-collapse-inner {",
-            "            overflow: hidden;",
-            "          }",
-            "",
-            "          .svc-accordion-body { padding: 24px 20px; background: #fff; }",
-            "          .svc-body-desc { color: #475569; line-height: 1.7; font-size: 1.05rem; margin-bottom: 24px; }",
-            "          ",
-            "          .svc-ap-grid { display: grid; gap: 16px; }",
-            "          .svc-ap-card { background: #F8FAFC; border-radius: 12px; padding: 20px 24px; border: 1px solid #E2E8F0; display: flex; flex-direction: column; gap: 8px; }",
-            "          .svc-ap-code { font-family: var(--font-poppins); font-size: 1.6rem; font-weight: 800; color: #1967D2; line-height: 1;}",
-            "          .svc-ap-city { display: block; color: #0F172A; font-size: 1rem; font-weight: 700; margin-bottom: 2px; }",
-            "          .svc-ap-name { color: #64748B; font-size: 0.85rem; }",
-            "          ",
-            "          .svc-item-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }",
-            "          .svc-item-list li { display: flex; align-items: flex-start; gap: 12px; color: #334155; font-size: 0.95rem; font-weight: 600; line-height: 1.5; }",
-            "          .svc-item-list li::before { content: ''; width: 12px; height: 12px; background: #10B981; border-radius: 3px; flex-shrink: 0; margin-top: 4px; }",
-            "",
-            "          @media (max-width: 768px) {",
-            "            .desktop-layout { display: none !important; }",
-            "            .mobile-layout { display: block !important; }",
-            "            .svc-top-wrap { flex-direction: column !important; align-items: flex-start !important; gap: 16px !important; margin-bottom: 28px !important; }",
-            "            .svc-eyebrow { font-size: 11.5px !important; margin-bottom: 12px !important; }",
-            "            .svc-top-desc { margin-top: 0 !important; font-size: 13.5px !important; line-height: 1.7 !important; }",
-            "            ",
-            "            /* FORCE 2x2 FOR AIRPORTS GRID ON MOBILE */",
-            "            .svc-ap-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 12px !important; }",
-            "            .svc-ap-card { padding: 16px 12px !important; }",
-            "            .svc-ap-code { font-size: 1.2rem !important; }",
-            "            .svc-ap-city { font-size: 0.85rem !important; }",
-            "            .svc-ap-name { font-size: 0.75rem !important; }",
-            "",
-            "            .svc-item-list { grid-template-columns: 1fr !important; gap: 12px !important; }",
-            "          }"
-          ].join('\n')
-        }} />
-
-        {/* Top Header */}
-        <div className="svc-top-wrap" style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: 32, marginBottom: 48, flexWrap: "wrap" }}>
+        
+        {/* Top Header with Navigation Controls */}
+        <div className="home-svc-top" style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: 32, marginBottom: 40, flexWrap: "wrap" }}>
           <div>
             <span
-              className="svc-eyebrow"
               style={{
                 display: "inline-flex",
                 alignItems: "center",
-                gap: 10,
+                gap: 8,
                 color: "#1967D2",
                 fontSize: "0.85rem",
                 fontWeight: 600,
                 letterSpacing: "0.12em",
                 textTransform: "uppercase",
-                marginBottom: 16,
+                marginBottom: 12,
               }}
             >
-              <span style={{ width: 20, height: 2, background: "#F5A623", borderRadius: 2, display: "inline-block", flexShrink: 0 }} />
-              Layanan Kami
+              <span style={{ width: 20, height: 2, background: "#F5A623", borderRadius: 2 }} />
+              Layanan Utama Kami
             </span>
-            <h2 style={{ fontFamily: "var(--font-poppins)", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", fontWeight: 800, color: "#0F172A", lineHeight: 1.25, margin: 0 }}>
-              Solusi Ground Handling<br />
-              <strong>yang Menyeluruh.</strong>
+            <h2 className="home-svc-title" style={{ fontFamily: "var(--font-poppins)", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", fontWeight: 800, color: "#0F172A", lineHeight: 1.25, margin: 0 }}>
+              Solusi Operasional Aviasi <br />
+              <strong>yang Menyeluruh &amp; Terpercaya.</strong>
             </h2>
           </div>
-          <p className="svc-top-desc" style={{ color: "#64748B", maxWidth: 580, lineHeight: 1.75 }}>
-            Kami menyediakan layanan ground handling untuk maskapai penerbangan di berbagai bandara utama di Indonesia,
-            dilengkapi dengan rangkaian layanan pendukung yang dirancang untuk memastikan operasional penerbangan
-            berjalan lancar, aman, dan efisien.
-          </p>
+
+          <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+            <p className="home-svc-desc" style={{ color: "#64748B", maxWidth: 460, lineHeight: 1.7, fontSize: "0.95rem", margin: 0 }}>
+              Menghadirkan rangkaian layanan terpadu mulai dari operasional maskapai di apron hingga penanganan darat bersertifikasi.
+            </p>
+
+            {/* Desktop Arrows */}
+            <div className="home-svc-nav-desktop" style={{ display: "flex", gap: 8, flexShrink: 0 }}>
+              <button
+                onClick={() => handleScroll("left")}
+                disabled={!canScrollLeft}
+                className="home-svc-nav-btn"
+                aria-label="Scroll left"
+              >
+                <i className="fas fa-chevron-left" />
+              </button>
+              <button
+                onClick={() => handleScroll("right")}
+                disabled={!canScrollRight}
+                className="home-svc-nav-btn"
+                aria-label="Scroll right"
+              >
+                <i className="fas fa-chevron-right" />
+              </button>
+            </div>
+          </div>
         </div>
 
-        {/* ==================================================== */}
-        {/* DESKTOP LAYOUT (Tabbed Card UI) */}
-        {/* ==================================================== */}
-        <div className="desktop-layout">
-          {/* Nav */}
-          <div className="desktop-nav-wrap">
-            {services.map((svc) => {
-              const isActive = active === svc.id;
-              return (
-                <button
-                  key={svc.id}
-                  onClick={() => setActive(svc.id)}
-                  className={"desktop-nav-btn" + (isActive ? " active" : "")}
-                >
-                  <span className="d-nav-left">{svc.short}</span>
-                  <span className="d-nav-title">{svc.title}</span>
-                  <i className="fas fa-chevron-right d-nav-icon" />
-                </button>
-              );
-            })}
-          </div>
+        {/* Carousel Container */}
+        <div
+          ref={scrollRef}
+          onScroll={checkScroll}
+          className="home-svc-carousel-wrap"
+        >
+          {coreServices.map((svc) => (
+            <div key={svc.id} className="home-svc-card">
+              <div>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
+                  <div className="home-svc-icon-box">
+                    <i className={"fas " + svc.icon} />
+                  </div>
+                  <span style={{ fontFamily: "var(--font-poppins)", fontSize: "1.1rem", fontWeight: 800, color: "#CBD5E1" }}>
+                    {svc.code}
+                  </span>
+                </div>
 
-          {/* Panel */}
-          <div className="desktop-panel-wrap">
-            <div style={{ color: "#1967D2", fontWeight: 600, fontSize: "0.8rem", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 12 }}>
-              {current.tag}
-            </div>
-            <h3 style={{ fontFamily: "var(--font-poppins)", fontSize: "1.5rem", fontWeight: 700, color: "#0F172A", marginBottom: 12 }}>
-              {current.title}
-            </h3>
-            <p style={{ color: "#475569", lineHeight: 1.75, marginBottom: 28 }}>{current.desc}</p>
+                <span style={{ color: "#1967D2", fontSize: "0.78rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", display: "block", marginBottom: 6 }}>
+                  {svc.tag}
+                </span>
+                <h3 style={{ fontFamily: "var(--font-poppins)", fontSize: "1.22rem", fontWeight: 700, color: "#0F172A", marginBottom: 12, lineHeight: 1.3 }}>
+                  {svc.title}
+                </h3>
+                <p style={{ color: "#64748B", fontSize: "0.9rem", lineHeight: 1.65, marginBottom: 20 }}>
+                  {svc.desc}
+                </p>
 
-            {current.airports && (
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12 }}>
-                {current.airports.map((ap) => (
-                  <div
-                    key={ap.code}
+                {/* Key Points */}
+                <ul style={{ listStyle: "none", padding: 0, margin: "0 0 20px", display: "flex", flexDirection: "column", gap: 8 }}>
+                  {svc.points.map((pt, i) => (
+                    <li key={i} style={{ display: "flex", alignItems: "center", gap: 8, color: "#334155", fontSize: "0.84rem", fontWeight: 500 }}>
+                      <i className="fas fa-check" style={{ color: "#10B981", fontSize: "0.75rem", flexShrink: 0 }} />
+                      <span>{pt}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Card Footer Link */}
+              <div style={{ borderTop: "1px solid #E2E8F0", paddingTop: 16, marginTop: 8 }}>
+                {svc.link ? (
+                  <Link
+                    href={svc.link}
                     style={{
-                      background: "#fff",
-                      borderRadius: 10,
-                      padding: "16px 12px",
-                      border: "1px solid #E2E8F0",
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "flex-start",
+                      color: "#1967D2",
+                      fontWeight: 600,
+                      fontSize: "0.85rem",
+                      textDecoration: "none",
+                      display: "inline-flex",
+                      alignItems: "center",
                       gap: 6,
                     }}
                   >
-                    <span style={{ fontFamily: "var(--font-poppins)", fontSize: "1.4rem", fontWeight: 800, color: "#1967D2", lineHeight: 1 }}>{ap.code}</span>
-                    <div>
-                      <strong style={{ display: "block", color: "#0F172A", fontSize: "0.85rem", marginBottom: 2 }}>{ap.city}</strong>
-                      <span style={{ color: "#64748B", fontSize: "0.7rem", display: "block", lineHeight: 1.3 }}>{ap.name}</span>
-
-                    </div>
-                  </div>
-                ))}
+                    <span>{svc.linkText || "Lihat Detail →"}</span>
+                  </Link>
+                ) : (
+                  <Link
+                    href="/services"
+                    style={{
+                      color: "#1967D2",
+                      fontWeight: 600,
+                      fontSize: "0.85rem",
+                      textDecoration: "none",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: 6,
+                    }}
+                  >
+                    <span>Pelajari Layanan Ini</span>
+                    <i className="fas fa-arrow-right" style={{ fontSize: "0.75rem" }} />
+                  </Link>
+                )}
               </div>
-            )}
-
-            {current.airports && current.items && (
-              <div style={{ borderTop: "1px dashed #CBD5E1", margin: "24px 0" }} />
-            )}
-
-            {current.items && (
-              <ul className="svc-item-list" style={{ gridTemplateColumns: "repeat(2, 1fr)" }}>
-                {current.items.map((item, i) => (
-                  <li key={i}>{item}</li>
-                ))}
-              </ul>
-            )}
-
-            {current.ctaLink && (
-              <div style={{ marginTop: 28 }}>
-                <Link
-                  href={current.ctaLink}
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: 8,
-                    background: "linear-gradient(135deg, #F5A623, #D97706)",
-                    color: "#001F5B",
-                    fontWeight: 700,
-                    padding: "12px 24px",
-                    borderRadius: 10,
-                    fontSize: "0.9rem",
-                    textDecoration: "none",
-                    boxShadow: "0 6px 18px rgba(245,166,35,0.25)",
-                  }}
-                >
-                  {current.ctaText || "Lihat Selengkapnya →"}
-                </Link>
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* ==================================================== */}
-        {/* MOBILE LAYOUT (Accordion / Dropdown) */}
-        {/* ==================================================== */}
-        <div className="mobile-layout">
-          {services.map((svc) => {
-            const isActive = active === svc.id;
-            return (
-              <div key={svc.id} className="svc-accordion-item">
-                <button
-                  className={"svc-accordion-header" + (isActive ? " active" : "")}
-                  onClick={() => setActive(isActive ? "" : svc.id)}
-                >
-                  <div className="svc-acc-left">
-                    <span className="svc-acc-code">{svc.short}</span>
-                    <span className="svc-acc-title">{svc.title}</span>
-                  </div>
-                  <i
-                    className="fas fa-chevron-up svc-acc-icon"
-                    style={{ transform: isActive ? 'rotate(0deg)' : 'rotate(180deg)' }}
-                  />
-                </button>
-
-                {/* Smooth CSS Grid Animation Wrapper */}
-                <div
-                  className="svc-accordion-collapse"
-                  style={{ gridTemplateRows: isActive ? "1fr" : "0fr" }}
-                >
-                  <div className="svc-accordion-collapse-inner">
-                    <div className="svc-accordion-body">
-                      <p className="svc-body-desc">{svc.desc}</p>
-
-                      {svc.airports && (
-                        <div className="svc-ap-grid">
-                          {svc.airports.map((ap) => (
-                            <div key={ap.code} className="svc-ap-card">
-                              <span className="svc-ap-code">{ap.code}</span>
-                              <div>
-                                <strong className="svc-ap-city">{ap.city}</strong>
-                                <span className="svc-ap-name">{ap.name}</span>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-
-                      {svc.airports && svc.items && (
-                        <div style={{ borderTop: "1px dashed #CBD5E1", margin: "24px 0" }} />
-                      )}
-
-                      {svc.items && (
-                        <ul className="svc-item-list">
-                          {svc.items.map((item, idx) => (
-                            <li key={idx}>{item}</li>
-                          ))}
-                        </ul>
-                      )}
-
-                      {svc.ctaLink && (
-                        <div style={{ marginTop: 20 }}>
-                          <Link
-                            href={svc.ctaLink}
-                            style={{
-                              display: "inline-flex",
-                              alignItems: "center",
-                              gap: 8,
-                              background: "linear-gradient(135deg, #F5A623, #D97706)",
-                              color: "#001F5B",
-                              fontWeight: 700,
-                              padding: "10px 18px",
-                              borderRadius: 8,
-                              fontSize: "0.85rem",
-                              textDecoration: "none",
-                              boxShadow: "0 4px 14px rgba(245,166,35,0.25)",
-                            }}
-                          >
-                            {svc.ctaText || "Lihat Selengkapnya →"}
-                          </Link>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
 
       </div>
     </section>
   );
 }
-
-
-
-
