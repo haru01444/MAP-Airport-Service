@@ -69,7 +69,7 @@ export default async function NewsPage() {
         className="news-hero-section"
         style={{
           position: "relative",
-          minHeight: "115vh",
+          minHeight: "52vh",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
@@ -77,16 +77,16 @@ export default async function NewsPage() {
           color: "#fff",
           textAlign: "center",
           overflow: "hidden",
-          padding: "140px 0 80px",
+          padding: "130px 0 60px",
         }}
       >
         <style
           dangerouslySetInnerHTML={{
             __html: [
               "@media (max-width: 768px) {",
-              "  .news-hero-section { min-height: 75vh !important; padding: 120px 0 60px !important; }",
-              "  .news-hero-h1 { font-size: 32px !important; line-height: 1.15 !important; margin-bottom: 16px !important; }",
-              "  .news-hero-desc { font-size: 14px !important; line-height: 1.7 !important; margin-bottom: 0 !important; }",
+              "  .news-hero-section { min-height: 45vh !important; padding: 110px 0 50px !important; }",
+              "  .news-hero-h1 { font-size: 28px !important; line-height: 1.2 !important; margin-bottom: 12px !important; }",
+              "  .news-hero-desc { font-size: 13.5px !important; line-height: 1.6 !important; margin-bottom: 0 !important; }",
               "}",
             ].join("\n"),
           }}
