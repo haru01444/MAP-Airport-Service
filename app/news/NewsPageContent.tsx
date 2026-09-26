@@ -15,14 +15,22 @@ const categories = [
   "Keselamatan",
 ];
 
-export default function NewsPageContent() {
+interface NewsPageContentProps {
+  initialPosts?: NewsItem[];
+}
+
+export default function NewsPageContent({ initialPosts }: NewsPageContentProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("Semua");
   const [selectedArticle, setSelectedArticle] = useState<NewsItem | null>(null);
 
+  const currentNewsData = useMemo(() => {
+    return initialPosts && initialPosts.length > 0 ? initialPosts : newsData;
+  }, [initialPosts]);
+
   // Filter news
   const filteredNews = useMemo(() => {
-    return newsData.filter((item) => {
+    return currentNewsData.filter((item) => {
       const matchesCategory =
         selectedCategory === "Semua" || item.category === selectedCategory;
       const matchesSearch =
@@ -31,9 +39,9 @@ export default function NewsPageContent() {
         (item.tags && item.tags.some((t) => t.toLowerCase().includes(searchQuery.toLowerCase())));
       return matchesCategory && matchesSearch;
     });
-  }, [searchQuery, selectedCategory]);
+  }, [currentNewsData, searchQuery, selectedCategory]);
 
-  const featuredArticle = newsData.find((item) => item.featured) || newsData[0];
+  const featuredArticle = currentNewsData.find((item) => item.featured) || currentNewsData[0];
 
   return (
     <div style={{ background: "#F8FAFC", minHeight: "100vh", paddingBottom: 100 }}>
