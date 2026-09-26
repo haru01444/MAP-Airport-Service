@@ -2,14 +2,15 @@ import { groq } from "next-sanity";
 
 // Query untuk mengambil semua artikel berita yang sudah dipublish
 export const ALL_POSTS_QUERY = groq`
-  *[_type == "post" && defined(slug.current)] | order(publishedAt desc) {
+  *[_type == "post" && defined(slug.current)] | order(featured desc, publishedAt desc) {
     _id,
     title,
     "slug": slug.current,
     publishedAt,
     excerpt,
     mainImage,
-    "category": category->title
+    "category": category->title,
+    featured
   }
 `;
 

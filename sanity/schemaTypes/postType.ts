@@ -35,6 +35,13 @@ export const postType = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: "featured",
+      title: "📌 Sematkan / Pin Berita Ini? (Featured News)",
+      description: "Jika tombol ini diaktifkan (ON), berita ini otomatis disematkan sebagai Berita Utama paling atas di halaman website.",
+      type: "boolean",
+      initialValue: false,
+    }),
+    defineField({
       name: "mainImage",
       title: "Foto Utama / Thumbnail",
       type: "image",

@@ -50,7 +50,7 @@ export default async function NewsPage() {
     excerpt: p.excerpt || "",
     content: [p.excerpt || ""],
     tags: [p.category || "Berita"],
-    featured: false,
+    featured: Boolean(p.featured),
   }));
 
   // Combine Sanity posts with existing newsData (Sanity posts first, followed by default newsData)
