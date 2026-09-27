@@ -31,27 +31,43 @@ export default async function NewsPage() {
     console.error("Gagal mengambil berita Sanity:", error);
   }
 
+  function extractTextFromBody(body: any[]): string[] {
+    if (!body || !Array.isArray(body)) return [];
+    return body
+      .filter((block) => block._type === "block" && block.children)
+      .map((block) =>
+        block.children
+          .map((child: any) => child.text || "")
+          .join("")
+      )
+      .filter((text) => text.trim().length > 0);
+  }
+
   // Convert Sanity posts to NewsItem format if any exist
-  const formattedSanityPosts: NewsItem[] = (sanityPosts || []).map((p: any) => ({
-    id: p._id,
-    slug: p.slug,
-    title: p.title,
-    category: p.category || "Operasional",
-    date: new Date(p.publishedAt).toLocaleDateString("id-ID", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    }),
-    readTime: "3 min baca",
-    author: "Tim Media MAP",
-    image: p.mainImage
-      ? urlForImage(p.mainImage).width(800).height(500).url()
-      : "/Ground-Handling-Operations.png",
-    excerpt: p.excerpt || "",
-    content: [p.excerpt || ""],
-    tags: [p.category || "Berita"],
-    featured: Boolean(p.featured),
-  }));
+  const formattedSanityPosts: NewsItem[] = (sanityPosts || []).map((p: any) => {
+    const bodyParagraphs = extractTextFromBody(p.body);
+    return {
+      id: p._id,
+      slug: p.slug,
+      title: p.title,
+      category: p.category || "Operasional",
+      date: new Date(p.publishedAt).toLocaleDateString("id-ID", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      }),
+      readTime: "3 min baca",
+      author: "Tim Media MAP",
+      image: (p.mainImage && p.mainImage.asset)
+        ? urlForImage(p.mainImage).width(800).height(500).url()
+        : "/LOGO MAP NO BACKGROUND.png",
+      isFallbackImage: !(p.mainImage && p.mainImage.asset),
+      excerpt: p.excerpt || "",
+      content: bodyParagraphs.length > 0 ? bodyParagraphs : [p.excerpt || ""],
+      tags: [p.category || "Berita"],
+      featured: Boolean(p.featured),
+    };
+  });
 
   // Combine Sanity posts with existing newsData (Sanity posts first, followed by default newsData)
   const combinedPosts: NewsItem[] = [

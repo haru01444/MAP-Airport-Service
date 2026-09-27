@@ -45,3 +45,68 @@ a {
 address {
   font-style: normal;
 }
+
+/* ─────────────── TRAINING CENTER ANTISLOP MOBILE STYLES ─────────────── */
+
+@media (max-width: 768px) {
+  .training-hero-title {
+    font-size: 32px !important;
+    line-height: 1.12 !important;
+    margin-bottom: 16px !important;
+  }
+
+  .training-hero-desc {
+    font-size: 14.5px !important;
+    line-height: 1.7 !important;
+    margin-bottom: 28px !important;
+  }
+
+  .training-eyebrow-hero,
+  .training-eyebrow-light,
+  .training-eyebrow-dark {
+    margin-bottom: 12px !important;
+  }
+
+  .training-eyebrow-text {
+    font-size: 11.5px !important;
+  }
+
+  .training-section-h2 {
+    font-size: 25px !important;
+    line-height: 1.25 !important;
+    margin-bottom: 16px !important;
+  }
+
+  .training-section-desc {
+    font-size: 14px !important;
+    line-height: 1.75 !important;
+  }
+
+  .training-header-wrapper {
+    margin-bottom: 28px !important;
+  }
+
+  .training-stat-num {
+    font-size: 22px !important;
+    font-family: var(--font-geist-mono), monospace, monospace !important;
+    font-weight: 700 !important;
+  }
+
+  .training-stat-label {
+    font-size: 10.5px !important;
+  }
+
+  .training-program-title {
+    font-size: 22px !important;
+    line-height: 1.2 !important;
+  }
+
+  .training-program-desc {
+    font-size: 13.5px !important;
+    line-height: 1.65 !important;
+  }
+
+  .training-checklist-item {
+    font-size: 13px !important;
+  }
+}

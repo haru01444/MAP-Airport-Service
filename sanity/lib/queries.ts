@@ -2,24 +2,33 @@ import { groq } from "next-sanity";
 
 // Query untuk mengambil semua artikel berita yang sudah dipublish
 export const ALL_POSTS_QUERY = groq`
-  *[_type == "post" && defined(slug.current)] | order(featured desc, publishedAt desc) {
+  *[_type == "post"] | order(featured desc, publishedAt desc) {
     _id,
     title,
-    "slug": slug.current,
+    "slug": coalesce(slug.current, _id),
     publishedAt,
     excerpt,
     mainImage,
     "category": category->title,
-    featured
+    featured,
+    body
   }
 `;
 
-// Query untuk mengambil 1 artikel berita berdasarkan slug
+// Query untuk mengambil 1 artikel berita berdasarkan slug, title, atau ID
 export const POST_BY_SLUG_QUERY = groq`
-  *[_type == "post" && slug.current == $slug][0] {
+  *[_type == "post" && (
+    slug.current == $slug || 
+    slug.current == $decodedSlug || 
+    slug.current == $hyphenatedSlug ||
+    slug.current == $spacedSlug ||
+    title == $decodedSlug ||
+    title == $slug ||
+    _id == $slug
+  )][0] {
     _id,
     title,
-    "slug": slug.current,
+    "slug": coalesce(slug.current, _id),
     publishedAt,
     excerpt,
     mainImage,

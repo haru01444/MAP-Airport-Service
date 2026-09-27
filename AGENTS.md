@@ -33,3 +33,16 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
   8. **Kontak/Form**: H2 23px, Label field 12px, Input/select/textarea 15px (pencegahan auto-zoom Safari iOS), Tombol submit 14px.
   9. **Footer**: Judul kolom 11px, Link 12.5px, Copyright 11px.
   10. **Jarak Spacing Header Mobile**: Eyebrow margin-bottom 12px, Judul (H1/H2) margin-bottom 16px, Margin-bottom pembungkus header section 28px.
+
+<!-- antislop:start -->
+## antislop
+For UI, copy, people, mobile layout, or code comments work, load the antislop skill for the task:
+- Core filter, always on: `antislop`
+- UI / visual: `antislop-ui`
+- Copy & text: `antislop-copywriting`
+- Mobile / responsive: `antislop-layoutmobile`
+- Code comments: `antislop-code`
+- People: `antislop-human`
+Before starting, ask the user when antislop applies: during the work, or after it is done.
+To update antislop later: `npx antislop-ai --update`, or run `npx antislop-ai` and pick Overwrite them.
+<!-- antislop:end -->

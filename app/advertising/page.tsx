@@ -241,9 +241,7 @@ export default function AdvertisingPage() {
           <div style={{ maxWidth: 720 }}>
             <span
               style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 8,
+                display: "inline-block",
                 color: "#4A9EF5",
                 fontSize: "0.85rem",
                 fontWeight: 600,
@@ -252,7 +250,6 @@ export default function AdvertisingPage() {
                 marginBottom: 16,
               }}
             >
-              <span style={{ width: 16, height: 2, background: "#F5A623", borderRadius: 2 }} />
               AIRPORT ADVERTISING • MEDIA KIT & RATE CARD
             </span>
             <h1

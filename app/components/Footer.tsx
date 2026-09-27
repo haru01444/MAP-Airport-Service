@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 
-const navLinks = ["Tentang Kami", "Layanan", "Peta Layanan", "Perjalanan Kami", "Klien"];
-const navHrefs = ["/about", "/services", "/#map", "/about#milestone", "/#clients"];
+const navLinks = ["Tentang Kami", "Layanan", "Peta Layanan", "Perjalanan Kami", "Klien", "Berita", "Karir"];
+const navHrefs = ["/about", "/services", "/#map", "/about#milestone", "/#clients", "/news", "/training"];
 const footerServices = [
   { name: "Ground Handling for Airlines", href: "/services#ground-handling" },
   { name: "Passenger & Ticketing Services", href: "/services#passenger-services" },
@@ -10,8 +10,8 @@ const footerServices = [
   { name: "Aircraft & Cabin Cleaning", href: "/services#cabin-cleaning" },
   { name: "Equipment Rental Support", href: "/services#equipment-rental" },
   { name: "Outsourcing Staff", href: "/services#outsourcing-staff" },
-  { name: "MAP Training Center", href: "/training" },
   { name: "Airport Advertising", href: "/advertising" },
+  { name: "MAP Training Center", href: "/training" },
 ];
 
 export default function Footer() {

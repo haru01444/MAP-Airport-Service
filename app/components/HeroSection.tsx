@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
 
+import HeroBgSlider from "./HeroBgSlider";
+
 const pillars = [
   { icon: "fa-shield-halved", title: "Safety First", desc: "Keselamatan sebagai prioritas utama di setiap proses" },
   { icon: "fa-users", title: "Professional Team", desc: "Ditangani oleh tim bersertifikasi dan berpengalaman" },
@@ -32,24 +34,19 @@ export default function HeroSection() {
   };
 
   return (
-    <section id="hero" style={{ position: "relative", minHeight: "100vh", display: "flex", flexDirection: "column" }}>
-      {/* Background */}
-      <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
-        <Image
-          src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1920&q=85"
-          alt="Ground Handling Operations"
-          fill
-          style={{ objectFit: "cover" }}
-          priority
-        />
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            background: "linear-gradient(135deg, rgba(1,13,46,0.88) 0%, rgba(13,36,97,0.75) 50%, rgba(25,103,210,0.45) 100%)",
-          }}
-        />
-      </div>
+    <section id="hero" className="home-hero-section" style={{ position: "relative", minHeight: "115vh", display: "flex", flexDirection: "column", overflow: "hidden" }}>
+      <style dangerouslySetInnerHTML={{
+        __html: [
+          "@media (max-width: 768px) {",
+          "  .home-hero-section { min-height: 100vh !important; }",
+          "}"
+        ].join('\n')
+      }} />
+
+      {/* Background Slider */}
+      <HeroBgSlider
+        overlayGradient="linear-gradient(135deg, rgba(8, 24, 69, 0.75) 0%, rgba(13, 36, 97, 0.52) 50%, rgba(25, 103, 210, 0.25) 100%)"
+      />
 
       {/* Hero Content */}
       <div style={{ position: "relative", zIndex: 1, flex: 1, display: "flex", alignItems: "center", padding: "120px 0 40px" }}>
@@ -131,7 +128,8 @@ export default function HeroSection() {
       </div>
 
       {/* Pillars Strip */}
-      <style dangerouslySetInnerHTML={{ __html: [
+      <style dangerouslySetInnerHTML={{
+        __html: [
           ".pillars-desktop {",
           "  display: grid;",
           "  grid-template-columns: repeat(4, 1fr);",
@@ -168,7 +166,8 @@ export default function HeroSection() {
           "  .pillar-title-text { font-size: 13.5px !important; font-weight: 700 !important; }",
           "  .pillar-desc-text { font-size: 12px !important; }",
           "}"
-      ].join('\n') }} />
+        ].join('\n')
+      }} />
       <div
         style={{
           position: "relative",
@@ -179,7 +178,7 @@ export default function HeroSection() {
         }}
       >
         <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0" }}>
-          
+
           {/* DESKTOP VIEW */}
           <div className="pillars-desktop">
             {pillars.map((p, i) => (
@@ -207,11 +206,11 @@ export default function HeroSection() {
           {/* MOBILE SLIDER VIEW */}
           <div className="pillars-mobile">
             <div style={{ overflow: "hidden", position: "relative", width: "100%" }}>
-              <div 
+              <div
                 onTransitionEnd={handleTransitionEnd}
-                style={{ 
-                  display: "flex", 
-                  transition: isTransitioning ? "transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)" : "none", 
+                style={{
+                  display: "flex",
+                  transition: isTransitioning ? "transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)" : "none",
                   transform: "translateX(-" + (activeIndex * 100) + "%)"
                 }}
               >

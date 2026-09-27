@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 60" fill="none">
+  <!-- TransNusa logo icon (orange & blue crossed arcs) -->
+  <path d="M12 36C20 28 32 18 52 14" stroke="#F5A623" stroke-width="4" stroke-linecap="round"/>
+  <path d="M18 16C26 24 38 34 50 42" stroke="#004D99" stroke-width="4" stroke-linecap="round"/>
+  <!-- Transnusa text -->
+  <text x="60" y="32" font-family="'Poppins', 'Inter', sans-serif" font-weight="800" font-size="22" fill="#004D99">Trans<tspan fill="#004D99">nusa</tspan></text>
+  <!-- Meruhi Negeri subtitle -->
+  <text x="62" y="46" font-family="'Inter', sans-serif" font-weight="500" font-size="9" letter-spacing="0.1em" fill="#475569">Meruhi Negeri</text>
+</svg>

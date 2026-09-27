@@ -30,9 +30,7 @@ export default function AboutSection() {
           "        .about-quote-area { grid-area: quote; }",
           "",
           "        .about-eyebrow {",
-          "          display: flex;",
-          "          align-items: center;",
-          "          gap: 8px;",
+          "          display: block;",
           "          background: transparent;",
           "          border: none;",
           "          padding: 0;",
@@ -42,13 +40,6 @@ export default function AboutSection() {
           "          letter-spacing: 0.12em;",
           "          text-transform: uppercase;",
           "          margin-bottom: 16px;",
-          "        }",
-          "        .about-eyebrow-dash {",
-          "          display: block;",
-          "          width: 20px;",
-          "          height: 2px;",
-          "          background: #F5A623;",
-          "          border-radius: 2px;",
           "        }",
           "        ",
           "        .about-title {",
@@ -137,16 +128,8 @@ export default function AboutSection() {
           "            padding: 0 !important;",
           "            color: #1967D2 !important;",
           "            font-size: 0.85rem !important;",
-          "            display: flex !important;",
-          "            align-items: center !important;",
-          "            gap: 8px !important;",
-          "            margin-bottom: 12px !important;",
-          "          }",
-          "          .mobile-only-dash {",
           "            display: block !important;",
-          "            width: 20px;",
-          "            height: 2px;",
-          "            background: #F5A623;",
+          "            margin-bottom: 12px !important;",
           "          }",
           "",
           "          /* Titles & Text */",
@@ -211,7 +194,6 @@ export default function AboutSection() {
 
           <div className="about-text-area">
             <span className="about-eyebrow">
-              <span className="about-eyebrow-dash"></span>
               Tentang Perusahaan
             </span>
             <h2 className="about-title">

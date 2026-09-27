@@ -5,16 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { newsData, NewsItem } from "../data/newsData";
 
-const categories = [
-  "Semua",
-  "Operasional",
-  "Pelatihan & Karir",
-  "Armada & Peralatan",
-  "Kemitraan",
-  "Layanan Khusus",
-  "Keselamatan",
-];
-
 interface NewsPageContentProps {
   initialPosts?: NewsItem[];
 }
@@ -22,17 +12,33 @@ interface NewsPageContentProps {
 export default function NewsPageContent({ initialPosts }: NewsPageContentProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("Semua");
-  const [selectedArticle, setSelectedArticle] = useState<NewsItem | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const ITEMS_PER_PAGE = 9;
 
   const currentNewsData = useMemo(() => {
     return initialPosts && initialPosts.length > 0 ? initialPosts : newsData;
   }, [initialPosts]);
 
+  // Dynamically compute unique categories from data while keeping standard ones available
+  const categories = useMemo(() => {
+    const defaultCats = ["Semua", "Operasional", "Pelatihan & Karir", "Armada & Peralatan", "Kemitraan"];
+    const dynamicCats = currentNewsData
+      .map((item) => item.category?.trim())
+      .filter((cat): cat is string => Boolean(cat));
+
+    const set = new Set<string>();
+    set.add("Semua");
+    defaultCats.slice(1).forEach((cat) => set.add(cat));
+    dynamicCats.forEach((cat) => set.add(cat));
+    return Array.from(set);
+  }, [currentNewsData]);
+
   // Filter news
   const filteredNews = useMemo(() => {
     return currentNewsData.filter((item) => {
       const matchesCategory =
-        selectedCategory === "Semua" || item.category === selectedCategory;
+        selectedCategory === "Semua" ||
+        (item.category && item.category.trim().toLowerCase() === selectedCategory.trim().toLowerCase());
       const matchesSearch =
         item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         item.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -41,7 +47,67 @@ export default function NewsPageContent({ initialPosts }: NewsPageContentProps) 
     });
   }, [currentNewsData, searchQuery, selectedCategory]);
 
-  const featuredArticle = currentNewsData.find((item) => item.featured) || currentNewsData[0];
+  // Sorotan Utama: Prioritaskan artikel yang dipin (featured === true).
+  // Jika tidak ada yang dipin, gunakan artikel paling baru diupload (item pertama).
+  const featuredArticle = useMemo(() => {
+    if (!currentNewsData || currentNewsData.length === 0) return null;
+    const pinned = currentNewsData.find((item) => item.featured === true);
+    return pinned || currentNewsData[0];
+  }, [currentNewsData]);
+
+  // Daftar Artikel & Berita (Grid):
+  // Saat tab 'Semua' aktif & tidak ada pencarian, kecualikan featuredArticle agar tidak muncul ganda.
+  const gridNews = useMemo(() => {
+    if (!searchQuery && selectedCategory === "Semua" && featuredArticle) {
+      return filteredNews.filter((item) => item.id !== featuredArticle.id);
+    }
+    return filteredNews;
+  }, [filteredNews, searchQuery, selectedCategory, featuredArticle]);
+
+  // Pagination calculation
+  const totalPages = Math.ceil(gridNews.length / ITEMS_PER_PAGE);
+
+  const paginatedNews = useMemo(() => {
+    const start = (currentPage - 1) * ITEMS_PER_PAGE;
+    return gridNews.slice(start, start + ITEMS_PER_PAGE);
+  }, [gridNews, currentPage]);
+
+  const handleCategoryChange = (cat: string) => {
+    setSelectedCategory(cat);
+    setCurrentPage(1);
+  };
+
+  const handleSearchChange = (val: string) => {
+    setSearchQuery(val);
+    setCurrentPage(1);
+  };
+
+  const handlePageChange = (page: number) => {
+    if (page < 1 || page > totalPages) return;
+    setCurrentPage(page);
+    const element = document.getElementById("news-grid-section");
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
+  const getPageNumbers = () => {
+    const pages: (number | string)[] = [];
+    if (totalPages <= 7) {
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
+      }
+    } else {
+      if (currentPage <= 4) {
+        pages.push(1, 2, 3, 4, 5, "...", totalPages);
+      } else if (currentPage >= totalPages - 3) {
+        pages.push(1, "...", totalPages - 4, totalPages - 3, totalPages - 2, totalPages - 1, totalPages);
+      } else {
+        pages.push(1, "...", currentPage - 1, currentPage, currentPage + 1, "...", totalPages);
+      }
+    }
+    return pages;
+  };
 
   return (
     <div style={{ background: "#F8FAFC", minHeight: "100vh", paddingBottom: 100 }}>
@@ -56,6 +122,7 @@ export default function NewsPageContent({ initialPosts }: NewsPageContentProps) 
             "  overflow: hidden;",
             "  display: flex;",
             "  flex-direction: column;",
+            "  text-decoration: none;",
             "  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;",
             "}",
             ".news-card:hover {",
@@ -67,7 +134,12 @@ export default function NewsPageContent({ initialPosts }: NewsPageContentProps) 
             "  transform: scale(1.06);",
             "}",
             ".news-category-btn {",
-            "  padding: 8px 16px;",
+            "  width: 100%;",
+            "  display: flex;",
+            "  align-items: center;",
+            "  justify-content: center;",
+            "  text-align: center;",
+            "  padding: 10px 14px;",
             "  border-radius: 6px;",
             "  font-size: 0.88rem;",
             "  font-weight: 500;",
@@ -92,16 +164,82 @@ export default function NewsPageContent({ initialPosts }: NewsPageContentProps) 
             "  color: #001F5B;",
             "  border-color: #CBD5E1;",
             "}",
+            ".category-fullwidth-container {",
+            "  display: grid;",
+            "  grid-template-columns: repeat(5, 1fr);",
+            "  gap: 10px;",
+            "  width: 100%;",
+            "  margin-top: 20px;",
+            "  padding-top: 16px;",
+            "  border-top: 1px solid #F1F5F9;",
+            "}",
+            ".news-pagination-wrap {",
+            "  display: flex;",
+            "  align-items: center;",
+            "  justify-content: center;",
+            "  gap: 8px;",
+            "  margin-top: 48px;",
+            "  flex-wrap: wrap;",
+            "}",
+            ".news-page-btn {",
+            "  min-width: 40px;",
+            "  height: 40px;",
+            "  padding: 0 12px;",
+            "  display: inline-flex;",
+            "  align-items: center;",
+            "  justify-content: center;",
+            "  border-radius: 6px;",
+            "  font-size: 0.9rem;",
+            "  font-weight: 600;",
+            "  transition: all 0.2s ease;",
+            "  cursor: pointer;",
+            "  border: 1px solid #CBD5E1;",
+            "  background: #FFFFFF;",
+            "  color: #334155;",
+            "  user-select: none;",
+            "}",
+            ".news-page-btn:hover:not(:disabled):not(.active) {",
+            "  background: #F1F5F9;",
+            "  color: #001F5B;",
+            "  border-color: #94A3B8;",
+            "}",
+            ".news-page-btn.active {",
+            "  background: #001F5B;",
+            "  color: #FFFFFF;",
+            "  border-color: #001F5B;",
+            "  box-shadow: 0 2px 8px rgba(0, 31, 91, 0.18);",
+            "  cursor: default;",
+            "}",
+            ".news-page-btn:disabled {",
+            "  opacity: 0.4;",
+            "  cursor: not-allowed;",
+            "  border-color: #E2E8F0;",
+            "  background: #F8FAFC;",
+            "  color: #94A3B8;",
+            "}",
+            ".news-page-ellipsis {",
+            "  min-width: 32px;",
+            "  height: 40px;",
+            "  display: inline-flex;",
+            "  align-items: center;",
+            "  justify-content: center;",
+            "  font-size: 0.9rem;",
+            "  color: #64748B;",
+            "  font-weight: 600;",
+            "}",
             "@media (max-width: 900px) {",
             "  .news-grid { grid-template-columns: 1fr !important; }",
             "  .featured-card-grid { grid-template-columns: 1fr !important; }",
             "  .featured-img-wrap { min-height: 240px !important; }",
-            "}",
-            "@media (max-width: 600px) {",
-            "  .category-scroll-container {",
-            "    overflow-x: auto;",
-            "    padding-bottom: 8px;",
-            "    -webkit-overflow-scrolling: touch;",
+            "  .category-fullwidth-container {",
+            "    display: flex !important;",
+            "    overflow-x: auto !important;",
+            "    padding-bottom: 8px !important;",
+            "    -webkit-overflow-scrolling: touch !important;",
+            "  }",
+            "  .category-fullwidth-container .news-category-btn {",
+            "    flex: 0 0 auto !important;",
+            "    width: auto !important;",
             "  }",
             "}",
           ].join("\n"),
@@ -152,7 +290,7 @@ export default function NewsPageContent({ initialPosts }: NewsPageContentProps) 
                 type="text"
                 placeholder="Cari berita atau topik..."
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={(e) => handleSearchChange(e.target.value)}
                 style={{
                   width: "100%",
                   padding: "10px 16px 10px 38px",
@@ -177,7 +315,7 @@ export default function NewsPageContent({ initialPosts }: NewsPageContentProps) 
               />
               {searchQuery && (
                 <button
-                  onClick={() => setSearchQuery("")}
+                  onClick={() => handleSearchChange("")}
                   style={{
                     position: "absolute",
                     right: 12,
@@ -201,23 +339,14 @@ export default function NewsPageContent({ initialPosts }: NewsPageContentProps) 
             </div>
           </div>
 
-          {/* Category Tabs */}
-          <div
-            className="category-scroll-container"
-            style={{
-              display: "flex",
-              gap: 8,
-              marginTop: 20,
-              paddingTop: 16,
-              borderTop: "1px solid #F1F5F9",
-            }}
-          >
+          {/* Category Tabs Full Width */}
+          <div className="category-fullwidth-container">
             {categories.map((cat) => {
               const isActive = selectedCategory === cat;
               return (
                 <button
                   key={cat}
-                  onClick={() => setSelectedCategory(cat)}
+                  onClick={() => handleCategoryChange(cat)}
                   className={`news-category-btn ${isActive ? "active" : "inactive"}`}
                 >
                   {cat}
@@ -230,19 +359,12 @@ export default function NewsPageContent({ initialPosts }: NewsPageContentProps) 
         {/* Featured Article (Shown when no search filter is active and 'Semua' selected) */}
         {!searchQuery && selectedCategory === "Semua" && featuredArticle && (
           <div style={{ marginBottom: 48 }}>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 8,
-                marginBottom: 14,
-              }}
-            >
+            <div style={{ marginBottom: 14 }}>
               <span
                 style={{
                   fontSize: "0.82rem",
-                  fontWeight: 700,
-                  letterSpacing: "0.1em",
+                  fontWeight: 600,
+                  letterSpacing: "0.12em",
                   textTransform: "uppercase",
                   color: "#1967D2",
                 }}
@@ -251,7 +373,8 @@ export default function NewsPageContent({ initialPosts }: NewsPageContentProps) 
               </span>
             </div>
 
-            <div
+            <Link
+              href={`/news/${featuredArticle.slug}`}
               className="news-card featured-card-grid"
               style={{
                 display: "grid",
@@ -261,9 +384,8 @@ export default function NewsPageContent({ initialPosts }: NewsPageContentProps) 
                 overflow: "hidden",
                 border: "1px solid #E2E8F0",
                 boxShadow: "0 4px 20px rgba(0, 31, 91, 0.04)",
-                cursor: "pointer",
+                textDecoration: "none",
               }}
-              onClick={() => setSelectedArticle(featuredArticle)}
             >
               {/* Image */}
               <div
@@ -272,41 +394,40 @@ export default function NewsPageContent({ initialPosts }: NewsPageContentProps) 
                   position: "relative",
                   minHeight: 360,
                   overflow: "hidden",
-                  background: "#0A192F",
+                  background: (featuredArticle.isFallbackImage || featuredArticle.image.includes("LOGO MAP")) ? "#F1F5F9" : "#0F172A",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
               >
-                <Image
-                  src={featuredArticle.image}
-                  alt={featuredArticle.title}
-                  fill
-                  style={{ objectFit: "cover", transition: "transform 0.5s ease" }}
-                  className="news-card-img"
-                />
-                <div
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    background:
-                      "linear-gradient(to top, rgba(0,31,91,0.6) 0%, transparent 60%)",
-                  }}
-                />
-                <div
-                  style={{
-                    position: "absolute",
-                    top: 16,
-                    left: 16,
-                    background: "#1967D2",
-                    color: "#FFFFFF",
-                    fontSize: "0.75rem",
-                    fontWeight: 700,
-                    padding: "4px 10px",
-                    borderRadius: 4,
-                    letterSpacing: "0.04em",
-                    textTransform: "uppercase",
-                  }}
-                >
-                  {featuredArticle.category}
-                </div>
+                {(featuredArticle.isFallbackImage || featuredArticle.image.includes("LOGO MAP")) ? (
+                  <div style={{ position: "relative", width: 160, height: 60, opacity: 0.88 }}>
+                    <Image
+                      src="/LOGO MAP NO BACKGROUND.png"
+                      alt="Logo MAP"
+                      fill
+                      style={{ objectFit: "contain" }}
+                    />
+                  </div>
+                ) : (
+                  <>
+                    <Image
+                      src={featuredArticle.image}
+                      alt={featuredArticle.title}
+                      fill
+                      style={{ objectFit: "cover", transition: "transform 0.5s ease" }}
+                      className="news-card-img"
+                    />
+                    <div
+                      style={{
+                        position: "absolute",
+                        inset: 0,
+                        background:
+                          "linear-gradient(to top, rgba(0,31,91,0.5) 0%, transparent 60%)",
+                      }}
+                    />
+                  </>
+                )}
               </div>
 
               {/* Text Info */}
@@ -329,9 +450,9 @@ export default function NewsPageContent({ initialPosts }: NewsPageContentProps) 
                       marginBottom: 12,
                     }}
                   >
-                    <span>{featuredArticle.date}</span>
+                    <span style={{ color: "#1967D2", fontWeight: 600 }}>{featuredArticle.category}</span>
                     <span>•</span>
-                    <span>{featuredArticle.readTime}</span>
+                    <span>{featuredArticle.date}</span>
                   </div>
 
                   <h2
@@ -342,6 +463,10 @@ export default function NewsPageContent({ initialPosts }: NewsPageContentProps) 
                       color: "#001F5B",
                       lineHeight: 1.35,
                       marginBottom: 14,
+                      display: "-webkit-box",
+                      WebkitLineClamp: 2,
+                      WebkitBoxOrient: "vertical",
+                      overflow: "hidden",
                     }}
                   >
                     {featuredArticle.title}
@@ -353,6 +478,10 @@ export default function NewsPageContent({ initialPosts }: NewsPageContentProps) 
                       lineHeight: 1.7,
                       color: "#475569",
                       marginBottom: 20,
+                      display: "-webkit-box",
+                      WebkitLineClamp: 3,
+                      WebkitBoxOrient: "vertical",
+                      overflow: "hidden",
                     }}
                   >
                     {featuredArticle.excerpt}
@@ -384,12 +513,12 @@ export default function NewsPageContent({ initialPosts }: NewsPageContentProps) 
                   </span>
                 </div>
               </div>
-            </div>
+            </Link>
           </div>
         )}
 
         {/* Section Title for Grid */}
-        <div style={{ marginBottom: 24 }}>
+        <div id="news-grid-section" style={{ marginBottom: 24, scrollMarginTop: 100 }}>
           <h3
             style={{
               fontFamily: "var(--font-poppins)",
@@ -407,7 +536,7 @@ export default function NewsPageContent({ initialPosts }: NewsPageContentProps) 
         </div>
 
         {/* News Grid */}
-        {filteredNews.length === 0 ? (
+        {gridNews.length === 0 ? (
           <div
             style={{
               background: "#FFFFFF",
@@ -433,8 +562,8 @@ export default function NewsPageContent({ initialPosts }: NewsPageContentProps) 
             </p>
             <button
               onClick={() => {
-                setSearchQuery("");
-                setSelectedCategory("Semua");
+                handleSearchChange("");
+                handleCategoryChange("Semua");
               }}
               style={{
                 padding: "8px 18px",
@@ -451,427 +580,192 @@ export default function NewsPageContent({ initialPosts }: NewsPageContentProps) 
             </button>
           </div>
         ) : (
-          <div
-            className="news-grid"
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))",
-              gap: 24,
-            }}
-          >
-            {filteredNews.map((item) => (
-              <article
-                key={item.id}
-                className="news-card"
-                onClick={() => setSelectedArticle(item)}
-                style={{ cursor: "pointer" }}
-              >
-                {/* Image Cover */}
-                <div
-                  style={{
-                    position: "relative",
-                    width: "100%",
-                    height: 210,
-                    overflow: "hidden",
-                    background: "#0A192F",
-                  }}
+          <>
+            <div
+              className="news-grid"
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))",
+                gap: 24,
+              }}
+            >
+              {paginatedNews.map((item) => (
+                <Link
+                  key={item.id}
+                  href={`/news/${item.slug}`}
+                  className="news-card"
+                  style={{ textDecoration: "none" }}
                 >
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    fill
-                    style={{ objectFit: "cover", transition: "transform 0.4s ease" }}
-                    className="news-card-img"
-                  />
+                  {/* Image Cover */}
                   <div
                     style={{
-                      position: "absolute",
-                      top: 12,
-                      left: 12,
-                      background: "rgba(0, 31, 91, 0.88)",
-                      backdropFilter: "blur(4px)",
-                      color: "#4A9EF5",
-                      fontSize: "0.72rem",
-                      fontWeight: 700,
-                      padding: "3px 8px",
-                      borderRadius: 4,
-                      letterSpacing: "0.04em",
-                      textTransform: "uppercase",
-                      border: "1px solid rgba(74, 158, 245, 0.3)",
+                      position: "relative",
+                      width: "100%",
+                      height: 210,
+                      overflow: "hidden",
+                      background: (item.isFallbackImage || item.image.includes("LOGO MAP")) ? "#F1F5F9" : "#0F172A",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
                     }}
                   >
-                    {item.category}
+                    {(item.isFallbackImage || item.image.includes("LOGO MAP")) ? (
+                      <div style={{ position: "relative", width: 130, height: 48, opacity: 0.88 }}>
+                        <Image
+                          src="/LOGO MAP NO BACKGROUND.png"
+                          alt="Logo MAP"
+                          fill
+                          style={{ objectFit: "contain" }}
+                        />
+                      </div>
+                    ) : (
+                      <Image
+                        src={item.image}
+                        alt={item.title}
+                        fill
+                        style={{ objectFit: "cover", transition: "transform 0.4s ease" }}
+                        className="news-card-img"
+                      />
+                    )}
                   </div>
-                </div>
 
-                {/* Card Body */}
-                <div
-                  style={{
-                    padding: "20px",
-                    display: "flex",
-                    flexDirection: "column",
-                    flexGrow: 1,
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <div>
-                    {/* Date & Read time */}
+                  {/* Card Body */}
+                  <div
+                    style={{
+                      padding: "20px",
+                      display: "flex",
+                      flexDirection: "column",
+                      flexGrow: 1,
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <div>
+                      {/* Category & Date */}
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 6,
+                          fontSize: "0.78rem",
+                          color: "#64748B",
+                          marginBottom: 10,
+                        }}
+                      >
+                        <span style={{ color: "#1967D2", fontWeight: 600 }}>{item.category}</span>
+                        <span>•</span>
+                        <span>{item.date}</span>
+                      </div>
+
+                      {/* Title */}
+                      <h4
+                        style={{
+                          fontFamily: "var(--font-poppins)",
+                          fontSize: "1.05rem",
+                          fontWeight: 700,
+                          color: "#001F5B",
+                          lineHeight: 1.4,
+                          marginBottom: 10,
+                          display: "-webkit-box",
+                          WebkitLineClamp: 2,
+                          WebkitBoxOrient: "vertical",
+                          overflow: "hidden",
+                        }}
+                      >
+                        {item.title}
+                      </h4>
+
+                      {/* Excerpt */}
+                      <p
+                        style={{
+                          fontSize: "0.86rem",
+                          lineHeight: 1.6,
+                          color: "#475569",
+                          marginBottom: 18,
+                          display: "-webkit-box",
+                          WebkitLineClamp: 3,
+                          WebkitBoxOrient: "vertical",
+                          overflow: "hidden",
+                        }}
+                      >
+                        {item.excerpt}
+                      </p>
+                    </div>
+
+                    {/* Footer link */}
                     <div
                       style={{
                         display: "flex",
                         alignItems: "center",
-                        gap: 6,
-                        fontSize: "0.78rem",
-                        color: "#64748B",
-                        marginBottom: 10,
+                        justifyContent: "space-between",
+                        paddingTop: 12,
+                        borderTop: "1px solid #F1F5F9",
                       }}
                     >
-                      <span>{item.date}</span>
-                      <span>•</span>
-                      <span>{item.readTime}</span>
+                      <span
+                        style={{
+                          fontSize: "0.85rem",
+                          fontWeight: 600,
+                          color: "#1967D2",
+                          display: "flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        Baca Selengkapnya
+                      </span>
                     </div>
-
-                    {/* Title */}
-                    <h4
-                      style={{
-                        fontFamily: "var(--font-poppins)",
-                        fontSize: "1.05rem",
-                        fontWeight: 700,
-                        color: "#001F5B",
-                        lineHeight: 1.4,
-                        marginBottom: 10,
-                        display: "-webkit-box",
-                        WebkitLineClamp: 2,
-                        WebkitBoxOrient: "vertical",
-                        overflow: "hidden",
-                      }}
-                    >
-                      {item.title}
-                    </h4>
-
-                    {/* Excerpt */}
-                    <p
-                      style={{
-                        fontSize: "0.86rem",
-                        lineHeight: 1.6,
-                        color: "#475569",
-                        marginBottom: 18,
-                        display: "-webkit-box",
-                        WebkitLineClamp: 3,
-                        WebkitBoxOrient: "vertical",
-                        overflow: "hidden",
-                      }}
-                    >
-                      {item.excerpt}
-                    </p>
                   </div>
-
-                  {/* Footer link */}
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      paddingTop: 12,
-                      borderTop: "1px solid #F1F5F9",
-                    }}
-                  >
-                    <span
-                      style={{
-                        fontSize: "0.85rem",
-                        fontWeight: 600,
-                        color: "#1967D2",
-                        display: "flex",
-                        alignItems: "center",
-                      }}
-                    >
-                      Baca Selengkapnya
-                    </span>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-        )}
-
-        {/* Bottom Banner / CTA */}
-        <div
-          style={{
-            marginTop: 56,
-            background: "linear-gradient(135deg, #001F5B 0%, #0D2461 60%, #1967D2 100%)",
-            borderRadius: 8,
-            padding: "40px 32px",
-            color: "#FFFFFF",
-            display: "flex",
-            flexWrap: "wrap",
-            alignItems: "center",
-            justifyContent: "space-between",
-            gap: 24,
-            boxShadow: "0 10px 30px rgba(0, 31, 91, 0.15)",
-          }}
-        >
-          <div style={{ maxWidth: 640 }}>
-            <span
-              style={{
-                color: "#F5A623",
-                fontSize: "0.8rem",
-                fontWeight: 700,
-                letterSpacing: "0.12em",
-                textTransform: "uppercase",
-                display: "inline-block",
-                marginBottom: 8,
-              }}
-            >
-              KEMITRAAN &amp; MEDIA
-            </span>
-            <h3
-              style={{
-                fontFamily: "var(--font-poppins)",
-                fontSize: "clamp(1.25rem, 2.2vw, 1.7rem)",
-                fontWeight: 700,
-                color: "#FFFFFF",
-                marginBottom: 10,
-                lineHeight: 1.3,
-              }}
-            >
-              Butuh Informasi Lebih Lanjut atau Kerjasama Media?
-            </h3>
-            <p style={{ color: "rgba(255,255,255,0.8)", fontSize: "0.9rem", lineHeight: 1.65 }}>
-              Tim hubungan korporat dan operasional kami siap membantu menjawab pertanyaan Anda terkait layanan ground handling, pelatihan, atau media promosi bandara.
-            </p>
-          </div>
-
-          <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-            <Link
-              href="/#contact"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
-                padding: "12px 24px",
-                borderRadius: 6,
-                background: "linear-gradient(135deg, #1967D2, #4A9EF5)",
-                color: "#FFFFFF",
-                fontWeight: 700,
-                fontSize: "0.9rem",
-                textDecoration: "none",
-                boxShadow: "0 4px 14px rgba(25, 103, 210, 0.3)",
-              }}
-            >
-              Hubungi Kami
-            </Link>
-            <Link
-              href="/training"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
-                padding: "12px 24px",
-                borderRadius: 6,
-                background: "rgba(255,255,255,0.12)",
-                color: "#FFFFFF",
-                fontWeight: 600,
-                fontSize: "0.9rem",
-                textDecoration: "none",
-                border: "1px solid rgba(255,255,255,0.25)",
-              }}
-            >
-              Info Karir &amp; Pelatihan
-            </Link>
-          </div>
-        </div>
-      </div>
-
-      {/* ARTICLE READER MODAL */}
-      {selectedArticle && (
-        <div
-          style={{
-            position: "fixed",
-            inset: 0,
-            zIndex: 9999,
-            backgroundColor: "rgba(0, 15, 45, 0.8)",
-            backdropFilter: "blur(8px)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: 20,
-          }}
-          onClick={() => setSelectedArticle(null)}
-        >
-          <div
-            style={{
-              backgroundColor: "#FFFFFF",
-              borderRadius: 8,
-              maxWidth: 760,
-              width: "100%",
-              maxHeight: "90vh",
-              overflowY: "auto",
-              boxShadow: "0 20px 50px rgba(0,0,0,0.3)",
-              position: "relative",
-              border: "1px solid rgba(255,255,255,0.2)",
-            }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Header image cover in modal */}
-            <div style={{ position: "relative", width: "100%", height: 280, background: "#060B19" }}>
-              <Image
-                src={selectedArticle.image}
-                alt={selectedArticle.title}
-                fill
-                style={{ objectFit: "cover" }}
-              />
-              <div
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  background: "linear-gradient(to top, rgba(0,20,60,0.85) 0%, transparent 60%)",
-                }}
-              />
-              <button
-                onClick={() => setSelectedArticle(null)}
-                style={{
-                  position: "absolute",
-                  top: 14,
-                  right: 14,
-                  width: 36,
-                  height: 36,
-                  borderRadius: 6,
-                  backgroundColor: "rgba(0, 0, 0, 0.6)",
-                  color: "#FFFFFF",
-                  border: "none",
-                  fontSize: 16,
-                  cursor: "pointer",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-                aria-label="Tutup"
-              >
-                ✕
-              </button>
-
-              <div style={{ position: "absolute", bottom: 18, left: 22, right: 22 }}>
-                <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-                  <span
-                    style={{
-                      background: "#1967D2",
-                      color: "#FFFFFF",
-                      fontSize: "0.75rem",
-                      fontWeight: 700,
-                      padding: "3px 10px",
-                      borderRadius: 4,
-                      textTransform: "uppercase",
-                    }}
-                  >
-                    {selectedArticle.category}
-                  </span>
-                  <span style={{ color: "rgba(255,255,255,0.85)", fontSize: "0.82rem" }}>
-                    {selectedArticle.date} • {selectedArticle.readTime}
-                  </span>
-                </div>
-              </div>
+                </Link>
+              ))}
             </div>
 
-            {/* Modal Body */}
-            <div style={{ padding: "28px 24px 36px" }}>
-              <h2
-                style={{
-                  fontFamily: "var(--font-poppins)",
-                  fontSize: "clamp(1.25rem, 2vw, 1.6rem)",
-                  fontWeight: 700,
-                  color: "#001F5B",
-                  lineHeight: 1.35,
-                  marginBottom: 14,
-                }}
-              >
-                {selectedArticle.title}
-              </h2>
-
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 12,
-                  paddingBottom: 14,
-                  marginBottom: 20,
-                  borderBottom: "1px solid #E2E8F0",
-                  fontSize: "0.85rem",
-                  color: "#64748B",
-                }}
-              >
-                <span>Ditulis oleh: <strong>{selectedArticle.author}</strong></span>
-              </div>
-
-              <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-                {selectedArticle.content.map((p, idx) => (
-                  <p
-                    key={idx}
-                    style={{
-                      fontSize: "0.94rem",
-                      lineHeight: 1.75,
-                      color: "#334155",
-                      margin: 0,
-                    }}
-                  >
-                    {p}
-                  </p>
-                ))}
-              </div>
-
-              {/* Tags */}
-              {selectedArticle.tags && selectedArticle.tags.length > 0 && (
-                <div
-                  style={{
-                    marginTop: 28,
-                    paddingTop: 18,
-                    borderTop: "1px solid #E2E8F0",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 6,
-                    flexWrap: "wrap",
-                  }}
-                >
-                  <span style={{ fontSize: "0.82rem", color: "#64748B", fontWeight: 600 }}>Tag:</span>
-                  {selectedArticle.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      style={{
-                        fontSize: "0.75rem",
-                        background: "#F1F5F9",
-                        color: "#001F5B",
-                        padding: "3px 8px",
-                        borderRadius: 4,
-                        fontWeight: 500,
-                      }}
-                    >
-                      #{tag}
-                    </span>
-                  ))}
-                </div>
-              )}
-
-              {/* Modal Close CTA */}
-              <div style={{ marginTop: 28, textAlign: "right" }}>
+            {/* Pagination Controls */}
+            {totalPages > 1 && (
+              <div className="news-pagination-wrap" aria-label="Navigasi Halaman Berita">
                 <button
-                  onClick={() => setSelectedArticle(null)}
-                  style={{
-                    background: "#001F5B",
-                    color: "#FFFFFF",
-                    padding: "9px 22px",
-                    borderRadius: 6,
-                    border: "none",
-                    fontWeight: 600,
-                    fontSize: "0.88rem",
-                    cursor: "pointer",
-                  }}
+                  className="news-page-btn"
+                  onClick={() => handlePageChange(currentPage - 1)}
+                  disabled={currentPage === 1}
+                  aria-label="Halaman sebelumnya"
                 >
-                  Tutup Artikel
+                  <i className="fas fa-chevron-left" style={{ fontSize: "0.8rem" }} />
+                </button>
+
+                {getPageNumbers().map((page, idx) => {
+                  if (page === "...") {
+                    return (
+                      <span key={`dots-${idx}`} className="news-page-ellipsis">
+                        …
+                      </span>
+                    );
+                  }
+                  const pageNum = page as number;
+                  const isActive = pageNum === currentPage;
+                  return (
+                    <button
+                      key={pageNum}
+                      onClick={() => handlePageChange(pageNum)}
+                      className={`news-page-btn ${isActive ? "active" : ""}`}
+                      aria-current={isActive ? "page" : undefined}
+                      aria-label={`Halaman ${pageNum}`}
+                    >
+                      {pageNum}
+                    </button>
+                  );
+                })}
+
+                <button
+                  className="news-page-btn"
+                  onClick={() => handlePageChange(currentPage + 1)}
+                  disabled={currentPage === totalPages}
+                  aria-label="Halaman selanjutnya"
+                >
+                  <i className="fas fa-chevron-right" style={{ fontSize: "0.8rem" }} />
                 </button>
               </div>
-            </div>
-          </div>
-        </div>
-      )}
+            )}
+          </>
+        )}
+      </div>
     </div>
   );
 }

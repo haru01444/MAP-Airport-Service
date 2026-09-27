@@ -1,153 +1,153 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 interface CoreService {
   id: string;
-  code: string;
   tag: string;
   title: string;
-  desc: string;
-  icon: string;
-  points: string[];
-  link?: string;
-  linkText?: string;
+  image: string;
+  link: string;
 }
 
 const coreServices: CoreService[] = [
   {
     id: "gh",
-    code: "01",
     tag: "Airlines Ground Handling",
     title: "Ground Handling Services",
-    desc: "Penanganan operasional darat menyeluruh untuk maskapai di 4 hub bandara utama Indonesia (CGK, SUB, KNO, UPG).",
-    icon: "fa-plane-departure",
-    points: ["Ramp Handling & Turnaround", "Passenger Check-In & Gate Management", "Baggage Handling & Load Control"],
+    image: "/about-map-operations-v2.jpeg",
+    link: "/services#ground-handling",
   },
   {
     id: "passenger",
-    code: "02",
     tag: "Ancillary Services",
-    title: "Passenger & Ticketing",
-    desc: "Pelayanan penumpang prima, mulai dari penyambutan di terminal, penanganan bagasi, hingga layanan VIP eksklusif.",
-    icon: "fa-user-tie",
-    points: ["Terminal Passenger Transportation", "Greeting & Meet-and-Assist Services", "Check-in & VIP Protocol Handling"],
+    title: "Passenger & Ticketing Services",
+    image: "/services-passenger-host.jpg",
+    link: "/services#passenger-services",
   },
   {
     id: "ramp",
-    code: "03",
     tag: "Airside Operations",
     title: "Ramp Side Service",
-    desc: "Mendukung kelancaran aktivitas di sisi udara secara aman, terkoordinasi, dan tepat waktu untuk setiap penerbangan.",
-    icon: "fa-gas-pump",
-    points: ["Flight Crew Transport", "Apron Passenger Bus (APB)", "Lavatory & Potable Water Servicing"],
+    image: "/services-ramp-agent.jpg",
+    link: "/services#ramp-services",
   },
   {
     id: "cleaning",
-    code: "04",
     tag: "Hygiene & Sanitization",
     title: "Aircraft & Cabin Cleaning",
-    desc: "Menjaga kebersihan dan higienitas kabin pesawat dengan standar internasional dan material tersertifikasi Boeing/Airbus.",
-    icon: "fa-broom",
-    points: ["Transit / Quick Turnaround Cleaning", "Daily Interior Disinfection", "Aircraft Exterior Washing & Polishing"],
+    image: "/Aircraft-Cabin-Cleaning.jpeg",
+    link: "/services#cabin-cleaning",
   },
   {
     id: "equipment",
-    code: "05",
     tag: "GSE Fleet Support",
     title: "Equipment Rental Support",
-    desc: "Penyewaan armada Ground Support Equipment (GSE) motorized dan non-motorized berkualitas tinggi dengan opsi fleksibel.",
-    icon: "fa-truck-ramp-box",
-    points: ["GPU (Ground Power Unit) 90kVA - 140kVA", "GTC, ACU & ASU Support", "Aircraft Maintenance Stairs"],
+    image: "/Equipment-Rental-Support.jpeg",
+    link: "/services#equipment-rental",
   },
   {
     id: "staffing",
-    code: "06",
     tag: "Human Resources",
     title: "Outsourcing Staff",
-    desc: "Penyediaan tenaga kerja aviasi profesional, terlatih, dan memiliki lisensi resmi untuk mendukung operasional bandara.",
-    icon: "fa-users-gear",
-    points: ["Certified Aviation Security (AVSEC)", "Ground Staff & Gate Agents", "Licensed GSE Operators & Porters"],
-  },
-  {
-    id: "training",
-    code: "07",
-    tag: "Education & Cert",
-    title: "MAP Training Center",
-    desc: "Pusat pelatihan aviasi terpadu untuk mencetak personil yang siap kerja dan tersertifikasi resmi di industri aviasi.",
-    icon: "fa-graduation-cap",
-    points: ["AVSEC Certification Training", "GSE Operator Training", "Cabin Crew & Aviation Hospitality"],
-    link: "/training",
-    linkText: "Info Training Center →",
+    image: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=800&q=80",
+    link: "/services#outsourcing-staff",
   },
   {
     id: "advertising",
-    code: "08",
     tag: "Out-of-Home Media",
     title: "Airport Shuttle Advertising",
-    desc: "Media promosi bergerak eksklusif di 6 armada shuttle bus bandara MAP, menjangkau captive audience ribuan penumpang.",
-    icon: "fa-bullhorn",
-    points: ["Full 360° Bus Wrap Exterior", "Side Panel & Rear Window Ads", "Interior Overhead Cards"],
+    image: "/fleet-jakarta-cgk.jpg",
     link: "/advertising",
-    linkText: "Katalog Advertising →",
+  },
+  {
+    id: "training",
+    tag: "Education & Cert",
+    title: "MAP Training Center",
+    image: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80",
+    link: "/training",
   },
 ];
 
+// Duplicate items 3x for endless continuous forward scrolling
+const displayServices = [...coreServices, ...coreServices, ...coreServices];
+
 export default function ServicesSection() {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
-
-  const checkScroll = () => {
-    if (scrollRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
-      setCanScrollLeft(scrollLeft > 10);
-      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
-    }
-  };
+  const [isHovered, setIsHovered] = useState(false);
 
   const handleScroll = (direction: "left" | "right") => {
-    if (scrollRef.current) {
-      const scrollAmount = direction === "left" ? -360 : 360;
-      scrollRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    if (!scrollRef.current) return;
+    const container = scrollRef.current;
+    const firstCard = container.querySelector(".home-svc-card") as HTMLElement;
+    if (!firstCard) return;
+
+    const step = firstCard.offsetWidth + 24;
+    const oneSetWidth = step * coreServices.length;
+
+    if (direction === "right") {
+      if (container.scrollLeft >= oneSetWidth * 1.8) {
+        container.scrollLeft -= oneSetWidth;
+      }
+      container.scrollBy({ left: step, behavior: "smooth" });
+    } else {
+      if (container.scrollLeft <= 10) {
+        container.scrollLeft += oneSetWidth;
+      }
+      container.scrollBy({ left: -step, behavior: "smooth" });
     }
   };
 
+  // Auto-play scroll every 4 seconds (pauses on hover)
+  useEffect(() => {
+    if (isHovered) return;
+    const interval = setInterval(() => {
+      handleScroll("right");
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [isHovered]);
+
   return (
-    <section id="services" className="home-services-section" style={{ padding: "96px 0", background: "#FFFFFF", overflow: "hidden" }}>
+    <section
+      id="services"
+      className="home-services-section"
+      style={{ padding: "96px 0", background: "#FFFFFF", overflow: "hidden" }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       <style dangerouslySetInnerHTML={{
         __html: [
-          ".home-svc-carousel-wrap { display: flex; gap: 24px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 16px 4px 32px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }",
+          ".home-svc-carousel-wrap { display: flex; gap: 24px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 16px 4px 24px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }",
           ".home-svc-carousel-wrap::-webkit-scrollbar { display: none; }",
-          ".home-svc-card { flex: 0 0 350px; scroll-snap-align: start; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 16px; padding: 32px 28px; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; }",
-          ".home-svc-card:hover { transform: translateY(-6px); border-color: #1967D2; box-shadow: 0 16px 36px rgba(0,31,91,0.08); background: #FFFFFF; }",
-          ".home-svc-icon-box { width: 48px; height: 48px; border-radius: 12px; background: rgba(25,103,210,0.08); display: flex; align-items: center; justify-content: center; color: #1967D2; font-size: 1.25rem; }",
-          ".home-svc-card:hover .home-svc-icon-box { background: #1967D2; color: #FFFFFF; }",
-          ".home-svc-nav-btn { width: 44px; height: 44px; border-radius: 50%; border: 1px solid #E2E8F0; background: #fff; color: #0F172A; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; font-size: 0.9rem; }",
-          ".home-svc-nav-btn:hover:not(:disabled) { background: #001F5B; color: #fff; border-color: #001F5B; }",
-          ".home-svc-nav-btn:disabled { opacity: 0.35; cursor: not-allowed; }",
+          ".home-svc-card { flex: 0 0 calc((100% - 48px) / 3); min-width: 340px; scroll-snap-align: start; background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; text-decoration: none; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 4px 16px rgba(0,31,91,0.03); }",
+          ".home-svc-card:hover { transform: translateY(-6px); border-color: #1967D2; box-shadow: 0 16px 36px rgba(0,31,91,0.1); }",
+          ".home-svc-card:hover .home-svc-img { transform: scale(1.06); }",
+          ".home-svc-img-frame { position: relative; width: 100%; aspect-ratio: 16/11; overflow: hidden; background: #E2E8F0; }",
+          ".home-svc-img { transition: transform 0.4s ease; object-fit: cover; }",
+          ".home-svc-body { padding: 22px 20px 20px; display: flex; flex-direction: column; justify-content: space-between; flex: 1; }",
+          ".home-svc-nav-btn { width: 48px; height: 48px; border-radius: 8px; border: 1px solid #CBD5E1; background: #fff; color: #001F5B; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; font-size: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }",
+          ".home-svc-nav-btn:hover { background: #001F5B; color: #fff; border-color: #001F5B; transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,31,91,0.2); }",
           "@media (max-width: 768px) {",
           "  .home-services-section { padding: 56px 0 !important; }",
           "  .home-svc-top { flex-direction: column !important; align-items: flex-start !important; gap: 16px !important; margin-bottom: 24px !important; }",
           "  .home-svc-title { font-size: 24px !important; }",
           "  .home-svc-desc { font-size: 14px !important; line-height: 1.7 !important; }",
-          "  .home-svc-card { flex: 0 0 285px !important; padding: 24px 20px !important; border-radius: 12px !important; }",
-          "  .home-svc-nav-desktop { display: none !important; }",
+          "  .home-svc-card { flex: 0 0 280px !important; min-width: 280px !important; border-radius: 8px !important; }",
+          "  .home-svc-body { padding: 18px 16px 16px !important; }",
           "}"
         ].join('\n')
       }} />
 
       <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px" }}>
-        
-        {/* Top Header with Navigation Controls */}
-        <div className="home-svc-top" style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: 32, marginBottom: 40, flexWrap: "wrap" }}>
+
+        {/* Top Header */}
+        <div className="home-svc-top" style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: 32, marginBottom: 36, flexWrap: "wrap" }}>
           <div>
             <span
               style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 8,
+                display: "inline-block",
                 color: "#1967D2",
                 fontSize: "0.85rem",
                 fontWeight: 600,
@@ -156,7 +156,6 @@ export default function ServicesSection() {
                 marginBottom: 12,
               }}
             >
-              <span style={{ width: 20, height: 2, background: "#F5A623", borderRadius: 2 }} />
               Layanan Utama Kami
             </span>
             <h2 className="home-svc-title" style={{ fontFamily: "var(--font-poppins)", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", fontWeight: 800, color: "#0F172A", lineHeight: 1.25, margin: 0 }}>
@@ -165,109 +164,61 @@ export default function ServicesSection() {
             </h2>
           </div>
 
-          <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-            <p className="home-svc-desc" style={{ color: "#64748B", maxWidth: 460, lineHeight: 1.7, fontSize: "0.95rem", margin: 0 }}>
-              Menghadirkan rangkaian layanan terpadu mulai dari operasional maskapai di apron hingga penanganan darat bersertifikasi.
-            </p>
-
-            {/* Desktop Arrows */}
-            <div className="home-svc-nav-desktop" style={{ display: "flex", gap: 8, flexShrink: 0 }}>
-              <button
-                onClick={() => handleScroll("left")}
-                disabled={!canScrollLeft}
-                className="home-svc-nav-btn"
-                aria-label="Scroll left"
-              >
-                <i className="fas fa-chevron-left" />
-              </button>
-              <button
-                onClick={() => handleScroll("right")}
-                disabled={!canScrollRight}
-                className="home-svc-nav-btn"
-                aria-label="Scroll right"
-              >
-                <i className="fas fa-chevron-right" />
-              </button>
-            </div>
-          </div>
+          <p className="home-svc-desc" style={{ color: "#64748B", maxWidth: 440, lineHeight: 1.7, fontSize: "0.95rem", margin: 0 }}>
+            Menghadirkan rangkaian layanan terpadu mulai dari operasional maskapai di apron hingga penanganan darat bersertifikasi.
+          </p>
         </div>
 
         {/* Carousel Container */}
         <div
           ref={scrollRef}
-          onScroll={checkScroll}
           className="home-svc-carousel-wrap"
         >
-          {coreServices.map((svc) => (
-            <div key={svc.id} className="home-svc-card">
-              <div>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
-                  <div className="home-svc-icon-box">
-                    <i className={"fas " + svc.icon} />
-                  </div>
-                  <span style={{ fontFamily: "var(--font-poppins)", fontSize: "1.1rem", fontWeight: 800, color: "#CBD5E1" }}>
-                    {svc.code}
+          {displayServices.map((svc, idx) => (
+            <Link key={`${svc.id}-${idx}`} href={svc.link} className="home-svc-card">
+              {/* Image Frame */}
+              <div className="home-svc-img-frame">
+                <Image
+                  src={svc.image}
+                  alt={svc.title}
+                  fill
+                  className="home-svc-img"
+                  sizes="(max-width: 768px) 280px, 380px"
+                />
+              </div>
+
+              {/* Card Body */}
+              <div className="home-svc-body">
+                <div>
+                  <span style={{ color: "#1967D2", fontSize: "0.76rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", display: "block", marginBottom: 8 }}>
+                    {svc.tag}
                   </span>
+
+                  <h3 style={{ fontFamily: "var(--font-poppins)", fontSize: "1.15rem", fontWeight: 700, color: "#001F5B", margin: 0, lineHeight: 1.35 }}>
+                    {svc.title}
+                  </h3>
                 </div>
-
-                <span style={{ color: "#1967D2", fontSize: "0.78rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", display: "block", marginBottom: 6 }}>
-                  {svc.tag}
-                </span>
-                <h3 style={{ fontFamily: "var(--font-poppins)", fontSize: "1.22rem", fontWeight: 700, color: "#0F172A", marginBottom: 12, lineHeight: 1.3 }}>
-                  {svc.title}
-                </h3>
-                <p style={{ color: "#64748B", fontSize: "0.9rem", lineHeight: 1.65, marginBottom: 20 }}>
-                  {svc.desc}
-                </p>
-
-                {/* Key Points */}
-                <ul style={{ listStyle: "none", padding: 0, margin: "0 0 20px", display: "flex", flexDirection: "column", gap: 8 }}>
-                  {svc.points.map((pt, i) => (
-                    <li key={i} style={{ display: "flex", alignItems: "center", gap: 8, color: "#334155", fontSize: "0.84rem", fontWeight: 500 }}>
-                      <i className="fas fa-check" style={{ color: "#10B981", fontSize: "0.75rem", flexShrink: 0 }} />
-                      <span>{pt}</span>
-                    </li>
-                  ))}
-                </ul>
               </div>
-
-              {/* Card Footer Link */}
-              <div style={{ borderTop: "1px solid #E2E8F0", paddingTop: 16, marginTop: 8 }}>
-                {svc.link ? (
-                  <Link
-                    href={svc.link}
-                    style={{
-                      color: "#1967D2",
-                      fontWeight: 600,
-                      fontSize: "0.85rem",
-                      textDecoration: "none",
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: 6,
-                    }}
-                  >
-                    <span>{svc.linkText || "Lihat Detail →"}</span>
-                  </Link>
-                ) : (
-                  <Link
-                    href="/services"
-                    style={{
-                      color: "#1967D2",
-                      fontWeight: 600,
-                      fontSize: "0.85rem",
-                      textDecoration: "none",
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: 6,
-                    }}
-                  >
-                    <span>Pelajari Layanan Ini</span>
-                    <i className="fas fa-arrow-right" style={{ fontSize: "0.75rem" }} />
-                  </Link>
-                )}
-              </div>
-            </div>
+            </Link>
           ))}
+        </div>
+
+        {/* Bottom Navigation Arrow Buttons */}
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 12, marginTop: 28 }}>
+          <button
+            onClick={() => handleScroll("left")}
+            className="home-svc-nav-btn"
+            aria-label="Scroll left"
+          >
+            <i className="fas fa-chevron-left" />
+          </button>
+          <button
+            onClick={() => handleScroll("right")}
+            className="home-svc-nav-btn"
+            aria-label="Scroll right"
+          >
+            <i className="fas fa-chevron-right" />
+          </button>
         </div>
 
       </div>

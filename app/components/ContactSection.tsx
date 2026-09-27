@@ -82,8 +82,7 @@ export default function ContactSection({ id = "contact" }: { id?: string }) {
       <div style={{ position: "relative", zIndex: 1, maxWidth: 1200, margin: "0 auto", padding: "0 24px" }}>
         {/* Header */}
         <div className="ct-header-wrap" style={{ textAlign: "center", marginBottom: 56 }}>
-          <span className="ct-eyebrow" style={{ display: "inline-flex", alignItems: "center", gap: 10, color: "#fff", fontSize: "0.85rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 16 }}>
-            <span style={{ width: 20, height: 2, background: "#F5A623", borderRadius: 2, display: "inline-block", flexShrink: 0 }} />
+          <span className="ct-eyebrow" style={{ display: "inline-block", color: "#fff", fontSize: "0.85rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 16 }}>
             Mari Terhubung
           </span>
           <h2 className="ct-h2" style={{ fontFamily: "var(--font-poppins)", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", fontWeight: 800, color: "#fff", lineHeight: 1.25, marginBottom: 16 }}>
