@@ -18,7 +18,12 @@ interface DropdownItem {
 interface PageNavConfig {
   navItems: NavItem[];
   hasAboutDropdown?: boolean;
+  aboutTitle?: string;
+  aboutHref?: string;
+  aboutMenuItems?: DropdownItem[];
   hasServicesDropdown?: boolean;
+  hasProgramsDropdown?: boolean;
+  hasFacilitiesDropdown?: boolean;
   cta: {
     href: string;
     label: string;
@@ -27,13 +32,14 @@ interface PageNavConfig {
   };
 }
 
-const aboutMenuItems: DropdownItem[] = [
+// --- Main Airport Services Dropdowns ---
+const mainAboutMenuItems: DropdownItem[] = [
   { title: "Tentang Perusahaan", href: "/about#about-company" },
   { title: "Perjalanan Kami", href: "/about#milestone" },
   { title: "Klien & Layanan", href: "/about#clients-portfolio" },
 ];
 
-const servicesMenuItems: DropdownItem[] = [
+const mainServicesMenuItems: DropdownItem[] = [
   { title: "Ground Handling", href: "/services#ground-handling" },
   { title: "Passenger & Ancillary", href: "/services#passenger-services" },
   { title: "Ramp Side Service", href: "/services#ramp-services" },
@@ -44,8 +50,37 @@ const servicesMenuItems: DropdownItem[] = [
   { title: "MAP Training Center", href: "/training" },
 ];
 
+// --- MAP Training Center Dropdowns ---
+const trainingAboutMenuItems: DropdownItem[] = [
+  { title: "Profil MAP Training Center", href: "/training/about" },
+  { title: "Lisensi & Sertifikasi Hubud", href: "/training#sertifikat" },
+  { title: "Keunggulan Diklat", href: "/training#programs" },
+];
+
+const trainingProgramsMenuItems: DropdownItem[] = [
+  { title: "Aircraft Maintenance (AMC)", href: "/training/programs/aircraft" },
+  { title: "Ground Support Equipment (GSE)", href: "/training/programs/gse" },
+  { title: "Aviation Security (AVSEC)", href: "/training/programs/avsec" },
+  { title: "Pramugari & Pramugara", href: "/training/programs/pramugari" },
+  { title: "Semua Program Pelatihan", href: "/training/programs" },
+];
+
+const trainingFacilitiesMenuItems: DropdownItem[] = [
+  { title: "Perpustakaan & Ruang Baca", href: "/training/facilities#perpustakaan" },
+  { title: "Ruang Kelas Multimedia", href: "/training/facilities#ruang-kelas" },
+  { title: "Ruang Kantor Administrasi", href: "/training/facilities#ruang-kantor-1" },
+  { title: "Lounge & Rapat Instruktur", href: "/training/facilities#ruang-kantor-2" },
+  { title: "Asrama Peserta (Dormitory)", href: "/training/facilities#asrama" },
+  { title: "Mushola Kampus", href: "/training/facilities#mushola" },
+  { title: "Lihat Semua Fasilitas", href: "/training/facilities" },
+];
+
+// --- Navigation Configurations ---
 const homeNavConfig: PageNavConfig = {
   hasAboutDropdown: true,
+  aboutTitle: "Tentang Kami",
+  aboutHref: "/about",
+  aboutMenuItems: mainAboutMenuItems,
   hasServicesDropdown: true,
   navItems: [
     { href: "/news", label: "Berita" },
@@ -59,6 +94,24 @@ const homeNavConfig: PageNavConfig = {
   },
 };
 
+const trainingNavConfig: PageNavConfig = {
+  hasAboutDropdown: true,
+  aboutTitle: "Tentang Kami",
+  aboutHref: "/training/about",
+  aboutMenuItems: trainingAboutMenuItems,
+  hasProgramsDropdown: true,
+  hasFacilitiesDropdown: true,
+  navItems: [
+    { href: "/training", label: "Beranda" },
+  ],
+  cta: {
+    href: "/training#contact-training",
+    label: "Pendaftaran",
+    gradient: "linear-gradient(135deg, #F5A623, #e8941f)",
+    textColor: "#001F5B",
+  },
+};
+
 const navConfigs: Record<string, PageNavConfig> = {
   "/": homeNavConfig,
   "/about": homeNavConfig,
@@ -66,6 +119,9 @@ const navConfigs: Record<string, PageNavConfig> = {
   "/news": homeNavConfig,
   "/advertising": {
     hasAboutDropdown: true,
+    aboutTitle: "Tentang Kami",
+    aboutHref: "/about",
+    aboutMenuItems: mainAboutMenuItems,
     hasServicesDropdown: false,
     navItems: [
       { href: "#about-shuttle", label: "Tentang Shuttle" },
@@ -83,57 +139,47 @@ const navConfigs: Record<string, PageNavConfig> = {
       textColor: "#fff",
     },
   },
-  "/training": {
-    hasAboutDropdown: false,
-    hasServicesDropdown: false,
-    navItems: [
-      { href: "/training", label: "Beranda" },
-      { href: "/training/about", label: "Tentang Kami" },
-      { href: "/training#programs", label: "Program Pelatihan" },
-      { href: "/training#fasilitas", label: "Fasilitas" },
-      { href: "/training#sertifikat", label: "Sertifikasi" },
-    ],
-    cta: {
-      href: "/training#contact-training",
-      label: "Pendaftaran",
-      gradient: "linear-gradient(135deg, #F5A623, #e8941f)",
-      textColor: "#001F5B",
-    },
-  },
-  "/training/about": {
-    hasAboutDropdown: false,
-    hasServicesDropdown: false,
-    navItems: [
-      { href: "/training", label: "Beranda" },
-      { href: "/training/about", label: "Tentang Kami" },
-      { href: "/training#programs", label: "Program Pelatihan" },
-      { href: "/training#fasilitas", label: "Fasilitas" },
-      { href: "/training#sertifikat", label: "Sertifikasi" },
-    ],
-    cta: {
-      href: "/training#contact-training",
-      label: "Pendaftaran",
-      gradient: "linear-gradient(135deg, #F5A623, #e8941f)",
-      textColor: "#001F5B",
-    },
-  },
+  "/training": trainingNavConfig,
+  "/training/about": trainingNavConfig,
+  "/training/programs": trainingNavConfig,
+  "/training/program": trainingNavConfig,
+  "/training/facilities": trainingNavConfig,
+  "/training/fasilitas": trainingNavConfig,
 };
 
 export default function Navbar() {
   const pathname = usePathname();
-  const currentConfig = navConfigs[pathname] || (pathname.startsWith("/training") ? navConfigs["/training"] : navConfigs["/"]);
+  const [isTrainingSubdomain, setIsTrainingSubdomain] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const host = window.location.hostname;
+      if (host.startsWith("trainingcenter.") || host.startsWith("training.")) {
+        setIsTrainingSubdomain(true);
+      }
+    }
+  }, []);
+
+  const isTrainingPage = pathname.startsWith("/training") || isTrainingSubdomain;
+  const currentConfig = navConfigs[pathname] || (isTrainingPage ? trainingNavConfig : homeNavConfig);
 
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [aboutDropdownOpen, setAboutDropdownOpen] = useState(false);
   const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
+  const [programsDropdownOpen, setProgramsDropdownOpen] = useState(false);
+  const [facilitiesDropdownOpen, setFacilitiesDropdownOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
 
   const aboutDropdownRef = useRef<HTMLLIElement>(null);
   const servicesDropdownRef = useRef<HTMLLIElement>(null);
+  const programsDropdownRef = useRef<HTMLLIElement>(null);
+  const facilitiesDropdownRef = useRef<HTMLLIElement>(null);
 
   const aboutTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const servicesTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const programsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const facilitiesTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -176,6 +222,12 @@ export default function Navbar() {
       if (servicesDropdownRef.current && !servicesDropdownRef.current.contains(event.target as Node)) {
         setServicesDropdownOpen(false);
       }
+      if (programsDropdownRef.current && !programsDropdownRef.current.contains(event.target as Node)) {
+        setProgramsDropdownOpen(false);
+      }
+      if (facilitiesDropdownRef.current && !facilitiesDropdownRef.current.contains(event.target as Node)) {
+        setFacilitiesDropdownOpen(false);
+      }
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
@@ -185,30 +237,44 @@ export default function Navbar() {
     if (aboutTimeoutRef.current) clearTimeout(aboutTimeoutRef.current);
     setAboutDropdownOpen(true);
   };
-
   const handleAboutMouseLeave = () => {
     if (aboutTimeoutRef.current) clearTimeout(aboutTimeoutRef.current);
-    aboutTimeoutRef.current = setTimeout(() => {
-      setAboutDropdownOpen(false);
-    }, 200);
+    aboutTimeoutRef.current = setTimeout(() => setAboutDropdownOpen(false), 200);
   };
 
   const handleServicesMouseEnter = () => {
     if (servicesTimeoutRef.current) clearTimeout(servicesTimeoutRef.current);
     setServicesDropdownOpen(true);
   };
-
   const handleServicesMouseLeave = () => {
     if (servicesTimeoutRef.current) clearTimeout(servicesTimeoutRef.current);
-    servicesTimeoutRef.current = setTimeout(() => {
-      setServicesDropdownOpen(false);
-    }, 200);
+    servicesTimeoutRef.current = setTimeout(() => setServicesDropdownOpen(false), 200);
+  };
+
+  const handleProgramsMouseEnter = () => {
+    if (programsTimeoutRef.current) clearTimeout(programsTimeoutRef.current);
+    setProgramsDropdownOpen(true);
+  };
+  const handleProgramsMouseLeave = () => {
+    if (programsTimeoutRef.current) clearTimeout(programsTimeoutRef.current);
+    programsTimeoutRef.current = setTimeout(() => setProgramsDropdownOpen(false), 200);
+  };
+
+  const handleFacilitiesMouseEnter = () => {
+    if (facilitiesTimeoutRef.current) clearTimeout(facilitiesTimeoutRef.current);
+    setFacilitiesDropdownOpen(true);
+  };
+  const handleFacilitiesMouseLeave = () => {
+    if (facilitiesTimeoutRef.current) clearTimeout(facilitiesTimeoutRef.current);
+    facilitiesTimeoutRef.current = setTimeout(() => setFacilitiesDropdownOpen(false), 200);
   };
 
   const handleNavClick = () => {
     setMenuOpen(false);
     setAboutDropdownOpen(false);
     setServicesDropdownOpen(false);
+    setProgramsDropdownOpen(false);
+    setFacilitiesDropdownOpen(false);
   };
 
   const handleMainPageClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -245,7 +311,11 @@ export default function Navbar() {
     handleNavClick();
   };
 
-  const logoHref = pathname.startsWith("/training") ? "/training" : "/";
+  const logoHref = isTrainingSubdomain ? "/" : (isTrainingPage ? "/training" : "/");
+  const aboutMenuItemsToUse = currentConfig.aboutMenuItems || mainAboutMenuItems;
+  const aboutTitleToUse = currentConfig.aboutTitle || "Tentang Kami";
+  const aboutHrefToUse = currentConfig.aboutHref || "/about";
+  const activeAccentColor = isTrainingPage ? "#F5A623" : "#4A9EF5";
 
   return (
     <nav
@@ -256,11 +326,11 @@ export default function Navbar() {
         right: 0,
         zIndex: 1000,
         transition: "all 0.35s ease",
-        background: scrolled ? "rgba(255, 255, 255, 0.98)" : "#FFFFFF",
-        backdropFilter: "blur(14px)",
-        borderBottom: "1px solid #E2E8F0",
-        boxShadow: scrolled ? "0 4px 20px rgba(0, 31, 91, 0.08)" : "0 2px 10px rgba(0, 0, 0, 0.04)",
-        padding: scrolled ? "12px 0" : "16px 0",
+        background: scrolled ? "rgba(1, 13, 46, 0.96)" : "transparent",
+        backdropFilter: scrolled ? "blur(14px)" : "none",
+        borderBottom: scrolled ? "1px solid rgba(255, 255, 255, 0.12)" : "1px solid rgba(255, 255, 255, 0.05)",
+        boxShadow: scrolled ? "0 8px 30px rgba(0, 0, 0, 0.35)" : "none",
+        padding: scrolled ? "12px 0" : "18px 0",
       }}
     >
       <div
@@ -287,10 +357,10 @@ export default function Navbar() {
         <style dangerouslySetInnerHTML={{
           __html: [
             ".mobile-hamburger { display: none !important; }",
-            ".desktop-dropdown-item { color: #334155 !important; }",
-            ".desktop-dropdown-item:hover { background: #F1F5F9 !important; color: #1967D2 !important; }",
-            ".desktop-nav-link:hover { color: #1967D2 !important; }",
-            ".mobile-nav-link:hover { color: #1967D2 !important; }",
+            ".desktop-dropdown-item { color: rgba(255, 255, 255, 0.9) !important; }",
+            `.desktop-dropdown-item:hover { background: rgba(255, 255, 255, 0.12) !important; color: ${activeAccentColor} !important; }`,
+            `.desktop-nav-link:hover { color: ${activeAccentColor} !important; }`,
+            `.mobile-nav-link:hover { color: ${activeAccentColor} !important; }`,
             "@keyframes navDropdownFade {",
             "  from { opacity: 0; transform: translateY(6px); }",
             "  to { opacity: 1; transform: translateY(0); }",
@@ -304,7 +374,7 @@ export default function Navbar() {
           ].join('\n')
         }} />
 
-        {/* Desktop Nav */}
+        {/* Desktop Nav: Order is 1. Tentang Kami, 2. Layanan / Program / Fasilitas, 3. Berita & Karir / NavItems, 4. CTA */}
         <ul
           className="desktop-nav"
           style={{
@@ -314,7 +384,7 @@ export default function Navbar() {
             alignItems: "center",
           }}
         >
-          {/* 1. Tentang Kami Dropdown (Desktop Only) */}
+          {/* 1. Tentang Kami Dropdown */}
           {currentConfig.hasAboutDropdown !== false && (
             <li
               ref={aboutDropdownRef}
@@ -323,14 +393,14 @@ export default function Navbar() {
               onMouseLeave={handleAboutMouseLeave}
             >
               <Link
-                href="/about"
-                onClick={(e) => handleMainPageClick(e, "/about")}
+                href={aboutHrefToUse}
+                onClick={(e) => handleMainPageClick(e, aboutHrefToUse)}
                 style={{
                   display: "flex",
                   alignItems: "center",
                   gap: 6,
-                  color: aboutDropdownOpen || pathname === "/about" ? "#1967D2" : "#0F172A",
-                  background: aboutDropdownOpen ? "#F1F5F9" : "transparent",
+                  color: aboutDropdownOpen || pathname === aboutHrefToUse ? activeAccentColor : "#FFFFFF",
+                  background: aboutDropdownOpen ? "rgba(255, 255, 255, 0.1)" : "transparent",
                   fontWeight: 600,
                   fontSize: "0.9rem",
                   padding: "8px 14px",
@@ -340,7 +410,7 @@ export default function Navbar() {
                   textDecoration: "none",
                 }}
               >
-                <span>Tentang Kami</span>
+                <span>{aboutTitleToUse}</span>
                 <i
                   className="fas fa-chevron-down"
                   style={{
@@ -351,7 +421,6 @@ export default function Navbar() {
                 />
               </Link>
 
-              {/* About Dropdown Menu */}
               {aboutDropdownOpen && (
                 <div
                   style={{
@@ -366,20 +435,20 @@ export default function Navbar() {
                 >
                   <div
                     style={{
-                      minWidth: 200,
-                      background: "#FFFFFF",
+                      minWidth: 220,
+                      background: "rgba(1, 13, 46, 0.96)",
                       backdropFilter: "blur(16px)",
-                      border: "1px solid #E2E8F0",
+                      border: "1px solid rgba(255, 255, 255, 0.15)",
                       borderRadius: 8,
                       padding: "6px",
-                      boxShadow: "0 14px 36px rgba(0, 31, 91, 0.12)",
+                      boxShadow: "0 14px 36px rgba(0, 0, 0, 0.4)",
                       display: "flex",
                       flexDirection: "column",
                       gap: 2,
                       animation: "navDropdownFade 0.2s ease forwards",
                     }}
                   >
-                    {aboutMenuItems.map((item) => (
+                    {aboutMenuItemsToUse.map((item) => (
                       <Link
                         key={item.href}
                         href={item.href}
@@ -404,7 +473,7 @@ export default function Navbar() {
             </li>
           )}
 
-          {/* 2. Layanan Dropdown (Desktop Only) */}
+          {/* 2. Layanan Dropdown (Airport Services) */}
           {currentConfig.hasServicesDropdown ? (
             <li
               ref={servicesDropdownRef}
@@ -419,8 +488,8 @@ export default function Navbar() {
                   display: "flex",
                   alignItems: "center",
                   gap: 6,
-                  color: servicesDropdownOpen || pathname === "/services" ? "#1967D2" : "#0F172A",
-                  background: servicesDropdownOpen ? "#F1F5F9" : "transparent",
+                  color: servicesDropdownOpen || pathname === "/services" ? activeAccentColor : "#FFFFFF",
+                  background: servicesDropdownOpen ? "rgba(255, 255, 255, 0.1)" : "transparent",
                   fontWeight: 600,
                   fontSize: "0.9rem",
                   padding: "8px 14px",
@@ -441,7 +510,6 @@ export default function Navbar() {
                 />
               </Link>
 
-              {/* Services Dropdown Menu */}
               {servicesDropdownOpen && (
                 <div
                   style={{
@@ -457,19 +525,19 @@ export default function Navbar() {
                   <div
                     style={{
                       minWidth: 220,
-                      background: "#FFFFFF",
+                      background: "rgba(1, 13, 46, 0.96)",
                       backdropFilter: "blur(16px)",
-                      border: "1px solid #E2E8F0",
+                      border: "1px solid rgba(255, 255, 255, 0.15)",
                       borderRadius: 8,
                       padding: "6px",
-                      boxShadow: "0 14px 36px rgba(0, 31, 91, 0.12)",
+                      boxShadow: "0 14px 36px rgba(0, 0, 0, 0.4)",
                       display: "flex",
                       flexDirection: "column",
                       gap: 2,
                       animation: "navDropdownFade 0.2s ease forwards",
                     }}
                   >
-                    {servicesMenuItems.map((item) => (
+                    {mainServicesMenuItems.map((item) => (
                       <Link
                         key={item.href}
                         href={item.href}
@@ -494,7 +562,185 @@ export default function Navbar() {
             </li>
           ) : null}
 
-          {/* 3. Main Page Nav Items */}
+          {/* 3. Program Pelatihan Dropdown (MAP Training Center) */}
+          {currentConfig.hasProgramsDropdown ? (
+            <li
+              ref={programsDropdownRef}
+              style={{ position: "relative" }}
+              onMouseEnter={handleProgramsMouseEnter}
+              onMouseLeave={handleProgramsMouseLeave}
+            >
+              <Link
+                href="/training/programs"
+                onClick={(e) => handleMainPageClick(e, "/training/programs")}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 6,
+                  color: programsDropdownOpen || pathname.startsWith("/training/programs") ? activeAccentColor : "#FFFFFF",
+                  background: programsDropdownOpen ? "rgba(255, 255, 255, 0.1)" : "transparent",
+                  fontWeight: 600,
+                  fontSize: "0.9rem",
+                  padding: "8px 14px",
+                  borderRadius: 6,
+                  cursor: "pointer",
+                  transition: "all 0.2s",
+                  textDecoration: "none",
+                }}
+              >
+                <span>Program Pelatihan</span>
+                <i
+                  className="fas fa-chevron-down"
+                  style={{
+                    fontSize: "0.7rem",
+                    transition: "transform 0.25s ease",
+                    transform: programsDropdownOpen ? "rotate(180deg)" : "rotate(0deg)",
+                  }}
+                />
+              </Link>
+
+              {programsDropdownOpen && (
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "100%",
+                    left: 0,
+                    paddingTop: 8,
+                    zIndex: 1010,
+                  }}
+                  onMouseEnter={handleProgramsMouseEnter}
+                  onMouseLeave={handleProgramsMouseLeave}
+                >
+                  <div
+                    style={{
+                      minWidth: 240,
+                      background: "rgba(1, 13, 46, 0.96)",
+                      backdropFilter: "blur(16px)",
+                      border: "1px solid rgba(255, 255, 255, 0.15)",
+                      borderRadius: 8,
+                      padding: "6px",
+                      boxShadow: "0 14px 36px rgba(0, 0, 0, 0.4)",
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: 2,
+                      animation: "navDropdownFade 0.2s ease forwards",
+                    }}
+                  >
+                    {trainingProgramsMenuItems.map((item) => (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        onClick={() => handleNavClick()}
+                        className="desktop-dropdown-item"
+                        style={{
+                          display: "block",
+                          padding: "9px 14px",
+                          borderRadius: 6,
+                          textDecoration: "none",
+                          fontWeight: 500,
+                          fontSize: "0.88rem",
+                          transition: "all 0.15s ease",
+                        }}
+                      >
+                        {item.title}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </li>
+          ) : null}
+
+          {/* 4. Fasilitas Dropdown (MAP Training Center) */}
+          {currentConfig.hasFacilitiesDropdown ? (
+            <li
+              ref={facilitiesDropdownRef}
+              style={{ position: "relative" }}
+              onMouseEnter={handleFacilitiesMouseEnter}
+              onMouseLeave={handleFacilitiesMouseLeave}
+            >
+              <Link
+                href="/training/facilities"
+                onClick={(e) => handleMainPageClick(e, "/training/facilities")}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 6,
+                  color: facilitiesDropdownOpen || pathname.startsWith("/training/facilities") ? activeAccentColor : "#FFFFFF",
+                  background: facilitiesDropdownOpen ? "rgba(255, 255, 255, 0.1)" : "transparent",
+                  fontWeight: 600,
+                  fontSize: "0.9rem",
+                  padding: "8px 14px",
+                  borderRadius: 6,
+                  cursor: "pointer",
+                  transition: "all 0.2s",
+                  textDecoration: "none",
+                }}
+              >
+                <span>Fasilitas</span>
+                <i
+                  className="fas fa-chevron-down"
+                  style={{
+                    fontSize: "0.7rem",
+                    transition: "transform 0.25s ease",
+                    transform: facilitiesDropdownOpen ? "rotate(180deg)" : "rotate(0deg)",
+                  }}
+                />
+              </Link>
+
+              {facilitiesDropdownOpen && (
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "100%",
+                    left: 0,
+                    paddingTop: 8,
+                    zIndex: 1010,
+                  }}
+                  onMouseEnter={handleFacilitiesMouseEnter}
+                  onMouseLeave={handleFacilitiesMouseLeave}
+                >
+                  <div
+                    style={{
+                      minWidth: 230,
+                      background: "rgba(1, 13, 46, 0.96)",
+                      backdropFilter: "blur(16px)",
+                      border: "1px solid rgba(255, 255, 255, 0.15)",
+                      borderRadius: 8,
+                      padding: "6px",
+                      boxShadow: "0 14px 36px rgba(0, 0, 0, 0.4)",
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: 2,
+                      animation: "navDropdownFade 0.2s ease forwards",
+                    }}
+                  >
+                    {trainingFacilitiesMenuItems.map((item) => (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        onClick={() => handleNavClick()}
+                        className="desktop-dropdown-item"
+                        style={{
+                          display: "block",
+                          padding: "9px 14px",
+                          borderRadius: 6,
+                          textDecoration: "none",
+                          fontWeight: 500,
+                          fontSize: "0.88rem",
+                          transition: "all 0.15s ease",
+                        }}
+                      >
+                        {item.title}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </li>
+          ) : null}
+
+          {/* 5. Nav Items (Berita, Karir, Beranda, etc.) */}
           {currentConfig.navItems.map((item) => (
             <li key={item.href}>
               {item.href.startsWith("/") && !item.href.includes("#") ? (
@@ -503,7 +749,7 @@ export default function Navbar() {
                   onClick={() => handleNavClick()}
                   className="desktop-nav-link"
                   style={{
-                    color: pathname === item.href ? "#1967D2" : "#0F172A",
+                    color: pathname === item.href ? activeAccentColor : "#FFFFFF",
                     fontWeight: 600,
                     fontSize: "0.9rem",
                     padding: "8px 14px",
@@ -520,7 +766,7 @@ export default function Navbar() {
                   onClick={(e) => scrollTo(e, item.href)}
                   className="desktop-nav-link"
                   style={{
-                    color: (pathname === "/" && activeSection === item.href.replace(/^\/?#/, "")) || pathname === item.href ? "#1967D2" : "#0F172A",
+                    color: (pathname === "/" && activeSection === item.href.replace(/^\/?#/, "")) || pathname === item.href ? activeAccentColor : "#FFFFFF",
                     fontWeight: 600,
                     fontSize: "0.9rem",
                     padding: "8px 14px",
@@ -535,7 +781,7 @@ export default function Navbar() {
             </li>
           ))}
 
-          {/* 4. CTA Action Button */}
+          {/* 6. CTA Action Button */}
           <li>
             <Link
               href={currentConfig.cta.href}
@@ -579,7 +825,7 @@ export default function Navbar() {
                 display: "block",
                 width: 24,
                 height: 2,
-                background: "#0F172A",
+                background: "#FFFFFF",
                 borderRadius: 2,
                 transition: "all 0.3s",
                 transform:
@@ -599,26 +845,26 @@ export default function Navbar() {
       {menuOpen && (
         <div
           style={{
-            background: "#FFFFFF",
+            background: "#010D2E",
             padding: "20px 24px 32px",
             display: "flex",
             flexDirection: "column",
             gap: 8,
             maxHeight: "calc(100vh - 80px)",
             overflowY: "auto",
-            borderBottom: "1px solid #E2E8F0",
-            boxShadow: "0 16px 36px rgba(0, 31, 91, 0.12)",
+            borderBottom: "1px solid rgba(255, 255, 255, 0.15)",
+            boxShadow: "0 16px 36px rgba(0, 0, 0, 0.4)",
           }}
           className="md:hidden"
         >
           {/* Mobile "Tentang Kami" Group */}
           {currentConfig.hasAboutDropdown !== false && (
-            <div style={{ borderBottom: "1px solid #F1F5F9", paddingBottom: 8, marginBottom: 4 }}>
+            <div style={{ borderBottom: "1px solid rgba(255, 255, 255, 0.1)", paddingBottom: 8, marginBottom: 4 }}>
               <Link
-                href="/about"
-                onClick={(e) => handleMainPageClick(e, "/about")}
+                href={aboutHrefToUse}
+                onClick={(e) => handleMainPageClick(e, aboutHrefToUse)}
                 style={{
-                  color: "#1967D2",
+                  color: activeAccentColor,
                   fontSize: "0.85rem",
                   fontWeight: 700,
                   textTransform: "uppercase",
@@ -630,17 +876,17 @@ export default function Navbar() {
                   textDecoration: "none",
                 }}
               >
-                <span>Tentang Kami</span>
+                <span>{aboutTitleToUse}</span>
                 <i className="fas fa-arrow-right" style={{ fontSize: "0.7rem", opacity: 0.8 }} />
               </Link>
-              {aboutMenuItems.map((item) => (
+              {aboutMenuItemsToUse.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
                   onClick={handleNavClick}
                   className="mobile-nav-link"
                   style={{
-                    color: "#334155",
+                    color: "rgba(255, 255, 255, 0.85)",
                     fontWeight: 500,
                     fontSize: "0.95rem",
                     padding: "8px 16px 8px 24px",
@@ -655,14 +901,14 @@ export default function Navbar() {
             </div>
           )}
 
-          {/* Mobile "Layanan" Group */}
+          {/* Mobile "Layanan" Group (Airport Services) */}
           {currentConfig.hasServicesDropdown && (
-            <div style={{ borderBottom: "1px solid #F1F5F9", paddingBottom: 8, marginBottom: 4 }}>
+            <div style={{ borderBottom: "1px solid rgba(255, 255, 255, 0.1)", paddingBottom: 8, marginBottom: 4 }}>
               <Link
                 href="/services"
                 onClick={(e) => handleMainPageClick(e, "/services")}
                 style={{
-                  color: "#1967D2",
+                  color: activeAccentColor,
                   fontSize: "0.85rem",
                   fontWeight: 700,
                   textTransform: "uppercase",
@@ -677,14 +923,14 @@ export default function Navbar() {
                 <span>Layanan</span>
                 <i className="fas fa-arrow-right" style={{ fontSize: "0.7rem", opacity: 0.8 }} />
               </Link>
-              {servicesMenuItems.map((item) => (
+              {mainServicesMenuItems.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
                   onClick={handleNavClick}
                   className="mobile-nav-link"
                   style={{
-                    color: "#334155",
+                    color: "rgba(255, 255, 255, 0.85)",
                     fontWeight: 500,
                     fontSize: "0.92rem",
                     padding: "7px 16px 7px 24px",
@@ -699,7 +945,95 @@ export default function Navbar() {
             </div>
           )}
 
-          {/* Main Navigation Links for Current Page */}
+          {/* Mobile "Program Pelatihan" Group (MAP Training Center) */}
+          {currentConfig.hasProgramsDropdown && (
+            <div style={{ borderBottom: "1px solid rgba(255, 255, 255, 0.1)", paddingBottom: 8, marginBottom: 4 }}>
+              <Link
+                href="/training/programs"
+                onClick={(e) => handleMainPageClick(e, "/training/programs")}
+                style={{
+                  color: activeAccentColor,
+                  fontSize: "0.85rem",
+                  fontWeight: 700,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.1em",
+                  padding: "6px 16px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  textDecoration: "none",
+                }}
+              >
+                <span>Program Pelatihan</span>
+                <i className="fas fa-arrow-right" style={{ fontSize: "0.7rem", opacity: 0.8 }} />
+              </Link>
+              {trainingProgramsMenuItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={handleNavClick}
+                  className="mobile-nav-link"
+                  style={{
+                    color: "rgba(255, 255, 255, 0.85)",
+                    fontWeight: 500,
+                    fontSize: "0.92rem",
+                    padding: "7px 16px 7px 24px",
+                    borderRadius: 6,
+                    display: "block",
+                    textDecoration: "none",
+                  }}
+                >
+                  {item.title}
+                </Link>
+              ))}
+            </div>
+          )}
+
+          {/* Mobile "Fasilitas" Group (MAP Training Center) */}
+          {currentConfig.hasFacilitiesDropdown && (
+            <div style={{ borderBottom: "1px solid rgba(255, 255, 255, 0.1)", paddingBottom: 8, marginBottom: 4 }}>
+              <Link
+                href="/training/facilities"
+                onClick={(e) => handleMainPageClick(e, "/training/facilities")}
+                style={{
+                  color: activeAccentColor,
+                  fontSize: "0.85rem",
+                  fontWeight: 700,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.1em",
+                  padding: "6px 16px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  textDecoration: "none",
+                }}
+              >
+                <span>Fasilitas</span>
+                <i className="fas fa-arrow-right" style={{ fontSize: "0.7rem", opacity: 0.8 }} />
+              </Link>
+              {trainingFacilitiesMenuItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={handleNavClick}
+                  className="mobile-nav-link"
+                  style={{
+                    color: "rgba(255, 255, 255, 0.85)",
+                    fontWeight: 500,
+                    fontSize: "0.92rem",
+                    padding: "7px 16px 7px 24px",
+                    borderRadius: 6,
+                    display: "block",
+                    textDecoration: "none",
+                  }}
+                >
+                  {item.title}
+                </Link>
+              ))}
+            </div>
+          )}
+
+          {/* Simple Navigation Links for Current Page */}
           {currentConfig.navItems.map((item) => (
             <Link
               key={item.href}
@@ -707,7 +1041,7 @@ export default function Navbar() {
               onClick={(e) => scrollTo(e, item.href)}
               className="mobile-nav-link"
               style={{
-                color: (pathname === "/" && activeSection === item.href.replace(/^\/?#/, "")) || pathname === item.href ? "#1967D2" : "#0F172A",
+                color: (pathname === "/" && activeSection === item.href.replace(/^\/?#/, "")) || pathname === item.href ? activeAccentColor : "#FFFFFF",
                 fontWeight: 600,
                 fontSize: "1rem",
                 padding: "10px 16px",

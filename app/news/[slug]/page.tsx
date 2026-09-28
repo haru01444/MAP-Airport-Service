@@ -54,7 +54,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   const imageUrl = (post.mainImage && post.mainImage.asset)
     ? urlForImage(post.mainImage).width(1200).height(630).url()
-    : (post.fallbackImageUrl || "/logo-map-official.png");
+    : (post.fallbackImageUrl || "/LOGO MAP NO BACKGROUND.png");
 
   return {
     title: `${post.title} — PT Mawaddah Angkasa Prima`,

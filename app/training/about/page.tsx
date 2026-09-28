@@ -4,6 +4,7 @@ import Link from "next/link";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import HeroBgSlider from "../../components/HeroBgSlider";
+import TrainingContactSection from "../components/TrainingContactSection";
 
 export const metadata: Metadata = {
   title: "Tentang MAP Training Center | PT Mawaddah Angkasa Prima",
@@ -185,7 +186,7 @@ export default function TrainingAboutPage() {
               </div>
 
               {/* Right Photo Frame */}
-              <div style={{ position: "relative" }}>
+              <div>
                 <div
                   style={{
                     borderRadius: 12,
@@ -203,31 +204,6 @@ export default function TrainingAboutPage() {
                     style={{ objectFit: "cover" }}
                     priority
                   />
-                </div>
-                <div
-                  style={{
-                    position: "absolute",
-                    bottom: -18,
-                    left: 20,
-                    background: "#001F5B",
-                    color: "#fff",
-                    borderRadius: 8,
-                    padding: "16px 22px",
-                    boxShadow: "0 12px 28px rgba(0, 31, 91, 0.25)",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 14,
-                  }}
-                >
-                  <i className="fas fa-award" style={{ color: "#F5A623", fontSize: "1.4rem" }} />
-                  <div>
-                    <span style={{ display: "block", fontSize: "0.88rem", fontWeight: 700 }}>
-                      Mawaddah Group Network
-                    </span>
-                    <span style={{ display: "block", fontSize: "0.76rem", color: "rgba(255,255,255,0.8)" }}>
-                      Terhubung Ekosistem Bandara Aktif
-                    </span>
-                  </div>
                 </div>
               </div>
             </div>
@@ -597,9 +573,12 @@ export default function TrainingAboutPage() {
             </div>
           </div>
         </section>
+
+        {/* ── 7. KONTAK & PENDAFTARAN ── */}
+        <TrainingContactSection />
       </main>
 
-      {/* ── 7. FOOTER ── */}
+      {/* ── 8. FOOTER ── */}
       <Footer />
     </div>
   );

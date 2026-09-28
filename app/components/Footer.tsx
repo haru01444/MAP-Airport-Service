@@ -1,9 +1,13 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
-const navLinks = ["Tentang Kami", "Layanan", "Peta Layanan", "Perjalanan Kami", "Klien", "Berita", "Karir"];
-const navHrefs = ["/about", "/services", "/#map", "/about#milestone", "/#clients", "/news", "/training"];
-const footerServices = [
+// --- Main Airport Services Footer Data ---
+const mainNavLinks = ["Tentang Kami", "Layanan", "Peta Layanan", "Perjalanan Kami", "Klien", "Berita", "Karir"];
+const mainNavHrefs = ["/about", "/services", "/#map", "/about#milestone", "/#clients", "/news", "/training"];
+const mainFooterServices = [
   { name: "Ground Handling for Airlines", href: "/services#ground-handling" },
   { name: "Passenger & Ticketing Services", href: "/services#passenger-services" },
   { name: "Ramp Side Service", href: "/services#ramp-services" },
@@ -14,7 +18,26 @@ const footerServices = [
   { name: "MAP Training Center", href: "/training" },
 ];
 
+// --- Training Center Footer Data ---
+const trainingNavLinks = [
+  { name: "Beranda Training", href: "/training" },
+  { name: "Tentang MAP Training", href: "/training/about" },
+  { name: "Program Pelatihan", href: "/training/programs" },
+  { name: "Fasilitas Diklat", href: "/training/facilities" },
+  { name: "Kembali ke Layanan Bandara", href: "/" },
+];
+
+const trainingProgramsList = [
+  { name: "Aircraft Maintenance (AMC-01)", href: "/training/programs#aircraft" },
+  { name: "Ground Support Equipment (GSE-02)", href: "/training/programs#gse" },
+  { name: "Aviation Security (SEC-03)", href: "/training/programs#avsec" },
+  { name: "Pramugari & Pramugara (CAB-04)", href: "/training/programs#pramugari" },
+  { name: "Semua Program Pelatihan", href: "/training/programs" },
+];
+
 export default function Footer() {
+  const pathname = usePathname();
+  const isTraining = pathname.startsWith("/training");
   const year = new Date().getFullYear();
 
   return (
@@ -27,7 +50,7 @@ export default function Footer() {
           "        ",
           "        .footer-grid {",
           "          display: grid;",
-          "          grid-template-columns: 2fr 1fr 1.2fr 1.5fr;",
+          "          grid-template-columns: 2fr 1.2fr 1fr 1.5fr;",
           "          gap: 40px;",
           "          margin-bottom: 48px;",
           "        }",
@@ -79,7 +102,7 @@ export default function Footer() {
 
           {/* Brand */}
           <div className="ft-brand">
-            <Link href="/" style={{ display: "inline-block" }}>
+            <Link href={isTraining ? "/training" : "/"} style={{ display: "inline-block" }}>
               <Image
                 src="/LOGO MAP NO BACKGROUND.png"
                 alt="Logo Mawaddah Angkasa Prima"
@@ -89,52 +112,101 @@ export default function Footer() {
               />
             </Link>
             <p className="brand-desc" style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.88rem", lineHeight: 1.75, maxWidth: 300 }}>
-              Mitra terpercaya layanan ground handling & aviasi di Indonesia.
+              {isTraining
+                ? "Pusat pendidikan dan pelatihan kejuruan aviasi terpadu berstandar industri dan berlisensi resmi di Indonesia."
+                : "Mitra terpercaya layanan ground handling & aviasi di Indonesia."}
             </p>
           </div>
 
-          {/* Services */}
+          {/* Column 2: Services / Training Programs */}
           <div className="ft-services">
-            <h4 className="ft-title" style={{ color: "#fff", fontWeight: 700, fontSize: "0.9rem", marginBottom: 20 }}>Layanan Utama</h4>
+            <h4 className="ft-title" style={{ color: "#fff", fontWeight: 700, fontSize: "0.9rem", marginBottom: 20 }}>
+              {isTraining ? "Program Pelatihan" : "Layanan Utama"}
+            </h4>
             <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: 10 }}>
-              {footerServices.map((s) => (
-                <li key={s.name}>
-                  <Link href={s.href} className="ft-link" style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.88rem", textDecoration: "none" }}>
-                    {s.name}
-                  </Link>
-                </li>
-              ))}
+              {isTraining
+                ? trainingProgramsList.map((prog) => (
+                    <li key={prog.name}>
+                      <Link href={prog.href} className="ft-link" style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.88rem", textDecoration: "none" }}>
+                        {prog.name}
+                      </Link>
+                    </li>
+                  ))
+                : mainFooterServices.map((s) => (
+                    <li key={s.name}>
+                      <Link href={s.href} className="ft-link" style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.88rem", textDecoration: "none" }}>
+                        {s.name}
+                      </Link>
+                    </li>
+                  ))}
             </ul>
           </div>
 
-          {/* Navigation */}
+          {/* Column 3: Navigation */}
           <div className="ft-nav">
-            <h4 className="ft-title" style={{ color: "#fff", fontWeight: 700, fontSize: "0.9rem", marginBottom: 20 }}>Navigasi</h4>
+            <h4 className="ft-title" style={{ color: "#fff", fontWeight: 700, fontSize: "0.9rem", marginBottom: 20 }}>
+              {isTraining ? "Navigasi Diklat" : "Navigasi"}
+            </h4>
             <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: 12 }}>
-              {navLinks.map((l, i) => (
-                <li key={l}>
-                  <Link className="ft-link" href={navHrefs[i]} style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.88rem", textDecoration: "none", transition: "color 0.2s" }}>
-                    {l}
-                  </Link>
-                </li>
-              ))}
+              {isTraining
+                ? trainingNavLinks.map((item) => (
+                    <li key={item.name}>
+                      <Link className="ft-link" href={item.href} style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.88rem", textDecoration: "none", transition: "color 0.2s" }}>
+                        {item.name}
+                      </Link>
+                    </li>
+                  ))
+                : mainNavLinks.map((l, i) => (
+                    <li key={l}>
+                      <Link className="ft-link" href={mainNavHrefs[i]} style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.88rem", textDecoration: "none", transition: "color 0.2s" }}>
+                        {l}
+                      </Link>
+                    </li>
+                  ))}
             </ul>
           </div>
 
-          {/* Contact */}
+          {/* Column 4: Contact */}
           <div className="ft-contact">
-            <h4 className="ft-title" style={{ color: "#fff", fontWeight: 700, fontSize: "0.9rem", marginBottom: 20 }}>Hubungi Kami</h4>
+            <h4 className="ft-title" style={{ color: "#fff", fontWeight: 700, fontSize: "0.9rem", marginBottom: 20 }}>
+              {isTraining ? "Pendaftaran & Kontak" : "Hubungi Kami"}
+            </h4>
             <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: 12 }}>
-              {[
-                { icon: "fa-phone", text: "+62 831 7029 3216" },
-                { icon: "fa-envelope", text: "contact@map-airportservices.id" },
-                { icon: "fa-location-dot", text: "Sentul Village, Kab. Bogor, Jawa Barat" },
-              ].map((item, i) => (
-                <li key={i} className="ft-contact-item">
-                  <i className={"fas " + item.icon + " ft-contact-icon"} />
-                  <span>{item.text}</span>
-                </li>
-              ))}
+              {isTraining ? (
+                <>
+                  <li className="ft-contact-item">
+                    <i className="fas fa-location-dot ft-contact-icon" />
+                    <span>Sentul Village, Jl. Cikeas Raya No. 123, Sukaraja, Kab. Bogor, Jawa Barat 16711, Indonesia</span>
+                  </li>
+                  <li className="ft-contact-item">
+                    <i className="fas fa-phone ft-contact-icon" />
+                    <a href="tel:083170293216" style={{ color: "inherit", textDecoration: "none" }}>083170293216</a>
+                  </li>
+                  <li className="ft-contact-item">
+                    <i className="fas fa-envelope ft-contact-icon" />
+                    <a href="mailto:trainingcenter@map-airportservices.id" style={{ color: "inherit", textDecoration: "none" }}>trainingcenter@map-airportservices.id</a>
+                  </li>
+                  <li className="ft-contact-item">
+                    <i className="fab fa-instagram ft-contact-icon" />
+                    <a href="https://instagram.com/map_trainingcenter" target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "none" }}>@map_trainingcenter</a>
+                  </li>
+                  <li className="ft-contact-item">
+                    <i className="fab fa-tiktok ft-contact-icon" />
+                    <a href="https://tiktok.com/@map_trainingcenter" target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "none" }}>@map_trainingcenter</a>
+                  </li>
+                </>
+              ) : (
+                [
+                  { icon: "fa-phone", text: "+62 831 7029 3216" },
+                  { icon: "fa-envelope", text: "contact@map-airportservices.id" },
+                  { icon: "fa-location-dot", text: "Sentul Village, Kab. Bogor, Jawa Barat" },
+                ].map((item, i) => (
+                  <li key={i} className="ft-contact-item">
+                    <i className={"fas " + item.icon + " ft-contact-icon"} />
+                    <span>{item.text}</span>
+                  </li>
+                ))
+              )}
             </ul>
           </div>
         </div>
@@ -142,10 +214,14 @@ export default function Footer() {
         {/* Bottom */}
         <div className="footer-bottom-responsive" style={{ borderTop: "1px solid rgba(255,255,255,0.06)", padding: "24px 0", display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 8 }}>
           <p className="ft-copy" style={{ color: "rgba(255,255,255,0.35)", fontSize: "0.82rem", margin: 0 }}>
-            © {year} Mawaddah Angkasa Prima. Seluruh hak dilindungi.
+            {isTraining
+              ? `© ${year} MAP Training Center — PT Mawaddah Angkasa Prima. Seluruh hak dilindungi.`
+              : `© ${year} Mawaddah Angkasa Prima. Seluruh hak dilindungi.`}
           </p>
           <p className="ft-copy" style={{ color: "rgba(255,255,255,0.35)", fontSize: "0.82rem", margin: 0 }}>
-            Ground Handling & Aviation Services | Indonesia
+            {isTraining
+              ? "Pendidikan & Pelatihan Kejuruan Aviasi | Indonesia"
+              : "Ground Handling & Aviation Services | Indonesia"}
           </p>
         </div>
       </div>
