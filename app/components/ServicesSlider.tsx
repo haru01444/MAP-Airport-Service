@@ -297,7 +297,7 @@ export default function ServicesSlider() {
               <div>
                 <div className="svc-img-frame">
                   <Image
-                    src="/services-ramp-agent.jpg"
+                    src="/services-ramp-agent.jpeg"
                     alt="Ramp Services Operation MAP"
                     fill
                     style={{ objectFit: "cover" }}

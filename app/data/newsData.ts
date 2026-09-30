@@ -43,7 +43,7 @@ export const newsData: NewsItem[] = [
     date: "10 Januari 2024",
     readTime: "4 min baca",
     author: "Divisi MAP Training Center",
-    image: "/services-ramp-agent.jpg",
+    image: "/services-ramp-agent.jpeg",
     featured: false,
     tags: ["Training Center", "AVSEC", "GSE", "Sertifikasi", "Karir"],
     excerpt:

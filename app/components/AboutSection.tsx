@@ -214,7 +214,7 @@ export default function AboutSection() {
           <div className="about-image-area">
             <div className="about-image-frame">
               <Image
-                src="https://images.unsplash.com/photo-1474302770737-173ee21bab63?auto=format&fit=crop&w=800&q=85"
+                src="/tentang-kami.jpeg"
                 alt="Aviation Ground Operations"
                 fill
                 style={{ objectFit: "cover" }}

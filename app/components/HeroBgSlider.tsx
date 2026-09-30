@@ -33,7 +33,7 @@ export const defaultHeroImages: HeroSlideImage[] = [
   },
   {
     desktop: "/about-map-operations-v2.jpeg",
-    mobile: "/services-ramp-agent.jpg",
+    mobile: "/services-ramp-agent.jpeg",
     alt: "MAP Ground Support Equipment & Crew",
   },
 ];

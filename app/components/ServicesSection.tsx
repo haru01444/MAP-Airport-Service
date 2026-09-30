@@ -31,7 +31,7 @@ const coreServices: CoreService[] = [
     id: "ramp",
     tag: "Airside Operations",
     title: "Ramp Side Service",
-    image: "/services-ramp-agent.jpg",
+    image: "/services-ramp-agent.jpeg",
     link: "/services#ramp-services",
   },
   {
@@ -66,7 +66,7 @@ const coreServices: CoreService[] = [
     id: "training",
     tag: "Education & Cert",
     title: "MAP Training Center",
-    image: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80",
+    image: "/education-n-curt.jpg",
     link: "/training",
   },
 ];
