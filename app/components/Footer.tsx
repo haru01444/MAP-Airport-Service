@@ -41,12 +41,22 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer style={{ background: "#060B19", padding: "64px 0 0", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+    <footer
+      style={{
+        background: "linear-gradient(180deg, #00388C 0%, #00225C 100%)",
+        padding: "64px 0 0",
+        borderTop: "3px solid #0062D2",
+        boxShadow: "0 -4px 24px rgba(0, 30, 80, 0.25)",
+      }}
+    >
       <style dangerouslySetInnerHTML={{
         __html: [
           ".mobile-training-link { display: none; }",
-          "        .ft-contact-icon { display: block; color: #4A9EF5; margin-top: 3px; flex-shrink: 0; }",
-          "        .ft-contact-item { display: flex; align-items: flex-start; gap: 10px; color: rgba(255,255,255,0.5); font-size: 0.88rem; }",
+          "        .ft-contact-icon { display: block; color: #60A5FA; margin-top: 3px; flex-shrink: 0; font-size: 0.95rem; }",
+          "        .ft-contact-item { display: flex; align-items: flex-start; gap: 10px; color: rgba(255,255,255,0.85); font-size: 0.88rem; line-height: 1.6; }",
+          "        .ft-contact-item a:hover { color: #FFFFFF !important; text-decoration: underline !important; }",
+          "        .ft-link { color: rgba(255,255,255,0.75) !important; font-size: 0.88rem; text-decoration: none; transition: all 0.2s ease; display: inline-block; }",
+          "        .ft-link:hover { color: #FFFFFF !important; transform: translateX(3px); }",
           "        ",
           "        .footer-grid {",
           "          display: grid;",
@@ -56,9 +66,9 @@ export default function Footer() {
           "        }",
           "",
           "        @media (max-width: 768px) {",
-          "          .ft-title { font-size: 14px !important; text-transform: none !important; letter-spacing: normal !important; color: #fff !important; margin-bottom: 16px !important; }",
-          "          .ft-link { font-size: 14px !important; color: #64748B !important; }",
-          "          .ft-copy { font-size: 12px !important; color: #475569 !important; text-align: left !important; }",
+          "          .ft-title { font-size: 14px !important; text-transform: uppercase !important; letter-spacing: 0.05em !important; color: #fff !important; margin-bottom: 16px !important; font-weight: 700 !important; }",
+          "          .ft-link { font-size: 14px !important; color: rgba(255,255,255,0.75) !important; }",
+          "          .ft-copy { font-size: 12px !important; color: rgba(255,255,255,0.55) !important; text-align: left !important; }",
           "",
           "          .footer-grid {",
           "            grid-template-columns: 1fr 1fr !important;",
@@ -78,8 +88,8 @@ export default function Footer() {
           "          .desktop-training-link { display: none !important; }",
           "          .mobile-training-link { display: inline-block !important; }",
           "          ",
-          "          .ft-contact-icon { display: none !important; }",
-          "          .ft-contact-item { gap: 0 !important; color: #64748B !important; font-size: 14px !important; line-height: 2 !important; }",
+          "          .ft-contact-icon { display: block !important; margin-top: 2px !important; }",
+          "          .ft-contact-item { gap: 10px !important; color: rgba(255,255,255,0.85) !important; font-size: 13.5px !important; line-height: 1.6 !important; }",
           "          ",
           "          .footer-bottom-responsive {",
           "            flex-direction: column !important;",
@@ -87,31 +97,42 @@ export default function Footer() {
           "            text-align: left !important;",
           "            gap: 8px !important;",
           "            padding: 24px 0 !important;",
-          "            border-top: 1px solid rgba(255,255,255,0.1) !important;",
+          "            border-top: 1px solid rgba(255,255,255,0.12) !important;",
           "          }",
           "          ",
           "          .brand-desc {",
           "            font-size: 14px !important;",
-          "            color: #64748B !important;",
+          "            color: rgba(255,255,255,0.75) !important;",
           "          }",
           "        }"
         ].join('\n')
       }} />
-      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px" }}>
+      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px", position: "relative", zIndex: 1 }}>
         <div className="footer-grid">
 
           {/* Brand */}
           <div className="ft-brand">
-            <Link href={isTraining ? "/training" : "/"} style={{ display: "inline-block" }}>
-              <Image
-                src="/LOGO MAP NO BACKGROUND.png"
-                alt="Logo Mawaddah Angkasa Prima"
-                width={140}
-                height={48}
-                style={{ height: 48, width: "auto", objectFit: "contain", marginBottom: 16 }}
-              />
+            <Link href={isTraining ? "/training" : "/"} style={{ display: "inline-block", textDecoration: "none", marginBottom: 16 }}>
+              <div
+                style={{
+                  background: "#FFFFFF",
+                  padding: "6px 14px",
+                  borderRadius: 8,
+                  display: "inline-flex",
+                  alignItems: "center",
+                  boxShadow: "0 3px 12px rgba(0, 0, 0, 0.15)",
+                }}
+              >
+                <Image
+                  src="/LOGO MAP NO BACKGROUND.png"
+                  alt="Logo Mawaddah Angkasa Prima"
+                  width={135}
+                  height={42}
+                  style={{ height: 38, width: "auto", objectFit: "contain" }}
+                />
+              </div>
             </Link>
-            <p className="brand-desc" style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.88rem", lineHeight: 1.75, maxWidth: 300 }}>
+            <p className="brand-desc" style={{ color: "rgba(255,255,255,0.75)", fontSize: "0.88rem", lineHeight: 1.75, maxWidth: 300 }}>
               {isTraining
                 ? "Pusat pendidikan dan pelatihan kejuruan aviasi terpadu berstandar industri dan berlisensi resmi di Indonesia."
                 : "Mitra terpercaya layanan ground handling & aviasi di Indonesia."}
@@ -120,21 +141,21 @@ export default function Footer() {
 
           {/* Column 2: Services / Training Programs */}
           <div className="ft-services">
-            <h4 className="ft-title" style={{ color: "#fff", fontWeight: 700, fontSize: "0.9rem", marginBottom: 20 }}>
+            <h4 className="ft-title" style={{ color: "#FFFFFF", fontWeight: 700, fontSize: "0.92rem", marginBottom: 20, letterSpacing: "0.03em", textTransform: "uppercase" }}>
               {isTraining ? "Program Pelatihan" : "Layanan Utama"}
             </h4>
             <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: 10 }}>
               {isTraining
                 ? trainingProgramsList.map((prog) => (
                     <li key={prog.name}>
-                      <Link href={prog.href} className="ft-link" style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.88rem", textDecoration: "none" }}>
+                      <Link href={prog.href} className="ft-link">
                         {prog.name}
                       </Link>
                     </li>
                   ))
                 : mainFooterServices.map((s) => (
                     <li key={s.name}>
-                      <Link href={s.href} className="ft-link" style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.88rem", textDecoration: "none" }}>
+                      <Link href={s.href} className="ft-link">
                         {s.name}
                       </Link>
                     </li>
@@ -144,21 +165,21 @@ export default function Footer() {
 
           {/* Column 3: Navigation */}
           <div className="ft-nav">
-            <h4 className="ft-title" style={{ color: "#fff", fontWeight: 700, fontSize: "0.9rem", marginBottom: 20 }}>
+            <h4 className="ft-title" style={{ color: "#FFFFFF", fontWeight: 700, fontSize: "0.92rem", marginBottom: 20, letterSpacing: "0.03em", textTransform: "uppercase" }}>
               {isTraining ? "Navigasi Diklat" : "Navigasi"}
             </h4>
             <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: 12 }}>
               {isTraining
                 ? trainingNavLinks.map((item) => (
                     <li key={item.name}>
-                      <Link className="ft-link" href={item.href} style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.88rem", textDecoration: "none", transition: "color 0.2s" }}>
+                      <Link className="ft-link" href={item.href}>
                         {item.name}
                       </Link>
                     </li>
                   ))
                 : mainNavLinks.map((l, i) => (
                     <li key={l}>
-                      <Link className="ft-link" href={mainNavHrefs[i]} style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.88rem", textDecoration: "none", transition: "color 0.2s" }}>
+                      <Link className="ft-link" href={mainNavHrefs[i]}>
                         {l}
                       </Link>
                     </li>
@@ -168,7 +189,7 @@ export default function Footer() {
 
           {/* Column 4: Contact */}
           <div className="ft-contact">
-            <h4 className="ft-title" style={{ color: "#fff", fontWeight: 700, fontSize: "0.9rem", marginBottom: 20 }}>
+            <h4 className="ft-title" style={{ color: "#FFFFFF", fontWeight: 700, fontSize: "0.92rem", marginBottom: 20, letterSpacing: "0.03em", textTransform: "uppercase" }}>
               {isTraining ? "Pendaftaran & Kontak" : "Hubungi Kami"}
             </h4>
             <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: 12 }}>
@@ -212,13 +233,13 @@ export default function Footer() {
         </div>
 
         {/* Bottom */}
-        <div className="footer-bottom-responsive" style={{ borderTop: "1px solid rgba(255,255,255,0.06)", padding: "24px 0", display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 8 }}>
-          <p className="ft-copy" style={{ color: "rgba(255,255,255,0.35)", fontSize: "0.82rem", margin: 0 }}>
+        <div className="footer-bottom-responsive" style={{ borderTop: "1px solid rgba(255,255,255,0.12)", padding: "24px 0", display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 8 }}>
+          <p className="ft-copy" style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.82rem", margin: 0 }}>
             {isTraining
               ? `© ${year} MAP Training Center — PT Mawaddah Angkasa Prima. Seluruh hak dilindungi.`
               : `© ${year} Mawaddah Angkasa Prima. Seluruh hak dilindungi.`}
           </p>
-          <p className="ft-copy" style={{ color: "rgba(255,255,255,0.35)", fontSize: "0.82rem", margin: 0 }}>
+          <p className="ft-copy" style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.82rem", margin: 0 }}>
             {isTraining
               ? "Pendidikan & Pelatihan Kejuruan Aviasi | Indonesia"
               : "Ground Handling & Aviation Services | Indonesia"}

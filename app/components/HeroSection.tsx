@@ -151,7 +151,7 @@ export default function HeroSection() {
           "  transition: all 0.3s ease;",
           "}",
           ".dot.active {",
-          "  background: #4A9EF5;",
+          "  background: #FFFFFF;",
           "  width: 16px;",
           "  border-radius: 4px;",
           "}",
@@ -172,9 +172,9 @@ export default function HeroSection() {
         style={{
           position: "relative",
           zIndex: 1,
-          background: "rgba(1,13,46,0.92)",
+          background: "linear-gradient(90deg, rgba(0, 75, 175, 0.95) 0%, rgba(0, 98, 210, 0.95) 50%, rgba(0, 75, 175, 0.95) 100%)",
           backdropFilter: "blur(10px)",
-          borderTop: "1px solid rgba(255,255,255,0.08)",
+          borderTop: "1px solid rgba(255, 255, 255, 0.16)",
         }}
       >
         <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0" }}>
@@ -189,15 +189,15 @@ export default function HeroSection() {
                   alignItems: "center",
                   gap: 16,
                   padding: "24px 24px",
-                  borderRight: i < pillars.length - 1 ? "1px solid rgba(255,255,255,0.08)" : "none",
+                  borderRight: i < pillars.length - 1 ? "1px solid rgba(255, 255, 255, 0.12)" : "none",
                 }}
               >
-                <div style={{ width: 44, height: 44, borderRadius: 10, background: "rgba(74,158,245,0.15)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                  <i className={"fas " + p.icon} style={{ color: "#4A9EF5", fontSize: "1.1rem" }} />
+                <div style={{ width: 44, height: 44, borderRadius: 10, background: "rgba(255, 255, 255, 0.18)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                  <i className={"fas " + p.icon} style={{ color: "#FFFFFF", fontSize: "1.1rem" }} />
                 </div>
                 <div>
-                  <strong className="pillar-title-text" style={{ color: "#fff", display: "block", fontSize: "0.9rem", fontWeight: 600 }}>{p.title}</strong>
-                  <span className="pillar-desc-text" style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.78rem" }}>{p.desc}</span>
+                  <strong className="pillar-title-text" style={{ color: "#FFFFFF", display: "block", fontSize: "0.9rem", fontWeight: 600 }}>{p.title}</strong>
+                  <span className="pillar-desc-text" style={{ color: "rgba(255, 255, 255, 0.8)", fontSize: "0.78rem" }}>{p.desc}</span>
                 </div>
               </div>
             ))}
@@ -216,8 +216,8 @@ export default function HeroSection() {
               >
                 {extendedPillars.map((p, i) => (
                   <div key={i} style={{ width: "100%", flexShrink: 0, padding: "20px 20px", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "flex-start", textAlign: "left" }}>
-                    <strong className="pillar-title-text" style={{ color: "#fff", display: "block", fontSize: "0.9rem", fontWeight: 600, marginBottom: "4px" }}>{p.title}</strong>
-                    <span className="pillar-desc-text" style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.78rem" }}>{p.desc}</span>
+                    <strong className="pillar-title-text" style={{ color: "#FFFFFF", display: "block", fontSize: "0.9rem", fontWeight: 600, marginBottom: "4px" }}>{p.title}</strong>
+                    <span className="pillar-desc-text" style={{ color: "rgba(255, 255, 255, 0.8)", fontSize: "0.78rem" }}>{p.desc}</span>
                   </div>
                 ))}
               </div>

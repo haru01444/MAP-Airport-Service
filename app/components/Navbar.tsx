@@ -315,7 +315,7 @@ export default function Navbar() {
   const aboutMenuItemsToUse = currentConfig.aboutMenuItems || mainAboutMenuItems;
   const aboutTitleToUse = currentConfig.aboutTitle || "Tentang Kami";
   const aboutHrefToUse = currentConfig.aboutHref || "/about";
-  const activeAccentColor = isTrainingPage ? "#F5A623" : "#4A9EF5";
+  const activeAccentColor = isTrainingPage ? "#FFD54F" : "#90CAF9";
 
   return (
     <nav
@@ -326,50 +326,136 @@ export default function Navbar() {
         right: 0,
         zIndex: 1000,
         transition: "all 0.35s ease",
-        background: scrolled ? "rgba(1, 13, 46, 0.96)" : "transparent",
-        backdropFilter: scrolled ? "blur(14px)" : "none",
-        borderBottom: scrolled ? "1px solid rgba(255, 255, 255, 0.12)" : "1px solid rgba(255, 255, 255, 0.05)",
-        boxShadow: scrolled ? "0 8px 30px rgba(0, 0, 0, 0.35)" : "none",
+        background: scrolled || menuOpen ? "#0062D2" : "transparent",
+        boxShadow: scrolled || menuOpen
+          ? "0 6px 24px rgba(0, 40, 110, 0.45)"
+          : "none",
+        borderBottom: scrolled || menuOpen
+          ? "1px solid rgba(255, 255, 255, 0.12)"
+          : "none",
         padding: scrolled ? "12px 0" : "18px 0",
+        display: "flex",
+        alignItems: "center",
       }}
     >
       <div
         style={{
-          maxWidth: 1200,
+          width: "100%",
+          maxWidth: 1240,
           margin: "0 auto",
           padding: "0 24px",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
+          position: "relative",
+          zIndex: 2,
         }}
       >
-        {/* Logo */}
-        <Link href={logoHref} onClick={() => handleNavClick()}>
-          <Image
-            src="/LOGO MAP NO BACKGROUND.png"
-            alt="Logo Mawaddah Angkasa Prima"
-            width={140}
-            height={48}
-            style={{ height: 44, width: "auto", objectFit: "contain" }}
+        {/* Left Section: White Bay with Logo + 2 Stripes (Visible on scroll) */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            height: "100%",
+            position: "relative",
+          }}
+        >
+          {/* White Background extending from the left edge of the screen to the right of the logo */}
+          <div
+            style={{
+              position: "absolute",
+              top: scrolled ? -12 : -18,
+              bottom: scrolled ? -12 : -18,
+              right: 0,
+              left: "-100vw",
+              background: "#FFFFFF",
+              zIndex: 1,
+              opacity: scrolled || menuOpen ? 1 : 0,
+              transition: "all 0.35s ease",
+            }}
           />
-        </Link>
+
+          {/* Logo inside the White Bay */}
+          <Link
+            href={logoHref}
+            onClick={() => handleNavClick()}
+            style={{
+              position: "relative",
+              zIndex: 2,
+              display: "inline-flex",
+              alignItems: "center",
+              padding: "0 18px 0 0",
+              textDecoration: "none",
+            }}
+          >
+            <Image
+              src="/LOGO MAP NO BACKGROUND.png"
+              alt="Logo Mawaddah Angkasa Prima"
+              width={140}
+              height={46}
+              priority
+              style={{
+                height: 44,
+                width: "auto",
+                objectFit: "contain",
+              }}
+            />
+          </Link>
+
+          {/* 2 Sharp Straight Diagonal Stripes SVG */}
+          <div
+            style={{
+              position: "absolute",
+              top: scrolled ? -12 : -18,
+              bottom: scrolled ? -12 : -18,
+              left: "100%",
+              width: 140,
+              pointerEvents: "none",
+              zIndex: 1,
+              opacity: scrolled || menuOpen ? 1 : 0,
+              transition: "all 0.35s ease",
+            }}
+          >
+            <svg
+              viewBox="0 0 140 70"
+              preserveAspectRatio="none"
+              style={{ width: "100%", height: "100%", display: "block" }}
+            >
+              {/* Seamless straight diagonal cut from white box */}
+              <path
+                d="M 0,0 L 48,0 L 0,70 Z"
+                fill="#FFFFFF"
+              />
+              {/* Stripe 1 (White: 14px, preceded by 24px Blue Gap) */}
+              <path
+                d="M 24,70 L 72,0 L 86,0 L 38,70 Z"
+                fill="#FFFFFF"
+              />
+              {/* Stripe 2 (White: 14px, preceded by 24px Blue Gap) */}
+              <path
+                d="M 62,70 L 110,0 L 124,0 L 76,70 Z"
+                fill="#FFFFFF"
+              />
+            </svg>
+          </div>
+        </div>
 
         <style dangerouslySetInnerHTML={{
           __html: [
             ".mobile-hamburger { display: none !important; }",
-            ".desktop-dropdown-item { color: rgba(255, 255, 255, 0.9) !important; }",
-            `.desktop-dropdown-item:hover { background: rgba(255, 255, 255, 0.12) !important; color: ${activeAccentColor} !important; }`,
-            `.desktop-nav-link:hover { color: ${activeAccentColor} !important; }`,
-            `.mobile-nav-link:hover { color: ${activeAccentColor} !important; }`,
+            ".desktop-dropdown-item { color: rgba(255, 255, 255, 0.92) !important; font-weight: 500 !important; }",
+            `.desktop-dropdown-item:hover { background: rgba(255, 255, 255, 0.18) !important; color: #FFFFFF !important; }`,
+            `.desktop-nav-link:hover { color: #FFFFFF !important; background: rgba(255, 255, 255, 0.12) !important; }`,
+            `.mobile-nav-link:hover { color: #FFFFFF !important; background: rgba(255, 255, 255, 0.15) !important; }`,
             "@keyframes navDropdownFade {",
             "  from { opacity: 0; transform: translateY(6px); }",
             "  to { opacity: 1; transform: translateY(0); }",
             "}",
-            "@media (max-width: 768px) {",
+            "@media (max-width: 860px) {",
             "  .desktop-nav { display: none !important; }",
             "  .mobile-hamburger { display: flex !important; }",
             "  .mobile-nav-link { font-size: 14.5px !important; font-weight: 500 !important; }",
-            "  .mobile-nav-btn { font-size: 13px !important; font-weight: 600 !important; }",
+            "  .mobile-nav-btn { font-size: 13.5px !important; font-weight: 600 !important; }",
             "}"
           ].join('\n')
         }} />
@@ -380,7 +466,7 @@ export default function Navbar() {
           style={{
             display: "flex",
             listStyle: "none",
-            gap: 6,
+            gap: 8,
             alignItems: "center",
           }}
         >
@@ -436,12 +522,12 @@ export default function Navbar() {
                   <div
                     style={{
                       minWidth: 220,
-                      background: "rgba(1, 13, 46, 0.96)",
+                      background: "rgba(0, 45, 115, 0.98)",
                       backdropFilter: "blur(16px)",
-                      border: "1px solid rgba(255, 255, 255, 0.15)",
+                      border: "1px solid rgba(255, 255, 255, 0.2)",
                       borderRadius: 8,
                       padding: "6px",
-                      boxShadow: "0 14px 36px rgba(0, 0, 0, 0.4)",
+                      boxShadow: "0 14px 36px rgba(0, 20, 60, 0.45)",
                       display: "flex",
                       flexDirection: "column",
                       gap: 2,
@@ -489,9 +575,9 @@ export default function Navbar() {
                   alignItems: "center",
                   gap: 6,
                   color: servicesDropdownOpen || pathname === "/services" ? activeAccentColor : "#FFFFFF",
-                  background: servicesDropdownOpen ? "rgba(255, 255, 255, 0.1)" : "transparent",
+                  background: servicesDropdownOpen ? "rgba(255, 255, 255, 0.15)" : "transparent",
                   fontWeight: 600,
-                  fontSize: "0.9rem",
+                  fontSize: "0.92rem",
                   padding: "8px 14px",
                   borderRadius: 6,
                   cursor: "pointer",
@@ -525,12 +611,12 @@ export default function Navbar() {
                   <div
                     style={{
                       minWidth: 220,
-                      background: "rgba(1, 13, 46, 0.96)",
+                      background: "rgba(0, 45, 115, 0.98)",
                       backdropFilter: "blur(16px)",
-                      border: "1px solid rgba(255, 255, 255, 0.15)",
+                      border: "1px solid rgba(255, 255, 255, 0.2)",
                       borderRadius: 8,
                       padding: "6px",
-                      boxShadow: "0 14px 36px rgba(0, 0, 0, 0.4)",
+                      boxShadow: "0 14px 36px rgba(0, 20, 60, 0.45)",
                       display: "flex",
                       flexDirection: "column",
                       gap: 2,
@@ -578,9 +664,9 @@ export default function Navbar() {
                   alignItems: "center",
                   gap: 6,
                   color: programsDropdownOpen || pathname.startsWith("/training/programs") ? activeAccentColor : "#FFFFFF",
-                  background: programsDropdownOpen ? "rgba(255, 255, 255, 0.1)" : "transparent",
+                  background: programsDropdownOpen ? "rgba(255, 255, 255, 0.15)" : "transparent",
                   fontWeight: 600,
-                  fontSize: "0.9rem",
+                  fontSize: "0.92rem",
                   padding: "8px 14px",
                   borderRadius: 6,
                   cursor: "pointer",
@@ -614,12 +700,12 @@ export default function Navbar() {
                   <div
                     style={{
                       minWidth: 240,
-                      background: "rgba(1, 13, 46, 0.96)",
+                      background: "rgba(0, 45, 115, 0.98)",
                       backdropFilter: "blur(16px)",
-                      border: "1px solid rgba(255, 255, 255, 0.15)",
+                      border: "1px solid rgba(255, 255, 255, 0.2)",
                       borderRadius: 8,
                       padding: "6px",
-                      boxShadow: "0 14px 36px rgba(0, 0, 0, 0.4)",
+                      boxShadow: "0 14px 36px rgba(0, 20, 60, 0.45)",
                       display: "flex",
                       flexDirection: "column",
                       gap: 2,
@@ -667,9 +753,9 @@ export default function Navbar() {
                   alignItems: "center",
                   gap: 6,
                   color: facilitiesDropdownOpen || pathname.startsWith("/training/facilities") ? activeAccentColor : "#FFFFFF",
-                  background: facilitiesDropdownOpen ? "rgba(255, 255, 255, 0.1)" : "transparent",
+                  background: facilitiesDropdownOpen ? "rgba(255, 255, 255, 0.15)" : "transparent",
                   fontWeight: 600,
-                  fontSize: "0.9rem",
+                  fontSize: "0.92rem",
                   padding: "8px 14px",
                   borderRadius: 6,
                   cursor: "pointer",
@@ -703,12 +789,12 @@ export default function Navbar() {
                   <div
                     style={{
                       minWidth: 230,
-                      background: "rgba(1, 13, 46, 0.96)",
+                      background: "rgba(0, 45, 115, 0.98)",
                       backdropFilter: "blur(16px)",
-                      border: "1px solid rgba(255, 255, 255, 0.15)",
+                      border: "1px solid rgba(255, 255, 255, 0.2)",
                       borderRadius: 8,
                       padding: "6px",
-                      boxShadow: "0 14px 36px rgba(0, 0, 0, 0.4)",
+                      boxShadow: "0 14px 36px rgba(0, 20, 60, 0.45)",
                       display: "flex",
                       flexDirection: "column",
                       gap: 2,
@@ -751,7 +837,7 @@ export default function Navbar() {
                   style={{
                     color: pathname === item.href ? activeAccentColor : "#FFFFFF",
                     fontWeight: 600,
-                    fontSize: "0.9rem",
+                    fontSize: "0.92rem",
                     padding: "8px 14px",
                     borderRadius: 6,
                     transition: "all 0.2s",
@@ -768,7 +854,7 @@ export default function Navbar() {
                   style={{
                     color: (pathname === "/" && activeSection === item.href.replace(/^\/?#/, "")) || pathname === item.href ? activeAccentColor : "#FFFFFF",
                     fontWeight: 600,
-                    fontSize: "0.9rem",
+                    fontSize: "0.92rem",
                     padding: "8px 14px",
                     borderRadius: 6,
                     transition: "all 0.2s",
@@ -790,12 +876,13 @@ export default function Navbar() {
                 background: currentConfig.cta.gradient,
                 color: currentConfig.cta.textColor || "#fff",
                 fontWeight: 700,
-                fontSize: "0.9rem",
-                padding: "10px 22px",
-                borderRadius: 6,
-                transition: "all 0.2s",
+                fontSize: "0.92rem",
+                padding: "9px 22px",
+                borderRadius: 8,
+                transition: "all 0.2s ease",
                 display: "inline-block",
                 textDecoration: "none",
+                boxShadow: "0 4px 14px rgba(0, 0, 0, 0.18)",
               }}
             >
               {currentConfig.cta.label}
@@ -815,7 +902,7 @@ export default function Navbar() {
             display: "flex",
             flexDirection: "column",
             gap: 5,
-            padding: 4,
+            padding: 6,
           }}
         >
           {[0, 1, 2].map((i) => (
@@ -824,7 +911,7 @@ export default function Navbar() {
               style={{
                 display: "block",
                 width: 24,
-                height: 2,
+                height: 2.5,
                 background: "#FFFFFF",
                 borderRadius: 2,
                 transition: "all 0.3s",
@@ -845,15 +932,19 @@ export default function Navbar() {
       {menuOpen && (
         <div
           style={{
-            background: "#010D2E",
+            position: "absolute",
+            top: "100%",
+            left: 0,
+            right: 0,
+            background: "#004098",
             padding: "20px 24px 32px",
             display: "flex",
             flexDirection: "column",
             gap: 8,
-            maxHeight: "calc(100vh - 80px)",
+            maxHeight: "calc(100vh - 70px)",
             overflowY: "auto",
-            borderBottom: "1px solid rgba(255, 255, 255, 0.15)",
-            boxShadow: "0 16px 36px rgba(0, 0, 0, 0.4)",
+            borderBottom: "1px solid rgba(255, 255, 255, 0.18)",
+            boxShadow: "0 16px 36px rgba(0, 20, 60, 0.45)",
           }}
           className="md:hidden"
         >
