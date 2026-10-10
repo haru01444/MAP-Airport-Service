@@ -89,7 +89,7 @@ const homeNavConfig: PageNavConfig = {
   cta: {
     href: "/#contact",
     label: "Kontak",
-    gradient: "linear-gradient(135deg, #1967D2, #4A9EF5)",
+    gradient: "linear-gradient(180deg, #1E88E5 0%, #1565C0 100%)",
     textColor: "#fff",
   },
 };
@@ -107,8 +107,8 @@ const trainingNavConfig: PageNavConfig = {
   cta: {
     href: "/training#contact-training",
     label: "Pendaftaran",
-    gradient: "linear-gradient(135deg, #F5A623, #e8941f)",
-    textColor: "#001F5B",
+    gradient: "linear-gradient(180deg, #1E88E5 0%, #1565C0 100%)",
+    textColor: "#fff",
   },
 };
 
@@ -122,20 +122,15 @@ const navConfigs: Record<string, PageNavConfig> = {
     aboutTitle: "Tentang Kami",
     aboutHref: "/about",
     aboutMenuItems: mainAboutMenuItems,
-    hasServicesDropdown: false,
+    hasServicesDropdown: true,
     navItems: [
-      { href: "#about-shuttle", label: "Tentang Shuttle" },
-      { href: "#fleet", label: "Armada" },
-      { href: "#media-options", label: "Pilihan Media" },
-      { href: "#rates", label: "Tarif & Paket" },
-      { href: "#ideal-for", label: "Target Industri" },
       { href: "/news", label: "Berita" },
       { href: "/training", label: "Karir" },
     ],
     cta: {
       href: "#contact-section",
       label: "Hubungi Sales",
-      gradient: "linear-gradient(135deg, #1967D2, #4A9EF5)",
+      gradient: "linear-gradient(180deg, #1E88E5 0%, #1565C0 100%)",
       textColor: "#fff",
     },
   },
@@ -443,15 +438,21 @@ export default function Navbar() {
         <style dangerouslySetInnerHTML={{
           __html: [
             ".mobile-hamburger { display: none !important; }",
-            ".desktop-dropdown-item { color: rgba(255, 255, 255, 0.92) !important; font-weight: 500 !important; }",
-            `.desktop-dropdown-item:hover { background: rgba(255, 255, 255, 0.18) !important; color: #FFFFFF !important; }`,
+            ".desktop-dropdown-item { color: rgba(255, 255, 255, 0.9) !important; font-weight: 500 !important; font-size: 0.88rem !important; transition: all 0.15s ease !important; }",
+            `.desktop-dropdown-item:hover { background: rgba(255, 255, 255, 0.14) !important; color: #FFFFFF !important; }`,
+            `.desktop-nav-link { font-weight: 500 !important; font-size: 0.91rem !important; letter-spacing: 0.01em !important; border-radius: 6px !important; transition: all 0.2s ease !important; }`,
             `.desktop-nav-link:hover { color: #FFFFFF !important; background: rgba(255, 255, 255, 0.12) !important; }`,
+            `.desktop-nav-link:focus-visible, .desktop-dropdown-item:focus-visible { outline: 2px solid rgba(255, 255, 255, 0.8) !important; outline-offset: 2px !important; }`,
+            `.desktop-nav-cta { font-weight: 600 !important; font-size: 0.9rem !important; letter-spacing: 0.02em !important; padding: 9px 22px !important; border-radius: 6px !important; border: 1px solid rgba(255, 255, 255, 0.25) !important; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important; transition: all 0.2s ease !important; }`,
+            `.desktop-nav-cta:hover { filter: brightness(1.08) !important; transform: translateY(-1px) !important; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.22) !important; }`,
+            `.desktop-nav-cta:active { transform: translateY(0) !important; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15) !important; }`,
+            `.desktop-nav-cta:focus-visible { outline: none !important; box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 4px #1E88E5 !important; }`,
             `.mobile-nav-link:hover { color: #FFFFFF !important; background: rgba(255, 255, 255, 0.15) !important; }`,
             "@keyframes navDropdownFade {",
-            "  from { opacity: 0; transform: translateY(6px); }",
+            "  from { opacity: 0; transform: translateY(4px); }",
             "  to { opacity: 1; transform: translateY(0); }",
             "}",
-            "@media (max-width: 860px) {",
+            "@media (max-width: 880px) {",
             "  .desktop-nav { display: none !important; }",
             "  .mobile-hamburger { display: flex !important; }",
             "  .mobile-nav-link { font-size: 14.5px !important; font-weight: 500 !important; }",
@@ -872,17 +873,14 @@ export default function Navbar() {
             <Link
               href={currentConfig.cta.href}
               onClick={(e) => scrollTo(e, currentConfig.cta.href)}
+              className="desktop-nav-cta"
               style={{
                 background: currentConfig.cta.gradient,
-                color: currentConfig.cta.textColor || "#fff",
-                fontWeight: 700,
-                fontSize: "0.92rem",
-                padding: "9px 22px",
-                borderRadius: 8,
-                transition: "all 0.2s ease",
-                display: "inline-block",
+                color: currentConfig.cta.textColor || "#FFFFFF",
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
                 textDecoration: "none",
-                boxShadow: "0 4px 14px rgba(0, 0, 0, 0.18)",
               }}
             >
               {currentConfig.cta.label}
