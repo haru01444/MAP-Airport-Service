@@ -59,7 +59,7 @@ const coreServices: CoreService[] = [
     id: "advertising",
     tag: "Out-of-Home Media",
     title: "Airport Shuttle Advertising",
-    image: "/fleet-jakarta-cgk.jpg",
+    image: "/option-window-sticker.jpeg",
     link: "/advertising",
   },
   {

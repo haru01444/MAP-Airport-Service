@@ -64,19 +64,19 @@ export default function ServicesSlider() {
   };
 
   return (
-    <div id="services-slider-root" style={{ background: "#F8FAFC", position: "relative" }}>
+    <div id="services-slider-root" style={{ background: "#FFFFFF", position: "relative" }}>
       <style dangerouslySetInnerHTML={{
         __html: [
           ".svc-slider-container { max-width: 1200px; margin: 0 auto; padding: 0 24px 80px; }",
-          ".svc-tab-floating-card { transform: translateY(-36px); position: relative; z-index: 10; background: #FFFFFF; border-radius: 8px; padding: 20px 24px; box-shadow: 0 10px 30px rgba(0, 31, 91, 0.06); border: 1px solid #E2E8F0; margin-bottom: 24px; }",
+          ".svc-tab-nav-container { background: #FFFFFF; border-radius: 8px; padding: 14px 16px; border: 1px solid #E2E8F0; transform: translateY(-50%); margin-bottom: -20px; position: relative; z-index: 10; box-shadow: 0 12px 32px rgba(0, 31, 91, 0.12); }",
           ".svc-tab-fullwidth-container { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; width: 100%; }",
           ".svc-category-btn { width: 100%; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px 14px; border-radius: 6px; font-size: 0.88rem; font-weight: 500; transition: all 0.2s ease; cursor: pointer; border: 1px solid transparent; white-space: nowrap; }",
           ".svc-category-btn.active { background: #001F5B; color: #FFFFFF; border-color: #001F5B; box-shadow: 0 2px 8px rgba(0, 31, 91, 0.2); font-weight: 600; }",
           ".svc-category-btn.inactive { background: #FFFFFF; color: #475569; border-color: #E2E8F0; }",
           ".svc-category-btn.inactive:hover { background: #F1F5F9; color: #001F5B; border-color: #CBD5E1; }",
           "",
-          "/* Slider Main Card */",
-          ".svc-slide-card { background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 8px; padding: 40px 36px; box-shadow: 0 4px 20px rgba(0,31,91,0.04); display: flex; flex-direction: column; justify-content: space-between; position: relative; }",
+          "/* Slider Main Content (Without background card) */",
+          ".svc-slide-card { background: transparent; border: none; border-radius: 0; padding: 12px 0 0; box-shadow: none; display: flex; flex-direction: column; justify-content: space-between; position: relative; }",
           ".svc-hero-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 48px; align-items: center; }",
           ".svc-sec-title { font-family: var(--font-poppins); font-size: clamp(2rem, 3.5vw, 2.6rem); font-weight: 900; line-height: 1.15; color: #001F5B; margin-bottom: 16px; text-transform: uppercase; }",
           ".svc-sec-title span { color: inherit; }",
@@ -89,7 +89,7 @@ export default function ServicesSlider() {
           ".svc-check-dot { width: 8px; height: 8px; border-radius: 50%; background: #1967D2; flex-shrink: 0; margin-top: 6px; }",
           "",
           "/* Navigation Controls Bar */",
-          ".svc-controls-bar { display: flex; align-items: center; justify-content: space-between; margin-top: 48px; padding-top: 28px; border-top: 1px solid #F1F5F9; }",
+          ".svc-controls-bar { display: flex; align-items: center; justify-content: space-between; margin-top: 48px; padding-top: 28px; border-top: 1px solid #E2E8F0; }",
           ".svc-nav-btn { display: inline-flex; align-items: center; gap: 10px; padding: 12px 24px; border-radius: 6px; font-family: var(--font-poppins); font-weight: 700; font-size: 0.9rem; cursor: pointer; transition: all 0.2s ease; border: 1px solid #CBD5E1; background: #FFFFFF; color: #001F5B; }",
           ".svc-nav-btn:hover { background: #001F5B; color: #FFFFFF; border-color: #001F5B; transform: translateY(-2px); box-shadow: 0 4px 14px rgba(0,31,91,0.15); }",
           ".svc-nav-btn:hover .nav-icon { color: #FFFFFF; }",
@@ -113,7 +113,7 @@ export default function ServicesSlider() {
           "    flex: 0 0 auto !important;",
           "    width: auto !important;",
           "  }",
-          "  .svc-slide-card { padding: 24px 20px !important; }",
+          "  .svc-slide-card { padding: 8px 0 0 !important; }",
           "  .svc-hero-grid { grid-template-columns: 1fr !important; gap: 32px !important; }",
           "  .svc-checklist { grid-template-columns: 1fr !important; gap: 10px !important; }",
           "  .bento-sub-grid { grid-template-columns: 1fr !important; }",
@@ -124,8 +124,8 @@ export default function ServicesSlider() {
       }} />
 
       <div className="svc-slider-container">
-        {/* Floating Card for Category Tabs Navigation */}
-        <div className="svc-tab-floating-card">
+        {/* Category Tabs Navigation Bar */}
+        <div className="svc-tab-nav-container">
           <div className="svc-tab-fullwidth-container">
             {serviceTabs.map((tab, idx) => {
               const isActive = activeIndex === idx;
@@ -196,17 +196,13 @@ export default function ServicesSlider() {
               <div>
                 <div className="svc-img-frame">
                   <Image
-                    src="/services-passenger-host.jpg"
-                    alt="Ground Handling & Passenger Service MAP"
+                    src="/about-map-operations-v2.jpeg"
+                    alt="Ground Handling Operations MAP"
                     fill
                     style={{ objectFit: "cover" }}
                     sizes="(max-width: 900px) 100vw, 500px"
                     priority
                   />
-                  <div style={{ position: "absolute", bottom: 14, left: 14, background: "rgba(0, 31, 91, 0.92)", backdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,0.15)", padding: "10px 16px", borderRadius: 8, color: "#fff" }}>
-                    <strong style={{ display: "block", fontSize: "0.85rem" }}>MAP Ground Handling</strong>
-                    <span style={{ fontSize: "0.72rem", color: "rgba(255,255,255,0.8)" }}>Layanan Terintegrasi Sejak 2017</span>
-                  </div>
                 </div>
               </div>
             </div>
@@ -243,20 +239,15 @@ export default function ServicesSlider() {
                 </ul>
               </div>
 
-              <div style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", borderRadius: 16, padding: "32px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
-                <div style={{ width: 48, height: 48, borderRadius: 12, background: "rgba(25,103,210,0.1)", display: "flex", alignItems: "center", justifyContent: "center", color: "#1967D2", fontSize: "1.3rem", marginBottom: 18 }}>
-                  <i className="fas fa-user-tie" />
-                </div>
-                <h3 style={{ fontFamily: "var(--font-poppins)", fontSize: "1.25rem", fontWeight: 700, color: "#001F5B", marginBottom: 10 }}>
-                  Standar Pelayanan Hospitality Prima
-                </h3>
-                <p style={{ color: "#475569", fontSize: "0.92rem", lineHeight: 1.7, margin: "0 0 18px" }}>
-                  Personel customer service dan ticketing MAP dibekali keahlian sistem DCS maskapai, ramah, sigap, serta siap berkoordinasi untuk kelancaran arus penumpang di area terminal dan boarding gate.
-                </p>
-                <div style={{ borderTop: "1px solid #E2E8F0", paddingTop: 14 }}>
-                  <span style={{ fontSize: "0.82rem", color: "#1967D2", fontWeight: 700 }}>
-                    ✓ Melayani Terminal Domestik &amp; Internasional
-                  </span>
+              <div>
+                <div className="svc-img-frame">
+                  <Image
+                    src="/services-passenger-host.jpg"
+                    alt="Passenger & Ticketing Services MAP"
+                    fill
+                    style={{ objectFit: "cover" }}
+                    sizes="(max-width: 900px) 100vw, 500px"
+                  />
                 </div>
               </div>
             </div>
@@ -303,10 +294,6 @@ export default function ServicesSlider() {
                     style={{ objectFit: "cover" }}
                     sizes="(max-width: 900px) 100vw, 500px"
                   />
-                  <div style={{ position: "absolute", bottom: 14, left: 14, background: "rgba(0, 31, 91, 0.92)", backdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,0.15)", padding: "10px 16px", borderRadius: 8, color: "#fff" }}>
-                    <strong style={{ display: "block", fontSize: "0.88rem", fontFamily: "var(--font-poppins)" }}>RAMP SERVICES</strong>
-                    <span style={{ fontSize: "0.72rem", color: "#F5A623", fontWeight: 600 }}>Operasional Sisi Udara 24/7</span>
-                  </div>
                 </div>
               </div>
             </div>
@@ -343,20 +330,15 @@ export default function ServicesSlider() {
                 </ul>
               </div>
 
-              <div style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", borderRadius: 16, padding: "32px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
-                <div style={{ width: 48, height: 48, borderRadius: 12, background: "rgba(25,103,210,0.1)", display: "flex", alignItems: "center", justifyContent: "center", color: "#1967D2", fontSize: "1.3rem", marginBottom: 18 }}>
-                  <i className="fas fa-broom" />
-                </div>
-                <h3 style={{ fontFamily: "var(--font-poppins)", fontSize: "1.25rem", fontWeight: 700, color: "#001F5B", marginBottom: 10 }}>
-                  Bahan &amp; Prosedur Tersertifikasi
-                </h3>
-                <p style={{ color: "#475569", fontSize: "0.92rem", lineHeight: 1.7, margin: "0 0 18px" }}>
-                  Seluruh proses pembersihan kabin dan pencucian eksterior menggunakan chemical pembersih ramah lingkungan yang memenuhi sertifikasi pabrikan pesawat (Boeing &amp; Airbus approved).
-                </p>
-                <div style={{ borderTop: "1px solid #E2E8F0", paddingTop: 14 }}>
-                  <span style={{ fontSize: "0.82rem", color: "#1967D2", fontWeight: 700 }}>
-                    ✓ Cepat, Bersih &amp; Menjaga Standar Higienitas
-                  </span>
+              <div>
+                <div className="svc-img-frame">
+                  <Image
+                    src="/Aircraft-Cabin-Cleaning.jpeg"
+                    alt="Aircraft & Cabin Cleaning MAP"
+                    fill
+                    style={{ objectFit: "cover" }}
+                    sizes="(max-width: 900px) 100vw, 500px"
+                  />
                 </div>
               </div>
             </div>
@@ -364,86 +346,86 @@ export default function ServicesSlider() {
 
           {/* SLIDE 05: EQUIPMENT RENTAL SUPPORT */}
           {activeIndex === 4 && (
-            <div>
-              <div style={{ marginBottom: 28 }}>
+            <div className="svc-hero-grid">
+              <div>
                 <span style={{ display: "inline-block", color: "#1967D2", fontSize: "0.85rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 12 }}>
-                  05. EQUIPMENT
+                  05. GSE Fleet Support
                 </span>
-                <h2 className="svc-sec-title" style={{ marginBottom: 16 }}>
+                <h2 className="svc-sec-title">
                   Equipment Rental <span>Support</span>
                 </h2>
-                <p className="svc-sec-desc" style={{ maxWidth: 850, margin: 0, fontSize: "1.02rem", lineHeight: 1.7 }}>
+                <p className="svc-sec-desc">
                   Penyewaan peralatan Ground Support Equipment (GSE) berkualitas tinggi untuk menunjang kelancaran operasional di area bandara.
                 </p>
+
+                <ul className="svc-checklist">
+                  {[
+                    "GPU (Ground Power Unit) Rental Support",
+                    "GTC (Ground Tow Coupling) Rental Support",
+                    "ACU (Air Conditioning Unit) Rental Support",
+                    "BTT (Baggage Towing Tractor) Rental Support",
+                    "Aircraft Maintenance Stair Rental Support",
+                  ].map((item, i) => (
+                    <li key={i} className="svc-check-item">
+                      <span className="svc-check-dot" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
 
-              <ul className="svc-checklist" style={{ marginTop: 28, gridTemplateColumns: "1fr 1fr", gap: "20px 32px" }}>
-                {[
-                  "GPU (Ground Power Unit) Rental Support",
-                  "GTC (Ground Tow Coupling) Rental Support",
-                  "ACU (Air Conditioning Unit) Rental Support",
-                  "BTT(Baggage Towing Tractor) Rental Support",
-                  "Aircraft Maintenance Stair Rental Support",
-                ].map((item, i) => (
-                  <li key={i} className="svc-check-item" style={{ fontSize: "0.95rem", color: "#1E293B", fontWeight: 600 }}>
-                    <span className="svc-check-dot" style={{ background: "#10B981", borderRadius: 3, width: 10, height: 10, marginTop: 5 }} />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
+              <div>
+                <div className="svc-img-frame">
+                  <Image
+                    src="/Equipment-Rental-Support.jpeg"
+                    alt="GSE Equipment Rental Support MAP"
+                    fill
+                    style={{ objectFit: "cover" }}
+                    sizes="(max-width: 900px) 100vw, 500px"
+                  />
+                </div>
+              </div>
             </div>
           )}
 
           {/* SLIDE 06: OUTSOURCING STAFF */}
           {activeIndex === 5 && (
-            <div>
-              <div style={{ marginBottom: 24 }}>
-                <span style={{ display: "inline-block", color: "#1967D2", fontSize: "0.85rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 8 }}>
+            <div className="svc-hero-grid">
+              <div>
+                <span style={{ display: "inline-block", color: "#1967D2", fontSize: "0.85rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 12 }}>
                   06. Human Resources
                 </span>
-                <h2 className="svc-sec-title" style={{ marginBottom: 8 }}>
+                <h2 className="svc-sec-title">
                   Outsourcing <span>Staff</span>
                 </h2>
-                <p className="svc-sec-desc" style={{ maxWidth: 700, margin: 0 }}>
+                <p className="svc-sec-desc">
                   Menyediakan tenaga kerja profesional dan bersertifikasi untuk mendukung berbagai lini operasional bandara dan maskapai.
                 </p>
+
+                <ul className="svc-checklist">
+                  {[
+                    "Ground Staff (DCS Certified)",
+                    "Aviation Security (AVSEC Berlisensi Resmi)",
+                    "GSE Operator (SIO & TIM Berlisensi)",
+                    "Porter & Baggage Handling Crew",
+                  ].map((item, i) => (
+                    <li key={i} className="svc-check-item">
+                      <span className="svc-check-dot" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
 
-              <div className="staff-slider-grid">
-                <div className="staff-slider-card">
-                  <h4 style={{ fontFamily: "var(--font-poppins)", fontSize: "1.05rem", fontWeight: 700, color: "#001F5B", margin: "0 0 6px" }}>
-                    Ground Staff
-                  </h4>
-                  <p style={{ color: "#64748B", fontSize: "0.85rem", margin: 0, lineHeight: 1.5 }}>
-                    Petugas check-in counter, boarding gate, customer service, dan penanganan penumpang. (DCS Certified)
-                  </p>
-                </div>
-
-                <div className="staff-slider-card">
-                  <h4 style={{ fontFamily: "var(--font-poppins)", fontSize: "1.05rem", fontWeight: 700, color: "#001F5B", margin: "0 0 6px" }}>
-                    Aviation Security (AVSEC)
-                  </h4>
-                  <p style={{ color: "#64748B", fontSize: "0.85rem", margin: 0, lineHeight: 1.5 }}>
-                    Personel AVSEC berlisensi resmi DKPPU Kemenhub untuk pengamanan area terminal dan sisi udara bandara.
-                  </p>
-                </div>
-
-                <div className="staff-slider-card">
-                  <h4 style={{ fontFamily: "var(--font-poppins)", fontSize: "1.05rem", fontWeight: 700, color: "#001F5B", margin: "0 0 6px" }}>
-                    GSE Operator
-                  </h4>
-                  <p style={{ color: "#64748B", fontSize: "0.85rem", margin: 0, lineHeight: 1.5 }}>
-                    Operator alat berat apron bersertifikat SIO &amp; TIM untuk BTT, GPU, dan kendaraan apron.
-                  </p>
-                </div>
-
-                <div className="staff-slider-card">
-                  <h4 style={{ fontFamily: "var(--font-poppins)", fontSize: "1.05rem", fontWeight: 700, color: "#001F5B", margin: "0 0 6px" }}>
-                    Porter &amp; Baggage Handling
-                  </h4>
-                  <p style={{ color: "#64748B", fontSize: "0.85rem", margin: 0, lineHeight: 1.5 }}>
-                    Tenaga porter terminal dan loading/unloading bagasi yang terlatih menangani muatan secara cepat dan aman.
-                  </p>
+              <div>
+                <div className="svc-img-frame">
+                  <Image
+                    src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=800&q=80"
+                    alt="Aviation Staff Outsourcing MAP"
+                    fill
+                    style={{ objectFit: "cover" }}
+                    sizes="(max-width: 900px) 100vw, 500px"
+                  />
                 </div>
               </div>
             </div>
@@ -478,20 +460,15 @@ export default function ServicesSlider() {
                 </ul>
               </div>
 
-              <div style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", borderRadius: 16, padding: "32px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
-                <div style={{ width: 48, height: 48, borderRadius: 12, background: "rgba(25,103,210,0.1)", display: "flex", alignItems: "center", justifyContent: "center", color: "#1967D2", fontSize: "1.3rem", marginBottom: 18 }}>
-                  <i className="fas fa-bullhorn" />
-                </div>
-                <h3 style={{ fontFamily: "var(--font-poppins)", fontSize: "1.25rem", fontWeight: 700, color: "#001F5B", marginBottom: 10 }}>
-                  Visibilitas Maksimal di 4 Bandara Utama
-                </h3>
-                <p style={{ color: "#475569", fontSize: "0.92rem", lineHeight: 1.7, margin: "0 0 18px" }}>
-                  Armada shuttle bus kami beroperasi nonstop di bandara Soekarno-Hatta (CGK), Juanda (SUB), Kualanamu (KNO), dan Sultan Hasanuddin (UPG).
-                </p>
-                <div style={{ borderTop: "1px solid #E2E8F0", paddingTop: 14 }}>
-                  <span style={{ fontSize: "0.82rem", color: "#1967D2", fontWeight: 700 }}>
-                    ✓ Captive Market Wisatawan &amp; Bisnis
-                  </span>
+              <div>
+                <div className="svc-img-frame">
+                  <Image
+                    src="/fleet-jakarta-cgk.jpg"
+                    alt="Airport Shuttle Bus Advertising MAP"
+                    fill
+                    style={{ objectFit: "cover" }}
+                    sizes="(max-width: 900px) 100vw, 500px"
+                  />
                 </div>
               </div>
             </div>
@@ -526,20 +503,15 @@ export default function ServicesSlider() {
                 </ul>
               </div>
 
-              <div style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", borderRadius: 16, padding: "32px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
-                <div style={{ width: 48, height: 48, borderRadius: 12, background: "rgba(245,166,35,0.15)", display: "flex", alignItems: "center", justifyContent: "center", color: "#D97706", fontSize: "1.3rem", marginBottom: 18 }}>
-                  <i className="fas fa-graduation-cap" />
-                </div>
-                <h3 style={{ fontFamily: "var(--font-poppins)", fontSize: "1.25rem", fontWeight: 700, color: "#001F5B", marginBottom: 10 }}>
-                  Fasilitas &amp; Instruktur Tersertifikasi
-                </h3>
-                <p style={{ color: "#475569", fontSize: "0.92rem", lineHeight: 1.7, margin: "0 0 18px" }}>
-                  Didukung kurikulum resmi Kemenhub DKPPU, simulator peralatan modern, dan instruktur senior berpengalaman di industri ground handling nasional.
-                </p>
-                <div style={{ borderTop: "1px solid #E2E8F0", paddingTop: 14 }}>
-                  <span style={{ fontSize: "0.82rem", color: "#D97706", fontWeight: 700 }}>
-                    ✓ Sertifikasi Resmi &amp; Penyaluran Kerja
-                  </span>
+              <div>
+                <div className="svc-img-frame">
+                  <Image
+                    src="/education-n-curt.jpg"
+                    alt="MAP Training Center"
+                    fill
+                    style={{ objectFit: "cover" }}
+                    sizes="(max-width: 900px) 100vw, 500px"
+                  />
                 </div>
               </div>
             </div>

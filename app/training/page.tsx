@@ -73,7 +73,7 @@ export default function TrainingPage() {
           className="training-hero-section"
           style={{
             position: "relative",
-            minHeight: "52vh",
+            minHeight: "65vh",
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
@@ -81,7 +81,7 @@ export default function TrainingPage() {
             color: "#fff",
             textAlign: "center",
             overflow: "hidden",
-            padding: "130px 0 60px",
+            padding: "165px 0 100px",
           }}
         >
           <style
@@ -92,7 +92,7 @@ export default function TrainingPage() {
                 ".training-program-card:hover { transform: translateY(-6px); border-color: #1967D2; box-shadow: 0 16px 36px rgba(0, 31, 91, 0.1); }",
                 ".training-program-card:hover .training-card-img { transform: scale(1.06); }",
                 "@media (max-width: 900px) {",
-                "  .training-hero-section { min-height: 45vh !important; padding: 110px 0 50px !important; }",
+                "  .training-hero-section { min-height: 52vh !important; padding: 130px 0 75px !important; }",
                 "  .training-hero-h1 { font-size: 28px !important; line-height: 1.2 !important; margin-bottom: 12px !important; }",
                 "  .training-hero-desc { font-size: 13.5px !important; line-height: 1.6 !important; margin-bottom: 0 !important; }",
                 "  .training-programs-header-grid { grid-template-columns: 1fr !important; gap: 16px !important; }",

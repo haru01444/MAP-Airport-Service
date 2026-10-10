@@ -2,11 +2,12 @@ import { groq } from "next-sanity";
 
 // Query untuk mengambil semua artikel berita yang sudah dipublish
 export const ALL_POSTS_QUERY = groq`
-  *[_type == "post"] | order(featured desc, publishedAt desc) {
+  *[_type == "post"] | order(featured desc, publishedAt desc, _createdAt desc) {
     _id,
     title,
     "slug": coalesce(slug.current, _id),
     publishedAt,
+    _createdAt,
     excerpt,
     mainImage,
     "category": category->title,
@@ -30,6 +31,7 @@ export const POST_BY_SLUG_QUERY = groq`
     title,
     "slug": coalesce(slug.current, _id),
     publishedAt,
+    _createdAt,
     excerpt,
     mainImage,
     "category": category->title,
@@ -41,6 +43,7 @@ export const POST_BY_SLUG_QUERY = groq`
 export const ALL_POST_SLUGS_QUERY = groq`
   *[_type == "post" && defined(slug.current)] {
     "slug": slug.current,
-    publishedAt
+    publishedAt,
+    _createdAt
   }
 `;

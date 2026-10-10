@@ -31,7 +31,7 @@ export default function TrainingAboutPage() {
           className="training-about-hero"
           style={{
             position: "relative",
-            minHeight: "52vh",
+            minHeight: "65vh",
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
@@ -39,14 +39,14 @@ export default function TrainingAboutPage() {
             color: "#fff",
             textAlign: "center",
             overflow: "hidden",
-            padding: "130px 0 60px",
+            padding: "165px 0 100px",
           }}
         >
           <style
             dangerouslySetInnerHTML={{
               __html: [
                 "@media (max-width: 768px) {",
-                "  .training-about-hero { min-height: 45vh !important; padding: 110px 0 50px !important; }",
+                "  .training-about-hero { min-height: 52vh !important; padding: 130px 0 75px !important; }",
                 "  .training-about-h1 { font-size: 28px !important; line-height: 1.2 !important; margin-bottom: 12px !important; }",
                 "  .training-about-desc { font-size: 13.5px !important; line-height: 1.6 !important; margin-bottom: 0 !important; }",
                 "}",

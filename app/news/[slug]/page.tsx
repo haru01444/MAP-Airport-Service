@@ -288,6 +288,21 @@ export default async function NewsDetailPage({ params }: PageProps) {
     console.error("Gagal mengambil related posts Sanity:", err);
   }
 
+  function safeFormatDate(rawDate: any, options?: Intl.DateTimeFormatOptions): string {
+    if (!rawDate) return "Terbaru";
+    try {
+      const parsed = new Date(rawDate);
+      if (isNaN(parsed.getTime())) return "Terbaru";
+      return parsed.toLocaleDateString("id-ID", options || {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      });
+    } catch {
+      return "Terbaru";
+    }
+  }
+
   let formattedAllPosts: NewsItem[] = (sanityPosts || []).map((p: any) => {
     const bodyParagraphs = extractTextFromBody(p.body);
     return {
@@ -295,7 +310,7 @@ export default async function NewsDetailPage({ params }: PageProps) {
       slug: p.slug,
       title: p.title,
       category: p.category || "Berita",
-      date: new Date(p.publishedAt).toLocaleDateString("id-ID", {
+      date: safeFormatDate(p.publishedAt || p._createdAt, {
         day: "numeric",
         month: "short",
         year: "numeric",
@@ -339,7 +354,7 @@ export default async function NewsDetailPage({ params }: PageProps) {
   // 3. Gabungkan (utamakan kategori sama) dan ambil maksimal 3 berita
   const relatedPosts = [...sameCategoryPosts, ...differentCategoryPosts].slice(0, 3);
 
-  const formattedDate = new Date(post.publishedAt).toLocaleDateString("id-ID", {
+  const formattedDate = safeFormatDate(post.publishedAt || post._createdAt, {
     weekday: "long",
     year: "numeric",
     month: "long",

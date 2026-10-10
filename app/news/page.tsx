@@ -33,41 +33,74 @@ export default async function NewsPage() {
 
   function extractTextFromBody(body: any[]): string[] {
     if (!body || !Array.isArray(body)) return [];
-    return body
-      .filter((block) => block._type === "block" && block.children)
-      .map((block) =>
-        block.children
-          .map((child: any) => child.text || "")
-          .join("")
-      )
-      .filter((text) => text.trim().length > 0);
+    try {
+      return body
+        .filter(
+          (block) =>
+            block &&
+            typeof block === "object" &&
+            block._type === "block" &&
+            Array.isArray(block.children)
+        )
+        .map((block) =>
+          (block.children || [])
+            .map((child: any) =>
+              child && typeof child === "object" && child.text ? String(child.text) : ""
+            )
+            .join("")
+        )
+        .filter((text) => typeof text === "string" && text.trim().length > 0);
+    } catch (e) {
+      console.error("Error extracting text from body:", e);
+      return [];
+    }
   }
 
-  // Convert Sanity posts to NewsItem format if any exist
-  const formattedSanityPosts: NewsItem[] = (sanityPosts || []).map((p: any) => {
-    const bodyParagraphs = extractTextFromBody(p.body);
-    return {
-      id: p._id,
-      slug: p.slug,
-      title: p.title,
-      category: p.category || "Operasional",
-      date: new Date(p.publishedAt).toLocaleDateString("id-ID", {
+  function safeFormatDate(rawDate: any): string {
+    if (!rawDate) return "Terbaru";
+    try {
+      const parsed = new Date(rawDate);
+      if (isNaN(parsed.getTime())) return "Terbaru";
+      return parsed.toLocaleDateString("id-ID", {
         day: "numeric",
         month: "long",
         year: "numeric",
-      }),
-      readTime: "3 min baca",
-      author: "Tim Media MAP",
-      image: (p.mainImage && p.mainImage.asset)
-        ? urlForImage(p.mainImage).width(800).height(500).url()
-        : "/LOGO MAP NO BACKGROUND.png",
-      isFallbackImage: !(p.mainImage && p.mainImage.asset),
-      excerpt: p.excerpt || "",
-      content: bodyParagraphs.length > 0 ? bodyParagraphs : [p.excerpt || ""],
-      tags: [p.category || "Berita"],
-      featured: Boolean(p.featured),
-    };
-  });
+      });
+    } catch {
+      return "Terbaru";
+    }
+  }
+
+  // Convert Sanity posts to NewsItem format if any exist
+  const formattedSanityPosts: NewsItem[] = (sanityPosts || [])
+    .filter((p: any) => p && typeof p === "object")
+    .map((p: any): NewsItem | null => {
+      try {
+        const bodyParagraphs = extractTextFromBody(p.body);
+        const item: NewsItem = {
+          id: String(p._id || Math.random()),
+          slug: String(p.slug || p._id || "berita"),
+          title: String(p.title || "Berita MAP"),
+          category: String(p.category || "Operasional"),
+          date: safeFormatDate(p.publishedAt || p._createdAt),
+          readTime: "3 min baca",
+          author: "Tim Media MAP",
+          image: (p.mainImage && p.mainImage.asset)
+            ? urlForImage(p.mainImage).width(800).height(500).url()
+            : "/LOGO MAP NO BACKGROUND.png",
+          isFallbackImage: !(p.mainImage && p.mainImage.asset),
+          excerpt: String(p.excerpt || ""),
+          content: bodyParagraphs.length > 0 ? bodyParagraphs : [p.excerpt || ""],
+          tags: [p.category || "Berita"],
+          featured: Boolean(p.featured),
+        };
+        return item;
+      } catch (err) {
+        console.error("Error formatting sanity post:", err);
+        return null;
+      }
+    })
+    .filter((item: NewsItem | null): item is NewsItem => item !== null);
 
   // Combine Sanity posts with existing newsData (Sanity posts first, followed by default newsData)
   const combinedPosts: NewsItem[] = [
@@ -85,7 +118,7 @@ export default async function NewsPage() {
         className="news-hero-section"
         style={{
           position: "relative",
-          minHeight: "52vh",
+          minHeight: "65vh",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
@@ -93,14 +126,14 @@ export default async function NewsPage() {
           color: "#fff",
           textAlign: "center",
           overflow: "hidden",
-          padding: "130px 0 60px",
+          padding: "165px 0 100px",
         }}
       >
         <style
           dangerouslySetInnerHTML={{
             __html: [
               "@media (max-width: 768px) {",
-              "  .news-hero-section { min-height: 45vh !important; padding: 110px 0 50px !important; }",
+              "  .news-hero-section { min-height: 52vh !important; padding: 130px 0 75px !important; }",
               "  .news-hero-h1 { font-size: 28px !important; line-height: 1.2 !important; margin-bottom: 12px !important; }",
               "  .news-hero-desc { font-size: 13.5px !important; line-height: 1.6 !important; margin-bottom: 0 !important; }",
               "}",

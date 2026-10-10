@@ -54,7 +54,7 @@ export default async function ProgramDetailPage({ params }: PageProps) {
         <section
           style={{
             position: "relative",
-            minHeight: "48vh",
+            minHeight: "65vh",
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
@@ -62,7 +62,7 @@ export default async function ProgramDetailPage({ params }: PageProps) {
             color: "#fff",
             textAlign: "center",
             overflow: "hidden",
-            padding: "130px 0 60px",
+            padding: "165px 0 100px",
           }}
         >
           <HeroBgSlider

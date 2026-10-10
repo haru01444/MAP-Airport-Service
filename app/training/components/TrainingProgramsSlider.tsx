@@ -40,8 +40,8 @@ export default function TrainingProgramsSlider() {
       <style
         dangerouslySetInnerHTML={{
           __html: [
-            ".prog-slider-container { max-width: 1200px; margin: 0 auto; padding: 0 24px 80px; }",
-            ".prog-tab-floating-card { transform: translateY(-36px); position: relative; z-index: 10; background: #FFFFFF; border-radius: 8px; padding: 16px; box-shadow: 0 10px 30px rgba(0, 31, 91, 0.06); border: 1px solid #E2E8F0; margin-bottom: 24px; }",
+            ".prog-slider-container { max-width: 1200px; margin: 0 auto; padding: 48px 24px 80px; }",
+            ".prog-tab-nav-container { background: #FFFFFF; border-radius: 8px; padding: 16px; border: 1px solid #E2E8F0; margin-bottom: 28px; }",
             ".prog-tab-fullwidth-container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; width: 100%; }",
             ".prog-category-btn { width: 100%; display: flex; align-items: center; justify-content: center; text-align: center; padding: 14px 18px; border-radius: 6px; font-size: 0.9rem; font-weight: 600; transition: all 0.2s ease; cursor: pointer; border: 1px solid transparent; }",
             ".prog-category-btn.active { background: #001F5B; color: #FFFFFF; border-color: #001F5B; box-shadow: 0 4px 12px rgba(0, 31, 91, 0.18); font-weight: 700; }",
@@ -83,8 +83,8 @@ export default function TrainingProgramsSlider() {
       />
 
       <div className="prog-slider-container">
-        {/* Floating Card for Category Tabs Navigation */}
-        <div className="prog-tab-floating-card">
+        {/* Category Tabs Navigation Bar */}
+        <div className="prog-tab-nav-container">
           <div className="prog-tab-fullwidth-container">
             {trainingPrograms.map((prog, idx) => {
               const isActive = activeIndex === idx;
