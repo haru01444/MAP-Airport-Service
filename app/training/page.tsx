@@ -22,38 +22,31 @@ const whyChoose = [
     icon: "fa-award",
     title: "Bersertifikat Resmi",
     desc: "Program pelatihan tersertifikasi dan diakui oleh otoritas & industri penerbangan nasional.",
-    featured: true,
-    tag: "Keunggulan Utama",
   },
   {
     icon: "fa-user-tie",
     title: "Instruktur Berpengalaman",
     desc: "Dibimbing langsung oleh praktisi aviasi aktif dengan pengalaman puluhan ribu jam operasional.",
-    featured: false,
   },
   {
     icon: "fa-plane-departure",
     title: "Kurikulum Industri",
     desc: "Materi disesuaikan dengan standar ICAO, DJPU, dan kebutuhan terkini dunia penerbangan.",
-    featured: false,
   },
   {
     icon: "fa-handshake",
     title: "Jaringan Ekosistem MAP",
     desc: "Terhubung langsung dengan jaringan penempatan & mitra maskapai di berbagai bandara.",
-    featured: false,
   },
   {
     icon: "fa-flask",
     title: "Fasilitas & Lab Modern",
     desc: "Didukung simulator, lab praktek GSE, dan alat pendukung berstandar bandara aktif.",
-    featured: false,
   },
   {
     icon: "fa-chart-line",
     title: "Prospek Karir Terarah",
     desc: "Bimbingan karir, pembentukan karakter profesional, dan koneksi industri pasca kelulusan.",
-    featured: false,
   },
 ];
 
@@ -388,9 +381,9 @@ export default function TrainingPage() {
                 <div
                   key={i}
                   style={{
-                    background: item.featured ? "linear-gradient(135deg, #001F5B 0%, #082567 100%)" : "#FFFFFF",
-                    color: item.featured ? "#fff" : "#0F172A",
-                    border: item.featured ? "1px solid #001F5B" : "1px solid #E2E8F0",
+                    background: "#FFFFFF",
+                    color: "#0F172A",
+                    border: "1px solid #E2E8F0",
                     borderRadius: 20,
                     padding: "36px 30px",
                     display: "flex",
@@ -400,30 +393,12 @@ export default function TrainingPage() {
                   }}
                 >
                   <div>
-                    {item.tag && (
-                      <span
-                        style={{
-                          fontSize: "0.7rem",
-                          fontWeight: 700,
-                          textTransform: "uppercase",
-                          letterSpacing: "0.1em",
-                          background: "#F5A623",
-                          color: "#001F5B",
-                          padding: "4px 12px",
-                          borderRadius: 100,
-                          display: "inline-block",
-                          marginBottom: 20,
-                        }}
-                      >
-                        {item.tag}
-                      </span>
-                    )}
                     <div
                       style={{
                         width: 48,
                         height: 48,
                         borderRadius: 12,
-                        background: item.featured ? "rgba(245,166,35,0.15)" : "#E0F2FE",
+                        background: "#E0F2FE",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
@@ -432,7 +407,7 @@ export default function TrainingPage() {
                     >
                       <i
                         className={`fas ${item.icon}`}
-                        style={{ color: item.featured ? "#F5A623" : "#1967D2", fontSize: "1.2rem" }}
+                        style={{ color: "#1967D2", fontSize: "1.2rem" }}
                       />
                     </div>
                     <h3
@@ -448,7 +423,7 @@ export default function TrainingPage() {
                     </h3>
                     <p
                       style={{
-                        color: item.featured ? "rgba(255,255,255,0.8)" : "#64748B",
+                        color: "#64748B",
                         fontSize: "0.88rem",
                         lineHeight: 1.65,
                         margin: 0,

@@ -20,7 +20,7 @@ const facilitiesData: FacilityItem[] = [
     tag: "01 • RUANG BACA & LITERATUR",
     title: "Perpustakaan",
     desc: "Koleksi buku dan sumber belajar lengkap untuk mendukung pengembangan pengetahuan.",
-    image: "/facilities/01-perpustakaan.jpg",
+    image: "/facilities/01-perpustakaan.jpeg",
   },
   {
     id: "ruang-kelas",
@@ -28,7 +28,7 @@ const facilitiesData: FacilityItem[] = [
     tag: "02 • RUANG PEMBELAJARAN",
     title: "Ruang Kelas",
     desc: "Ruang kelas ber-AC dilengkapi fasilitas modern untuk proses pembelajaran yang optimal.",
-    image: "/facilities/02-ruang-kelas.jpg",
+    image: "/facilities/02-ruang-kelas.jpeg",
   },
   {
     id: "ruang-kantor-1",
@@ -36,7 +36,7 @@ const facilitiesData: FacilityItem[] = [
     tag: "03 • ADMINISTRASI & MANAJEMEN",
     title: "Ruang Kantor 1",
     desc: "Ruang kantor yang representatif dan nyaman untuk mendukung kegiatan administrasi dan manajemen.",
-    image: "/facilities/03-ruang-kantor-1.jpg",
+    image: "/facilities/03-ruang-kantor-1.jpeg",
   },
   {
     id: "ruang-kantor-2",
@@ -44,7 +44,7 @@ const facilitiesData: FacilityItem[] = [
     tag: "04 • RUANG KOORDINASI TIM",
     title: "Ruang Kantor 2",
     desc: "Ruang kerja yang nyaman dan modern untuk mendukung koordinasi tim dan pelayanan yang optimal.",
-    image: "/facilities/04-ruang-kantor-2.jpg",
+    image: "/facilities/04-ruang-kantor-2.jpeg",
   },
   {
     id: "asrama",
@@ -52,15 +52,7 @@ const facilitiesData: FacilityItem[] = [
     tag: "05 • AKOMODASI PESERTA",
     title: "Asrama",
     desc: "Fasilitas asrama yang bersih, aman, dan nyaman untuk mendukung kebutuhan peserta pelatihan.",
-    image: "/facilities/05-asrama.jpg",
-  },
-  {
-    id: "mushola",
-    num: "06",
-    tag: "06 • SARANA IBADAH",
-    title: "Mushola",
-    desc: "Mushola yang bersih dan nyaman sebagai sarana ibadah bagi peserta pelatihan.",
-    image: "/facilities/06-mushola.jpg",
+    image: "/facilities/05-asrama.jpeg",
   },
 ];
 

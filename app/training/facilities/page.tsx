@@ -8,7 +8,7 @@ import TrainingContactSection from "../components/TrainingContactSection";
 export const metadata: Metadata = {
   title: "Fasilitas MAP Training Center | Sarana & Prasarana Diklat Aviasi",
   description:
-    "Fasilitas lengkap dan modern MAP Training Center: Perpustakaan, Ruang Kelas Multimedia, Ruang Kantor, Asrama Peserta, dan Mushola untuk mendukung pembelajaran aviasi profesional.",
+    "Fasilitas lengkap dan modern MAP Training Center: Perpustakaan, Ruang Kelas Multimedia, Ruang Kantor, dan Asrama Peserta untuk mendukung pembelajaran aviasi profesional.",
   keywords: [
     "fasilitas map training center",
     "sarana diklat aviasi",
@@ -25,7 +25,7 @@ const detailedFacilities = [
     tag: "01 • PUSAT LITERATUR & REGULASI",
     title: "Perpustakaan & Ruang Baca Aviasi",
     desc: "Pusat sumber belajar yang menyediakan ratusan koleksi buku kejuruan penerbangan, regulasi keselamatan resmi, manual operasional ground handling, dan modul diklat berstandar internasional.",
-    image: "/facilities/01-perpustakaan.jpg",
+    image: "/facilities/01-perpustakaan.jpeg",
     specs: [
       "Koleksi manual regulasi CASR, ICAO, IATA, dan DJPU Kemenhub RI",
       "Buku & modul teknis Aircraft Maintenance, GSE, AVSEC & Cabin Crew",
@@ -39,7 +39,7 @@ const detailedFacilities = [
     tag: "02 • RUANG PEMBELAJARAN MULTIMEDIA",
     title: "Ruang Kelas Modern & Ber-AC",
     desc: "Ruang pembelajaran teori yang didesain berpendingin udara penuh (Full AC) dengan proyektor multimedia resolusi tinggi, sound system jernih, dan fasilitas Computer-Based Testing (CBT) untuk simulasi ujian lisensi.",
-    image: "/facilities/02-ruang-kelas.jpg",
+    image: "/facilities/02-ruang-kelas.jpeg",
     specs: [
       "Dilengkapi pendingin ruangan (AC) untuk kenyamanan belajar optimal",
       "Proyektor multimedia beresolusi tinggi & layar presentasi interaktif",
@@ -53,7 +53,7 @@ const detailedFacilities = [
     tag: "03 • PELAYANAN & ADMINISTRASI",
     title: "Ruang Kantor 1 (Front Office & Manajemen)",
     desc: "Area kantor representatif yang berfungsi sebagai pusat layanan pendaftaran calon siswa, konsultasi program, administrasi akademik, dan pelayanan kemitraan maskapai penerbangan.",
-    image: "/facilities/03-ruang-kantor-1.jpg",
+    image: "/facilities/03-ruang-kantor-1.jpeg",
     specs: [
       "Pusat informasi dan konsultasi pendaftaran siswa baru",
       "Pelayanan administrasi akademik, sertifikasi, dan legalitas diklat",
@@ -67,7 +67,7 @@ const detailedFacilities = [
     tag: "04 • KOORDINASI TIM & LOUNGE",
     title: "Ruang Kantor 2 (Ruang Kerja & Rapat Instruktur)",
     desc: "Ruang kerja dan koordinasi yang nyaman untuk mendukung briefing harian instruktur praktisi, evaluasi kurikulum, rapat kemitraan industri, dan koordinasi staf akademik.",
-    image: "/facilities/04-ruang-kantor-2.jpg",
+    image: "/facilities/04-ruang-kantor-2.jpeg",
     specs: [
       "Area sofa lounge untuk diskusi tim dan konsultasi bimbingan siswa",
       "Ruang rapat instruktur untuk penyusunan materi & evaluasi belajar",
@@ -81,26 +81,12 @@ const detailedFacilities = [
     tag: "05 • AKOMODASI & TEMPAT TINGGAL",
     title: "Asrama Peserta Pelatihan (Dormitory)",
     desc: "Fasilitas akomodasi hunian yang bersih, aman, dan berlokasi strategis di lingkungan kampus diklat untuk mendukung kedisiplinan, istirahat yang cukup, dan kenyamanan peserta dari luar kota.",
-    image: "/facilities/05-asrama.jpg",
+    image: "/facilities/05-asrama.jpeg",
     specs: [
       "Lingkungan asrama asri, bersih, dan aman dengan pengawasan 24 jam",
       "Kamar tidur dengan ventilasi baik, ranjang representatif, dan loker",
-      "Akses sangat dekat ke ruang kelas, mushola, dan area simulasi",
+      "Akses sangat dekat ke ruang kelas dan area simulasi",
       "Sarana pembentukan karakter mandiri, kedisiplinan, dan jiwa korsa aviasi",
-    ],
-  },
-  {
-    id: "mushola",
-    num: "06",
-    tag: "06 • SARANA IBADAH",
-    title: "Mushola Representatif",
-    desc: "Sarana ibadah yang bersih, wangi, dan tertata rapi untuk menunjang ibadah harian serta pembinaan nilai spiritual dan integritas moral peserta pelatihan MAP Training Center.",
-    image: "/facilities/06-mushola.jpg",
-    specs: [
-      "Karpet sajadah tebal, bersih, wangi, dan senantiasa terawat",
-      "Area tempat wudhu terpisah dengan suplai air bersih yang lancar",
-      "Tersedia perlengkapan ibadah lengkap dan rak Al-Qur'an",
-      "Suasana hening dan khusyuk untuk mendukung ibadah berjamaah",
     ],
   },
 ];
@@ -325,62 +311,11 @@ export default function TrainingFacilitiesPage() {
                           color: "#475569",
                           fontSize: "0.95rem",
                           lineHeight: 1.8,
-                          marginBottom: 28,
+                          marginBottom: 0,
                         }}
                       >
                         {fac.desc}
                       </p>
-
-                      {/* Specs Checklist */}
-                      <div
-                        style={{
-                          background: isEven ? "#F8FAFC" : "#FFFFFF",
-                          border: "1px solid #E2E8F0",
-                          borderRadius: 8,
-                          padding: "20px 22px",
-                        }}
-                      >
-                        <span
-                          style={{
-                            display: "block",
-                            fontSize: "0.75rem",
-                            fontWeight: 700,
-                            textTransform: "uppercase",
-                            letterSpacing: "0.1em",
-                            color: "#64748B",
-                            marginBottom: 12,
-                          }}
-                        >
-                          SPESIFIKASI &amp; KEUNGGULAN
-                        </span>
-                        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                          {fac.specs.map((spec, sIdx) => (
-                            <div key={sIdx} style={{ display: "flex", alignItems: "flex-start", gap: 12 }}>
-                              <div
-                                style={{
-                                  width: 20,
-                                  height: 20,
-                                  borderRadius: 4,
-                                  background: "#EFF6FF",
-                                  border: "1px solid #DBEAFE",
-                                  display: "flex",
-                                  alignItems: "center",
-                                  justifyContent: "center",
-                                  color: "#1967D2",
-                                  fontSize: "0.72rem",
-                                  flexShrink: 0,
-                                  marginTop: 2,
-                                }}
-                              >
-                                <i className="fas fa-check" />
-                              </div>
-                              <span style={{ color: "#1E293B", fontSize: "0.88rem", lineHeight: 1.55, fontWeight: 500 }}>
-                                {spec}
-                              </span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
                     </div>
 
                     {/* Image Column */}

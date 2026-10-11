@@ -71,7 +71,6 @@ const trainingFacilitiesMenuItems: DropdownItem[] = [
   { title: "Ruang Kantor Administrasi", href: "/training/facilities#ruang-kantor-1" },
   { title: "Lounge & Rapat Instruktur", href: "/training/facilities#ruang-kantor-2" },
   { title: "Asrama Peserta (Dormitory)", href: "/training/facilities#asrama" },
-  { title: "Mushola Kampus", href: "/training/facilities#mushola" },
   { title: "Lihat Semua Fasilitas", href: "/training/facilities" },
 ];
 
