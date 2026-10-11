@@ -239,6 +239,16 @@ export default function TrainingContactSection({ id = "contact-training" }: { id
           <style
             dangerouslySetInnerHTML={{
               __html: `
+                .tc-contact-card select option {
+                  background-color: #07153B !important;
+                  color: #FFFFFF !important;
+                  padding: 10px 14px !important;
+                }
+                .tc-contact-card select option:checked,
+                .tc-contact-card select option:hover {
+                  background-color: #1967D2 !important;
+                  color: #FFFFFF !important;
+                }
                 @media (max-width: 768px) {
                   .tc-contact-header { margin-bottom: 28px !important; }
                   .tc-contact-h2 { font-size: 23px !important; line-height: 1.25 !important; margin-bottom: 16px !important; }
@@ -346,14 +356,14 @@ export default function TrainingContactSection({ id = "contact-training" }: { id
                     onChange={handleChange}
                     style={{
                       ...inputStyle,
-                      color: form.service ? "#fff" : "rgba(255,255,255,0.4)",
+                      color: form.service ? "#FFFFFF" : "rgba(255,255,255,0.5)",
                     }}
                   >
-                    <option value="" style={{ background: "#001F5B" }}>
+                    <option value="" style={{ backgroundColor: "#010D2E", color: "rgba(255,255,255,0.7)" }}>
                       Pilih program pelatihan...
                     </option>
                     {trainingServiceOptions.map((s) => (
-                      <option key={s} value={s} style={{ background: "#001F5B" }}>
+                      <option key={s} value={s} style={{ backgroundColor: "#010D2E", color: "#FFFFFF" }}>
                         {s}
                       </option>
                     ))}

@@ -125,7 +125,17 @@ export default function ContactSection({ id = "contact" }: { id?: string }) {
           {/* Form */}
           <style dangerouslySetInnerHTML={{
             __html: [
-              "@media (max-width: 768px) {",
+              ".contact-card-wrap select option {",
+              "  background-color: #07153B !important;",
+              "  color: #FFFFFF !important;",
+              "  padding: 10px 14px !important;",
+              "}",
+              ".contact-card-wrap select option:checked,",
+              ".contact-card-wrap select option:hover {",
+              "  background-color: #1967D2 !important;",
+              "  color: #FFFFFF !important;",
+              "}",
+              "            @media (max-width: 768px) {",
               "              .ct-header-wrap { margin-bottom: 28px !important; }",
               "              .ct-eyebrow { margin-bottom: 12px !important; }",
               "              .ct-h2 { font-size: 23px !important; line-height: 1.25 !important; margin-bottom: 16px !important; }",
@@ -164,9 +174,24 @@ export default function ContactSection({ id = "contact" }: { id?: string }) {
                 </div>
                 <div style={{ marginBottom: 16 }}>
                   <label className="ct-label" style={labelStyle}>Layanan yang Diminati</label>
-                  <select className="ct-input" name="service" value={form.service} onChange={handleChange} style={{ ...inputStyle, color: form.service ? "#fff" : "rgba(255,255,255,0.4)" }}>
-                    <option value="" style={{ background: "#001F5B" }}>Pilih layanan...</option>
-                    {serviceOptions.map((s) => <option key={s} value={s} style={{ background: "#001F5B" }}>{s}</option>)}
+                  <select
+                    className="ct-input"
+                    name="service"
+                    value={form.service}
+                    onChange={handleChange}
+                    style={{
+                      ...inputStyle,
+                      color: form.service ? "#FFFFFF" : "rgba(255,255,255,0.5)",
+                    }}
+                  >
+                    <option value="" style={{ backgroundColor: "#010D2E", color: "rgba(255,255,255,0.7)" }}>
+                      Pilih layanan...
+                    </option>
+                    {serviceOptions.map((s) => (
+                      <option key={s} value={s} style={{ backgroundColor: "#010D2E", color: "#FFFFFF" }}>
+                        {s}
+                      </option>
+                    ))}
                   </select>
                 </div>
                 <div style={{ marginBottom: 24 }}>

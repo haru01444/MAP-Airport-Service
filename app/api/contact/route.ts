@@ -42,8 +42,12 @@ export async function POST(req: NextRequest) {
     const companyLabel = isTraining ? "Asal Sekolah / Instansi" : "Perusahaan / Maskapai";
     const serviceLabel = isTraining ? "Program Pelatihan" : "Layanan yang Diminati";
 
+    const senderFrom = isTraining
+      ? "MAP Training Center <trainingcenter@map-airportservices.id>"
+      : "MAP Airport Services <contact@map-airportservices.id>";
+
     const { data, error } = await resend.emails.send({
-      from: "MAP Website <onboarding@resend.dev>",
+      from: senderFrom,
       to: targetEmail,
       replyTo: email,
       subject: subject,

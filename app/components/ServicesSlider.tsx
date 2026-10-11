@@ -463,8 +463,8 @@ export default function ServicesSlider() {
               <div>
                 <div className="svc-img-frame">
                   <Image
-                    src="/fleet-jakarta-cgk.jpg"
-                    alt="Airport Shuttle Bus Advertising MAP"
+                    src="/option-hand-strap.jpeg"
+                    alt="Hand Strap & Handgrip Advertising MAP"
                     fill
                     style={{ objectFit: "cover" }}
                     sizes="(max-width: 900px) 100vw, 500px"

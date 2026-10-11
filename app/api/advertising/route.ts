@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
     }
 
     const { data, error } = await resend.emails.send({
-      from: "MAP Website <onboarding@resend.dev>",
+      from: "MAP Advertising <contact@map-airportservices.id>",
       to: TO_EMAIL,
       replyTo: email,
       subject: `[MAP Advertising Inquiry] - ${company} (${name})`,
