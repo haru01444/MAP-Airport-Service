@@ -304,15 +304,11 @@ export default function TrainingPage() {
                       style={{
                         display: "flex",
                         alignItems: "center",
-                        justifyContent: "space-between",
+                        justifyContent: "flex-end",
                         paddingTop: 16,
                         borderTop: "1px solid #F1F5F9",
                       }}
                     >
-                      <span style={{ fontSize: "0.82rem", color: "#334155", fontWeight: 600 }}>
-                        <i className="fas fa-clock" style={{ marginRight: 6, color: "#1967D2" }} />
-                        {prog.duration}
-                      </span>
                       <span
                         style={{
                           fontSize: "0.88rem",

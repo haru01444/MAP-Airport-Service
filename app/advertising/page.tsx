@@ -218,6 +218,8 @@ export default function AdvertisingPage() {
             "  .ad-option-card { width: calc((100% - 24px) / 2) !important; max-width: calc((100% - 24px) / 2) !important; flex: 0 0 calc((100% - 24px) / 2) !important; }",
             "  .ad-campaign-card { width: 100% !important; flex: 0 0 100% !important; }",
             "  .ad-hero-section { min-height: 52vh !important; padding: 130px 0 75px !important; }",
+            "  .ad-hero-h1 { font-size: 28px !important; line-height: 1.2 !important; margin-bottom: 12px !important; }",
+            "  .ad-hero-desc { font-size: 13.5px !important; line-height: 1.6 !important; margin-bottom: 0 !important; }",
             "}",
             "@media (max-width: 768px) {",
             "  .ad-hero { padding: 110px 0 60px !important; }",
@@ -242,7 +244,11 @@ export default function AdvertisingPage() {
           position: "relative",
           minHeight: "65vh",
           display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
           alignItems: "center",
+          color: "#fff",
+          textAlign: "center",
           overflow: "hidden",
           padding: "165px 0 100px",
         }}
@@ -255,81 +261,45 @@ export default function AdvertisingPage() {
         />
 
         <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px", position: "relative", zIndex: 1, width: "100%" }}>
-          <div style={{ maxWidth: 720 }}>
-            <span
-              style={{
-                display: "inline-block",
-                color: "#4A9EF5",
-                fontSize: "0.85rem",
-                fontWeight: 600,
-                letterSpacing: "0.15em",
-                textTransform: "uppercase",
-                marginBottom: 16,
-              }}
-            >
-              AIRPORT ADVERTISING • MEDIA KIT &amp; RATE CARD
-            </span>
-            <h1
-              style={{
-                fontFamily: "var(--font-poppins)",
-                fontSize: "clamp(2.4rem, 5vw, 3.8rem)",
-                fontWeight: 800,
-                lineHeight: 1.15,
-                marginBottom: 24,
-                color: "#fff",
-              }}
-            >
-              Iklan Shuttle Bus Bandara.<br />
-              <span style={{ color: "#4A9EF5" }}>Bali &amp; Jakarta.</span>
-            </h1>
-            <p
-              style={{
-                color: "rgba(255,255,255,0.85)",
-                fontSize: "clamp(1rem, 1.5vw, 1.15rem)",
-                lineHeight: 1.75,
-                marginBottom: 36,
-                maxWidth: 620,
-              }}
-            >
-              Media promosi luar ruang eksklusif pada armada shuttle bus bandara di Bandara I Gusti Ngurah Rai (DPS) dan Soekarno-Hatta (CGK). Menjangkau penumpang langsung di area sisi udara (airside) yang bebas distraksi.
-            </p>
-
-            {/* Action Buttons */}
-            <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
-              <a
-                href="#media-options"
-                style={{
-                  background: "linear-gradient(135deg, #1967D2, #4A9EF5)",
-                  color: "#fff",
-                  fontWeight: 600,
-                  padding: "14px 32px",
-                  borderRadius: 6,
-                  fontSize: "0.95rem",
-                  textDecoration: "none",
-                  transition: "all 0.2s",
-                  display: "inline-block",
-                }}
-              >
-                Lihat Pilihan Format
-              </a>
-              <a
-                href="#contact-section"
-                style={{
-                  color: "#fff",
-                  fontWeight: 600,
-                  padding: "14px 32px",
-                  borderRadius: 6,
-                  fontSize: "0.95rem",
-                  border: "1px solid rgba(255,255,255,0.4)",
-                  textDecoration: "none",
-                  transition: "all 0.2s",
-                  display: "inline-block",
-                }}
-              >
-                Hubungi Tim Sales
-              </a>
-            </div>
-          </div>
+          <span
+            style={{
+              display: "inline-block",
+              color: "#4A9EF5",
+              fontSize: "0.85rem",
+              fontWeight: 600,
+              letterSpacing: "0.15em",
+              textTransform: "uppercase",
+              marginBottom: 16,
+            }}
+          >
+            AIRPORT ADVERTISING • MEDIA KIT &amp; RATE CARD
+          </span>
+          <h1
+            className="ad-hero-h1"
+            style={{
+              fontFamily: "var(--font-poppins)",
+              fontSize: "clamp(2.4rem, 5vw, 3.8rem)",
+              fontWeight: 800,
+              lineHeight: 1.15,
+              marginBottom: 20,
+              color: "#fff",
+            }}
+          >
+            Iklan Shuttle Bus Bandara.<br />
+            <span style={{ color: "#4A9EF5" }}>Bali &amp; Jakarta.</span>
+          </h1>
+          <p
+            className="ad-hero-desc"
+            style={{
+              color: "rgba(255,255,255,0.85)",
+              fontSize: "clamp(1rem, 1.5vw, 1.15rem)",
+              lineHeight: 1.75,
+              margin: "0 auto",
+              maxWidth: 720,
+            }}
+          >
+            Media promosi luar ruang eksklusif pada armada shuttle bus bandara di Bandara I Gusti Ngurah Rai (DPS) dan Soekarno-Hatta (CGK). Menjangkau penumpang langsung di area sisi udara (airside) yang bebas distraksi.
+          </p>
         </div>
       </section>
 

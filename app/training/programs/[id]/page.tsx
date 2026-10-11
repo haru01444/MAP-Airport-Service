@@ -121,10 +121,6 @@ export default async function ProgramDetailPage({ params }: PageProps) {
 
             <div style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap" }}>
               <div style={{ background: "rgba(255,255,255,0.12)", backdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,0.2)", padding: "8px 18px", borderRadius: 8, fontSize: "0.85rem", color: "#fff", fontWeight: 600 }}>
-                <i className="fas fa-clock" style={{ marginRight: 8, color: "#F5A623" }} />
-                Durasi: {program.duration}
-              </div>
-              <div style={{ background: "rgba(255,255,255,0.12)", backdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,0.2)", padding: "8px 18px", borderRadius: 8, fontSize: "0.85rem", color: "#fff", fontWeight: 600 }}>
                 <i className="fas fa-certificate" style={{ marginRight: 8, color: "#F5A623" }} />
                 Sertifikat Resmi Kompetensi
               </div>
@@ -497,8 +493,7 @@ export default async function ProgramDetailPage({ params }: PageProps) {
                         </p>
                       </div>
 
-                      <div style={{ paddingTop: 12, borderTop: "1px solid #F1F5F9", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                        <span style={{ fontSize: "0.8rem", color: "#475569", fontWeight: 600 }}>{rel.duration}</span>
+                      <div style={{ paddingTop: 12, borderTop: "1px solid #F1F5F9", display: "flex", justifyContent: "flex-end", alignItems: "center" }}>
                         <span style={{ fontSize: "0.85rem", fontWeight: 700, color: "#1967D2" }}>Lihat Detail →</span>
                       </div>
                     </div>
