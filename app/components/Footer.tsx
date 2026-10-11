@@ -40,6 +40,19 @@ export default function Footer() {
   const isTraining = pathname.startsWith("/training");
   const year = new Date().getFullYear();
 
+  const resolveLink = (href: string) => {
+    if (href.startsWith("/training")) {
+      if (typeof window !== "undefined") {
+        const host = window.location.hostname;
+        if (host.includes("map-airportservices.id") || host.includes("map_airportservices.id")) {
+          const subPath = href.replace(/^\/training/, "") || "/";
+          return `https://trainingcenter.map-airportservices.id${subPath}`;
+        }
+      }
+    }
+    return href;
+  };
+
   return (
     <footer
       style={{
@@ -112,7 +125,7 @@ export default function Footer() {
 
           {/* Brand */}
           <div className="ft-brand">
-            <Link href={isTraining ? "/training" : "/"} style={{ display: "inline-block", textDecoration: "none", marginBottom: 16 }}>
+            <Link href={resolveLink(isTraining ? "/training" : "/")} style={{ display: "inline-block", textDecoration: "none", marginBottom: 16 }}>
               <div
                 style={{
                   background: "#FFFFFF",
@@ -148,14 +161,14 @@ export default function Footer() {
               {isTraining
                 ? trainingProgramsList.map((prog) => (
                     <li key={prog.name}>
-                      <Link href={prog.href} className="ft-link">
+                      <Link href={resolveLink(prog.href)} className="ft-link">
                         {prog.name}
                       </Link>
                     </li>
                   ))
                 : mainFooterServices.map((s) => (
                     <li key={s.name}>
-                      <Link href={s.href} className="ft-link">
+                      <Link href={resolveLink(s.href)} className="ft-link">
                         {s.name}
                       </Link>
                     </li>
@@ -172,14 +185,14 @@ export default function Footer() {
               {isTraining
                 ? trainingNavLinks.map((item) => (
                     <li key={item.name}>
-                      <Link className="ft-link" href={item.href}>
+                      <Link className="ft-link" href={resolveLink(item.href)}>
                         {item.name}
                       </Link>
                     </li>
                   ))
                 : mainNavLinks.map((l, i) => (
                     <li key={l}>
-                      <Link className="ft-link" href={mainNavHrefs[i]}>
+                      <Link className="ft-link" href={resolveLink(mainNavHrefs[i])}>
                         {l}
                       </Link>
                     </li>

@@ -305,6 +305,20 @@ export default function Navbar() {
     handleNavClick();
   };
 
+  const resolveLink = (href: string) => {
+    // Jika link mengarah ke halaman training, arahkan ke subdomain
+    if (href.startsWith("/training")) {
+      if (typeof window !== "undefined") {
+        const host = window.location.hostname;
+        if (host.includes("map-airportservices.id") || host.includes("map_airportservices.id")) {
+          const subPath = href.replace(/^\/training/, "") || "/";
+          return `https://trainingcenter.map-airportservices.id${subPath}`;
+        }
+      }
+    }
+    return href;
+  };
+
   const logoHref = isTrainingSubdomain ? "/" : (isTrainingPage ? "/training" : "/");
   const aboutMenuItemsToUse = currentConfig.aboutMenuItems || mainAboutMenuItems;
   const aboutTitleToUse = currentConfig.aboutTitle || "Tentang Kami";
@@ -626,7 +640,7 @@ export default function Navbar() {
                     {mainServicesMenuItems.map((item) => (
                       <Link
                         key={item.href}
-                        href={item.href}
+                        href={resolveLink(item.href)}
                         onClick={() => handleNavClick()}
                         className="desktop-dropdown-item"
                         style={{
@@ -831,7 +845,7 @@ export default function Navbar() {
             <li key={item.href}>
               {item.href.startsWith("/") && !item.href.includes("#") ? (
                 <Link
-                  href={item.href}
+                  href={resolveLink(item.href)}
                   onClick={() => handleNavClick()}
                   className="desktop-nav-link"
                   style={{
@@ -1014,7 +1028,7 @@ export default function Navbar() {
               {mainServicesMenuItems.map((item) => (
                 <Link
                   key={item.href}
-                  href={item.href}
+                  href={resolveLink(item.href)}
                   onClick={handleNavClick}
                   className="mobile-nav-link"
                   style={{
@@ -1125,8 +1139,8 @@ export default function Navbar() {
           {currentConfig.navItems.map((item) => (
             <Link
               key={item.href}
-              href={item.href}
-              onClick={(e) => scrollTo(e, item.href)}
+              href={resolveLink(item.href)}
+              onClick={(e) => scrollTo(e, resolveLink(item.href))}
               className="mobile-nav-link"
               style={{
                 color: (pathname === "/" && activeSection === item.href.replace(/^\/?#/, "")) || pathname === item.href ? activeAccentColor : "#FFFFFF",
