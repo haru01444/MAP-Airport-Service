@@ -53,7 +53,7 @@ export const trainingPrograms: TrainingProgramItem[] = [
       { text: "Tool Control & GSE Calibration", icon: "fa-screwdriver-wrench" },
     ],
     imageUrl:
-      "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1000&q=85",
+      "/Aircraft-Maintenance-Training-MAP-Center.jpeg",
     imageAlt: "Aircraft Maintenance Training MAP Center",
   },
   {
@@ -88,7 +88,7 @@ export const trainingPrograms: TrainingProgramItem[] = [
       { text: "GSE Preventive Maintenance", icon: "fa-wrench" },
     ],
     imageUrl:
-      "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1000&q=85",
+      "/GSE-Training-MAP-Center.jpeg",
     imageAlt: "GSE Training MAP Center",
   },
   {
@@ -123,7 +123,7 @@ export const trainingPrograms: TrainingProgramItem[] = [
       { text: "X-Ray Machine Operation", icon: "fa-desktop" },
     ],
     imageUrl:
-      "https://images.unsplash.com/photo-1556388158-158ea5ccacbd?auto=format&fit=crop&w=1000&q=85",
+      "/Aviation-Security-Training.jpeg",
     imageAlt: "Aviation Security Training MAP Center",
   },
   {
@@ -157,7 +157,7 @@ export const trainingPrograms: TrainingProgramItem[] = [
       { text: "Grooming, Etiquette & Manner", icon: "fa-star" },
       { text: "Aviation English Communication", icon: "fa-language" },
     ],
-    imageUrl: "/pramugara_training.jpg",
+    imageUrl: "/pramugara_training.jpeg",
     imageAlt: "Pramugari Training MAP Center",
   },
 ];
