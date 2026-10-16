@@ -12,7 +12,7 @@ const mainFooterServices = [
   { name: "Passenger & Ticketing Services", href: "/services#passenger-services" },
   { name: "Ramp Side Service", href: "/services#ramp-services" },
   { name: "Aircraft & Cabin Cleaning", href: "/services#cabin-cleaning" },
-  { name: "Equipment Rental Support", href: "/services#equipment-rental" },
+  { name: "Ground Support Equipment", href: "/services#ground-support-equipment" },
   { name: "Manpower Provider", href: "/services#manpower-provider" },
   { name: "Airport Advertising", href: "/advertising" },
   { name: "MAP Training Center", href: "/training" },

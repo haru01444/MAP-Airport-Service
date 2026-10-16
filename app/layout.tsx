@@ -172,7 +172,7 @@ export default function RootLayout({
                   },
                   {
                     "@type": "OfferCatalog",
-                    "name": "Equipment Rental Support (GSE)",
+                    "name": "Ground Support Equipment (GSE)",
                     "itemListElement": [
                       { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "GPU (Ground Power Unit) Rental" } },
                       { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "GTC (Ground Tow Coupling) Rental" } },

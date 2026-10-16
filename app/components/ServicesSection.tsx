@@ -44,9 +44,9 @@ const coreServices: CoreService[] = [
   {
     id: "equipment",
     tag: "GSE Fleet Support",
-    title: "Equipment Rental Support",
+    title: "Ground Support Equipment",
     image: "/Equipment-Rental-Support.jpeg",
-    link: "/services#equipment-rental",
+    link: "/services#ground-support-equipment",
   },
   {
     id: "staffing",

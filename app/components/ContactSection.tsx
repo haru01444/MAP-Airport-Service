@@ -8,7 +8,8 @@ const serviceOptions = [
   "Passenger & Ticketing Services",
   "Ramp Side Service",
   "Aircraft & Cabin Cleaning",
-  "Equipment Rental Support",
+  "Ground Support Equipment",
+  "Manpower Provider",
   "Lainnya",
 ];
 

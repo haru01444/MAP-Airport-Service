@@ -8,7 +8,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Layanan Lengkap Ground Handling & Aviasi | PT Mawaddah Angkasa Prima",
   description:
-    "Solusi terintegrasi PT Mawaddah Angkasa Prima: Ground Handling for Airlines, Passenger & Ticketing, Ramp Side Service, Aircraft & Cabin Cleaning, GSE Equipment Rental, Manpower Provider, Training Center, dan Airport Advertising.",
+    "Solusi terintegrasi PT Mawaddah Angkasa Prima: Ground Handling for Airlines, Passenger & Ticketing, Ramp Side Service, Aircraft & Cabin Cleaning, Ground Support Equipment (GSE), Manpower Provider, Training Center, dan Airport Advertising.",
 };
 
 export default function ServicesPage() {

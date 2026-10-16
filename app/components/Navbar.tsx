@@ -44,7 +44,7 @@ const mainServicesMenuItems: DropdownItem[] = [
   { title: "Passenger & Ancillary", href: "/services#passenger-services" },
   { title: "Ramp Side Service", href: "/services#ramp-services" },
   { title: "Aircraft & Cabin Cleaning", href: "/services#cabin-cleaning" },
-  { title: "Equipment Rental (GSE)", href: "/services#equipment-rental" },
+  { title: "Ground Support Equipment (GSE)", href: "/services#ground-support-equipment" },
   { title: "Manpower Provider", href: "/services#manpower-provider" },
   { title: "Airport Shuttle Advertising", href: "/advertising" },
   { title: "MAP Training Center", href: "/training" },

@@ -30,7 +30,7 @@ const serviceTabs: ServiceTab[] = [
   { id: "passenger-services", number: "02", shortTitle: "Passenger & Ticketing", title: "Passenger & Ticketing Services", category: "Ancillary Services" },
   { id: "ramp-services", number: "03", shortTitle: "Ramp Side Service", title: "Ramp Side Operations", category: "Ramp Operations" },
   { id: "cabin-cleaning", number: "04", shortTitle: "Cabin Cleaning", title: "Aircraft & Cabin Cleaning", category: "Cleaning Services" },
-  { id: "equipment-rental", number: "05", shortTitle: "Equipment Rental (GSE)", title: "GSE Equipment Rental Support", category: "Equipment Support" },
+  { id: "ground-support-equipment", number: "05", shortTitle: "Ground Support Equipment", title: "Ground Support Equipment (GSE)", category: "Equipment Support" },
   { id: "manpower-provider", number: "06", shortTitle: "Manpower Provider", title: "Aviation Manpower Provider", category: "Human Resources" },
   { id: "airport-advertising", number: "07", shortTitle: "Airport Advertising", title: "Airport Shuttle Advertising", category: "Media & Advertising" },
   { id: "training-center", number: "08", shortTitle: "Training Center", title: "MAP Training Center", category: "Training Center" },
@@ -44,7 +44,12 @@ export default function ServicesSlider() {
     const handleHash = () => {
       const hash = window.location.hash.replace("#", "");
       if (hash) {
-        const found = serviceTabs.findIndex((t) => t.id === hash || (hash === "outsourcing-staff" && t.id === "manpower-provider"));
+        const found = serviceTabs.findIndex(
+          (t) =>
+            t.id === hash ||
+            (hash === "outsourcing-staff" && t.id === "manpower-provider") ||
+            (hash === "equipment-rental" && t.id === "ground-support-equipment")
+        );
         if (found !== -1) {
           setActiveIndex(found);
         }
@@ -344,7 +349,7 @@ export default function ServicesSlider() {
             </div>
           )}
 
-          {/* SLIDE 05: EQUIPMENT RENTAL SUPPORT */}
+          {/* SLIDE 05: GROUND SUPPORT EQUIPMENT */}
           {activeIndex === 4 && (
             <div className="svc-hero-grid">
               <div>
@@ -352,10 +357,10 @@ export default function ServicesSlider() {
                   05. GSE Fleet Support
                 </span>
                 <h2 className="svc-sec-title">
-                  Equipment Rental <span>Support</span>
+                  Ground Support <span>Equipment</span>
                 </h2>
                 <p className="svc-sec-desc">
-                  Penyewaan peralatan Ground Support Equipment (GSE) berkualitas tinggi untuk menunjang kelancaran operasional di area bandara.
+                  Penyewaan dan dukungan armada Ground Support Equipment (GSE) bersertifikasi untuk menunjang kelancaran operasional di sisi udara (airside).
                 </p>
 
                 <ul className="svc-checklist">
@@ -378,7 +383,7 @@ export default function ServicesSlider() {
                 <div className="svc-img-frame">
                   <Image
                     src="/Equipment-Rental-Support.jpeg"
-                    alt="GSE Equipment Rental Support MAP"
+                    alt="Ground Support Equipment MAP"
                     fill
                     style={{ objectFit: "cover" }}
                     sizes="(max-width: 900px) 100vw, 500px"
