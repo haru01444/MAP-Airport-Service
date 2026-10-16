@@ -21,32 +21,32 @@ const whyChoose = [
   {
     icon: "fa-award",
     title: "Bersertifikat Resmi",
-    desc: "Program pelatihan tersertifikasi dan diakui oleh otoritas & industri penerbangan nasional.",
-  },
-  {
-    icon: "fa-user-tie",
-    title: "Instruktur Berpengalaman",
-    desc: "Dibimbing langsung oleh praktisi aviasi aktif dengan pengalaman puluhan ribu jam operasional.",
+    desc: "Program pelatihan terakreditasi dan diakui secara resmi oleh otoritas penerbangan nasional (Ditjen Hubud/DJPU) serta mengacu pada standar global aviasi.",
   },
   {
     icon: "fa-plane-departure",
-    title: "Kurikulum Industri",
-    desc: "Materi disesuaikan dengan standar ICAO, DJPU, dan kebutuhan terkini dunia penerbangan.",
+    title: "Akselerasi Karir Siap Kerja",
+    desc: "Program pelatihan komprehensif berdurasi 6 bulan dengan kurikulum terstruktur dan aplikatif, mengantarkan Anda memasuki dunia kerja industri aviasi lebih awal.",
+  },
+  {
+    icon: "fa-bolt-lightning",
+    title: "Program Kilat Spesialisasi Bandara",
+    desc: "Kuasai kompetensi teknis vital seperti AVSEC, GSE, dan Marshaller hanya dalam 2 bulan. Langkah praktis dan cepat untuk segera berkarir di lingkungan bandara.",
   },
   {
     icon: "fa-handshake",
-    title: "Jaringan Ekosistem MAP",
-    desc: "Terhubung langsung dengan jaringan penempatan & mitra maskapai di berbagai bandara.",
+    title: "Jaringan Mitra & Alumni Luas",
+    desc: "Terhubung langsung dengan ekosistem relasi kerja yang solid serta jaringan alumni aktif guna membuka akses informasi rekrutmen dan peluang karir di berbagai maskapai.",
   },
   {
-    icon: "fa-flask",
-    title: "Fasilitas & Lab Modern",
-    desc: "Didukung simulator, lab praktek GSE, dan alat pendukung berstandar bandara aktif.",
+    icon: "fa-user-check",
+    title: "Bimbingan Seleksi Kerja Intensif",
+    desc: "Pendampingan menyeluruh mencakup simulasi tes psikotes, pembekalan wawancara kerja, serta pengasahan mentalitas profesional agar percaya diri saat seleksi rekruter.",
   },
   {
-    icon: "fa-chart-line",
-    title: "Prospek Karir Terarah",
-    desc: "Bimbingan karir, pembentukan karakter profesional, dan koneksi industri pasca kelulusan.",
+    icon: "fa-language",
+    title: "English Immersion & Asrama",
+    desc: "Fasilitas asrama kondusif dengan program penguatan bahasa Inggris aktif metode Kampung Inggris, mempersiapkan Anda fasih berkomunikasi di panggung aviasi internasional.",
   },
 ];
 
@@ -66,7 +66,7 @@ export default function TrainingPage() {
           className="training-hero-section"
           style={{
             position: "relative",
-            minHeight: "65vh",
+            minHeight: "100vh",
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
@@ -74,7 +74,7 @@ export default function TrainingPage() {
             color: "#fff",
             textAlign: "center",
             overflow: "hidden",
-            padding: "165px 0 100px",
+            padding: "140px 0 80px",
           }}
         >
           <style
@@ -85,9 +85,9 @@ export default function TrainingPage() {
                 ".training-program-card:hover { transform: translateY(-6px); border-color: #1967D2; box-shadow: 0 16px 36px rgba(0, 31, 91, 0.1); }",
                 ".training-program-card:hover .training-card-img { transform: scale(1.06); }",
                 "@media (max-width: 900px) {",
-                "  .training-hero-section { min-height: 52vh !important; padding: 130px 0 75px !important; }",
-                "  .training-hero-h1 { font-size: 28px !important; line-height: 1.2 !important; margin-bottom: 12px !important; }",
-                "  .training-hero-desc { font-size: 13.5px !important; line-height: 1.6 !important; margin-bottom: 0 !important; }",
+                "  .training-hero-section { min-height: 100vh !important; padding: 120px 0 60px !important; }",
+                "  .training-hero-h1 { font-size: 32px !important; line-height: 1.15 !important; margin-bottom: 14px !important; }",
+                "  .training-hero-desc { font-size: 14px !important; line-height: 1.65 !important; margin-bottom: 24px !important; }",
                 "  .training-programs-header-grid { grid-template-columns: 1fr !important; gap: 16px !important; }",
                 "  .training-programs-2x2-grid { grid-template-columns: 1fr !important; gap: 20px !important; }",
                 "}",
@@ -108,6 +108,9 @@ export default function TrainingPage() {
               margin: "0 auto",
               padding: "0 24px",
               width: "100%",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
             }}
           >
             <span
@@ -127,7 +130,7 @@ export default function TrainingPage() {
               className="training-hero-h1"
               style={{
                 fontFamily: "var(--font-poppins)",
-                fontSize: "clamp(2.4rem, 5vw, 3.8rem)",
+                fontSize: "clamp(2.4rem, 5vw, 4rem)",
                 fontWeight: 800,
                 color: "#fff",
                 lineHeight: 1.15,
@@ -142,17 +145,165 @@ export default function TrainingPage() {
                 color: "rgba(255,255,255,0.85)",
                 fontSize: "clamp(1rem, 1.6vw, 1.15rem)",
                 maxWidth: 740,
-                margin: "0 auto",
+                margin: "0 auto 32px",
                 lineHeight: 1.8,
               }}
             >
               Mencetak personel aviasi siap kerja dan bersertifikat resmi untuk kebutuhan Aircraft Maintenance, GSE, Aviation Security (AVSEC), dan Cabin Crew.
             </p>
+
+            {/* CTA Buttons */}
+            <div style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap" }}>
+              <Link
+                href="/training#programs"
+                style={{
+                  background: "#1967D2",
+                  color: "#FFFFFF",
+                  fontWeight: 600,
+                  fontSize: "0.95rem",
+                  padding: "14px 28px",
+                  borderRadius: 50,
+                  textDecoration: "none",
+                  transition: "all 0.3s ease",
+                  boxShadow: "0 4px 14px rgba(25, 103, 210, 0.35)",
+                }}
+              >
+                Lihat Program Pelatihan
+              </Link>
+              <Link
+                href="/training#contact-training"
+                style={{
+                  background: "transparent",
+                  color: "#FFFFFF",
+                  fontWeight: 600,
+                  fontSize: "0.95rem",
+                  padding: "14px 28px",
+                  borderRadius: 50,
+                  border: "2px solid rgba(255, 255, 255, 0.7)",
+                  textDecoration: "none",
+                  transition: "all 0.3s ease",
+                }}
+              >
+                Daftar Sekarang
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* ── MENGAPA MEMILIH / KEUNGGULAN KAMI (FEATURED GRID) ── */}
+        <section id="keunggulan" style={{ padding: "90px 0", background: "#F8FAFC", borderBottom: "1px solid #E2E8F0", scrollMarginTop: "80px" }}>
+          <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px" }}>
+            <div style={{ textAlign: "center", marginBottom: 56 }}>
+              <div
+                className="training-eyebrow-light"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 10,
+                  marginBottom: 16,
+                  justifyContent: "center",
+                }}
+              >
+                <span style={{ width: 20, height: 2, background: "#F5A623", borderRadius: 2, display: "inline-block" }} />
+                <span
+                  className="training-eyebrow-text"
+                  style={{
+                    color: "#1967D2",
+                    fontSize: "0.75rem",
+                    fontWeight: 600,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.12em",
+                  }}
+                >
+                  KEUNGGULAN KAMI
+                </span>
+              </div>
+              <h2
+                className="training-section-h2"
+                style={{
+                  fontFamily: "var(--font-poppins)",
+                  fontSize: "clamp(2rem, 3.2vw, 2.6rem)",
+                  fontWeight: 900,
+                  color: "#0F172A",
+                  lineHeight: 1.2,
+                }}
+              >
+                Mengapa Mengikuti Diklat di<br />
+                MAP Training Center?
+              </h2>
+            </div>
+
+            {/* Asymmetric Featured Layout Grid */}
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 340px), 1fr))",
+                gap: 24,
+              }}
+            >
+              {whyChoose.map((item, i) => (
+                <div
+                  key={i}
+                  style={{
+                    background: "#FFFFFF",
+                    color: "#0F172A",
+                    border: "1px solid #E2E8F0",
+                    borderRadius: 20,
+                    padding: "36px 30px",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+                    position: "relative",
+                  }}
+                >
+                  <div>
+                    <div
+                      style={{
+                        width: 48,
+                        height: 48,
+                        borderRadius: 12,
+                        background: "#E0F2FE",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        marginBottom: 20,
+                      }}
+                    >
+                      <i
+                        className={`fas ${item.icon}`}
+                        style={{ color: "#1967D2", fontSize: "1.2rem" }}
+                      />
+                    </div>
+                    <h3
+                      style={{
+                        fontFamily: "var(--font-poppins)",
+                        fontWeight: 700,
+                        fontSize: "1.15rem",
+                        marginBottom: 10,
+                        lineHeight: 1.3,
+                      }}
+                    >
+                      {item.title}
+                    </h3>
+                    <p
+                      style={{
+                        color: "#64748B",
+                        fontSize: "0.88rem",
+                        lineHeight: 1.65,
+                        margin: 0,
+                      }}
+                    >
+                      {item.desc}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
         {/* ── PROGRAM PELATIHAN (2x2 GRID DENGAN HEADER SUMMARY & LINK DETAIL) ── */}
-        <section id="programs" style={{ padding: "90px 0", background: "#F8FAFC", borderBottom: "1px solid #E2E8F0", scrollMarginTop: "80px" }}>
+        <section id="programs" style={{ padding: "90px 0", background: "#FFFFFF", borderBottom: "1px solid #E2E8F0", scrollMarginTop: "80px" }}>
           <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px" }}>
             
             {/* Header Layout: Title on Left, Summary on Right */}
@@ -325,118 +476,6 @@ export default function TrainingPage() {
 
         {/* ── FASILITAS SLIDER ── */}
         <TrainingFacilitiesSlider />
-
-        {/* ── MENGAPA MEMILIH (FEATURED GRID) ── */}
-        <section style={{ padding: "100px 0", background: "#F8FAFC", borderTop: "1px solid #E2E8F0", borderBottom: "1px solid #E2E8F0" }}>
-          <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px" }}>
-            <div style={{ textAlign: "center", marginBottom: 56 }}>
-              <div
-                className="training-eyebrow-light"
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 10,
-                  marginBottom: 16,
-                  justifyContent: "center",
-                }}
-              >
-                <span style={{ width: 20, height: 2, background: "#F5A623", borderRadius: 2, display: "inline-block" }} />
-                <span
-                  className="training-eyebrow-text"
-                  style={{
-                    color: "#1967D2",
-                    fontSize: "0.75rem",
-                    fontWeight: 600,
-                    textTransform: "uppercase",
-                    letterSpacing: "0.12em",
-                  }}
-                >
-                  KEUNGGULAN KAMI
-                </span>
-              </div>
-              <h2
-                className="training-section-h2"
-                style={{
-                  fontFamily: "var(--font-poppins)",
-                  fontSize: "clamp(2rem, 3.2vw, 2.6rem)",
-                  fontWeight: 900,
-                  color: "#0F172A",
-                  lineHeight: 1.2,
-                }}
-              >
-                Mengapa Mengikuti Diklat di<br />
-                MAP Training Center?
-              </h2>
-            </div>
-
-            {/* Asymmetric Featured Layout Grid */}
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 340px), 1fr))",
-                gap: 24,
-              }}
-            >
-              {whyChoose.map((item, i) => (
-                <div
-                  key={i}
-                  style={{
-                    background: "#FFFFFF",
-                    color: "#0F172A",
-                    border: "1px solid #E2E8F0",
-                    borderRadius: 20,
-                    padding: "36px 30px",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "space-between",
-                    position: "relative",
-                  }}
-                >
-                  <div>
-                    <div
-                      style={{
-                        width: 48,
-                        height: 48,
-                        borderRadius: 12,
-                        background: "#E0F2FE",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        marginBottom: 20,
-                      }}
-                    >
-                      <i
-                        className={`fas ${item.icon}`}
-                        style={{ color: "#1967D2", fontSize: "1.2rem" }}
-                      />
-                    </div>
-                    <h3
-                      style={{
-                        fontFamily: "var(--font-poppins)",
-                        fontWeight: 700,
-                        fontSize: "1.15rem",
-                        marginBottom: 10,
-                        lineHeight: 1.3,
-                      }}
-                    >
-                      {item.title}
-                    </h3>
-                    <p
-                      style={{
-                        color: "#64748B",
-                        fontSize: "0.88rem",
-                        lineHeight: 1.65,
-                        margin: 0,
-                      }}
-                    >
-                      {item.desc}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
 
         {/* ── SERTIFIKAT PREVIEW (RESMI DIREKTORAT JENDERAL PERHUBUNGAN UDARA) ── */}
         <CertificateSection />

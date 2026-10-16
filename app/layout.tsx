@@ -117,7 +117,7 @@ export default function RootLayout({
                 "Passenger & Ticketing Services",
                 "Aircraft & Cabin Cleaning Services",
                 "Ground Support Equipment (GSE) Rental Support",
-                "Aviation Staff Outsourcing",
+                "Aviation Manpower Provider",
                 "MAP Aviation Training Center",
                 "Airport Shuttle Bus Advertising"
               ],
@@ -183,9 +183,9 @@ export default function RootLayout({
                   },
                   {
                     "@type": "OfferCatalog",
-                    "name": "Outsourcing Staff",
+                    "name": "Manpower Provider",
                     "itemListElement": [
-                      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Ground Staff Outsourcing" } },
+                      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Ground Staff Manpower" } },
                       { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Aviation Security (AVSEC) Staff" } },
                       { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "GSE Operator Personnel" } },
                       { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Airport Porter Service" } }

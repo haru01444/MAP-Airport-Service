@@ -51,9 +51,9 @@ const coreServices: CoreService[] = [
   {
     id: "staffing",
     tag: "Human Resources",
-    title: "Outsourcing Staff",
+    title: "Manpower Provider",
     image: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=800&q=80",
-    link: "/services#outsourcing-staff",
+    link: "/services#manpower-provider",
   },
   {
     id: "advertising",

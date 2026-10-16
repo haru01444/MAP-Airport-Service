@@ -31,7 +31,7 @@ const serviceTabs: ServiceTab[] = [
   { id: "ramp-services", number: "03", shortTitle: "Ramp Side Service", title: "Ramp Side Operations", category: "Ramp Operations" },
   { id: "cabin-cleaning", number: "04", shortTitle: "Cabin Cleaning", title: "Aircraft & Cabin Cleaning", category: "Cleaning Services" },
   { id: "equipment-rental", number: "05", shortTitle: "Equipment Rental (GSE)", title: "GSE Equipment Rental Support", category: "Equipment Support" },
-  { id: "outsourcing-staff", number: "06", shortTitle: "Outsourcing Staff", title: "Aviation Staff Outsourcing", category: "Human Resources" },
+  { id: "manpower-provider", number: "06", shortTitle: "Manpower Provider", title: "Aviation Manpower Provider", category: "Human Resources" },
   { id: "airport-advertising", number: "07", shortTitle: "Airport Advertising", title: "Airport Shuttle Advertising", category: "Media & Advertising" },
   { id: "training-center", number: "08", shortTitle: "Training Center", title: "MAP Training Center", category: "Training Center" },
 ];
@@ -44,7 +44,7 @@ export default function ServicesSlider() {
     const handleHash = () => {
       const hash = window.location.hash.replace("#", "");
       if (hash) {
-        const found = serviceTabs.findIndex((t) => t.id === hash);
+        const found = serviceTabs.findIndex((t) => t.id === hash || (hash === "outsourcing-staff" && t.id === "manpower-provider"));
         if (found !== -1) {
           setActiveIndex(found);
         }
@@ -388,7 +388,7 @@ export default function ServicesSlider() {
             </div>
           )}
 
-          {/* SLIDE 06: OUTSOURCING STAFF */}
+          {/* SLIDE 06: MANPOWER PROVIDER */}
           {activeIndex === 5 && (
             <div className="svc-hero-grid">
               <div>
@@ -396,7 +396,7 @@ export default function ServicesSlider() {
                   06. Human Resources
                 </span>
                 <h2 className="svc-sec-title">
-                  Outsourcing <span>Staff</span>
+                  Manpower <span>Provider</span>
                 </h2>
                 <p className="svc-sec-desc">
                   Menyediakan tenaga kerja profesional dan bersertifikasi untuk mendukung berbagai lini operasional bandara dan maskapai.
@@ -421,7 +421,7 @@ export default function ServicesSlider() {
                 <div className="svc-img-frame">
                   <Image
                     src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=800&q=80"
-                    alt="Aviation Staff Outsourcing MAP"
+                    alt="Aviation Manpower Provider MAP"
                     fill
                     style={{ objectFit: "cover" }}
                     sizes="(max-width: 900px) 100vw, 500px"

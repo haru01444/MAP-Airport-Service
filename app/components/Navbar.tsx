@@ -45,7 +45,7 @@ const mainServicesMenuItems: DropdownItem[] = [
   { title: "Ramp Side Service", href: "/services#ramp-services" },
   { title: "Aircraft & Cabin Cleaning", href: "/services#cabin-cleaning" },
   { title: "Equipment Rental (GSE)", href: "/services#equipment-rental" },
-  { title: "Outsourcing Staff", href: "/services#outsourcing-staff" },
+  { title: "Manpower Provider", href: "/services#manpower-provider" },
   { title: "Airport Shuttle Advertising", href: "/advertising" },
   { title: "MAP Training Center", href: "/training" },
 ];
@@ -54,7 +54,7 @@ const mainServicesMenuItems: DropdownItem[] = [
 const trainingAboutMenuItems: DropdownItem[] = [
   { title: "Profil MAP Training Center", href: "/training/about" },
   { title: "Lisensi & Sertifikasi Hubud", href: "/training#sertifikat" },
-  { title: "Keunggulan Diklat", href: "/training#programs" },
+  { title: "Keunggulan Diklat", href: "/training#keunggulan" },
 ];
 
 const trainingProgramsMenuItems: DropdownItem[] = [
