@@ -28,7 +28,6 @@ const trainingNavLinks = [
 ];
 
 const trainingProgramsList = [
-  { name: "Aircraft Maintenance (AMC-01)", href: "/training/programs#aircraft" },
   { name: "Ground Support Equipment (GSE-02)", href: "/training/programs#gse" },
   { name: "Aviation Security (SEC-03)", href: "/training/programs#avsec" },
   { name: "Pramugari & Pramugara (CAB-04)", href: "/training/programs#pramugari" },

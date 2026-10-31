@@ -8,12 +8,11 @@ import TrainingContactSection from "../components/TrainingContactSection";
 export const metadata: Metadata = {
   title: "Program Pelatihan Aviasi Lengkap | MAP Training Center",
   description:
-    "Rangkaian program diklat kejuruan aviasi terpadu MAP Training Center: Aircraft Maintenance (AMC), Ground Support Equipment (GSE), Aviation Security (AVSEC), dan Pramugari/Pramugara.",
+    "Rangkaian program diklat kejuruan aviasi terpadu MAP Training Center: Ground Support Equipment (GSE), Aviation Security (AVSEC), dan Pramugari/Pramugara.",
   keywords: [
     "program pelatihan map training center",
     "diklat avsec berlisensi",
     "sekolah pramugari bogor",
-    "pelatihan teknisi pesawat",
     "training gse operator bandara",
   ],
 };

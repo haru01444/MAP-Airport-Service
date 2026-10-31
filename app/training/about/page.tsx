@@ -492,7 +492,7 @@ export default function TrainingAboutPage() {
             >
               {[
                 { num: "7+", label: "Tahun Pengalaman", desc: "Rekam jejak ekosistem aviasi Indonesia." },
-                { num: "4", label: "Program Spesialis", desc: "AMC, GSE, AVSEC & Cabin Crew." },
+                { num: "3", label: "Program Spesialis", desc: "GSE, AVSEC & Cabin Crew." },
                 { num: "4", label: "Kota Operasional", desc: "Jaringan operasional bandara MAP." },
                 { num: "8+", label: "Mitra Industri", desc: "Kolaborasi maskapai & ground operator." },
               ].map((s, i) => (

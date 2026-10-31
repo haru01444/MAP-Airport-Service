@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 
 const programs = [
-  { name: "Aircraft Maintenance", href: "#programs" },
   { name: "GSE (Ground Support Equipment)", href: "#programs" },
   { name: "Aviation Security (AVSEC)", href: "#programs" },
   { name: "Pramugari / Pramugara", href: "#programs" },

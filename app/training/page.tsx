@@ -12,7 +12,7 @@ import { trainingPrograms } from "../data/trainingData";
 export const metadata: Metadata = {
   title: "MAP Training Center : Pusat Pelatihan Aviasi Indonesia",
   description:
-    "MAP Training Center menyediakan program pelatihan Aircraft Maintenance, GSE, Aviation Security (AVSEC), dan Pramugari/Pramugara berstandar internasional.",
+    "MAP Training Center menyediakan program pelatihan Ground Support Equipment (GSE), Aviation Security (AVSEC), dan Pramugari/Pramugara berstandar internasional.",
 };
 
 /* ─────────────── DATA ─────────────── */
@@ -80,7 +80,7 @@ export default function TrainingPage() {
           <style
             dangerouslySetInnerHTML={{
               __html: [
-                ".training-programs-2x2-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }",
+                ".training-programs-2x2-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }",
                 ".training-program-card { background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease; box-shadow: 0 4px 16px rgba(0, 31, 91, 0.04); text-decoration: none; cursor: pointer; }",
                 ".training-program-card:hover { transform: translateY(-6px); border-color: #1967D2; box-shadow: 0 16px 36px rgba(0, 31, 91, 0.1); }",
                 ".training-program-card:hover .training-card-img { transform: scale(1.06); }",
@@ -149,7 +149,7 @@ export default function TrainingPage() {
                 lineHeight: 1.8,
               }}
             >
-              Mencetak personel aviasi siap kerja dan bersertifikat resmi untuk kebutuhan Aircraft Maintenance, GSE, Aviation Security (AVSEC), dan Cabin Crew.
+              Mencetak personel aviasi siap kerja dan bersertifikat resmi untuk kebutuhan Ground Support Equipment (GSE), Aviation Security (AVSEC), dan Cabin Crew.
             </p>
 
             {/* CTA Buttons */}

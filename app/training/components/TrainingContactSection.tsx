@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import Image from "next/image";
 
 const trainingServiceOptions = [
-  "Aircraft Maintenance Training",
   "Ground Support Equipment (GSE) Training",
   "Aviation Security (AVSEC) Licensing",
   "Pramugari & Pramugara (Cabin Crew)",

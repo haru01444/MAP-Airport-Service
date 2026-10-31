@@ -28,7 +28,7 @@ const detailedFacilities = [
     image: "/facilities/01-perpustakaan.jpeg",
     specs: [
       "Koleksi manual regulasi CASR, ICAO, IATA, dan DJPU Kemenhub RI",
-      "Buku & modul teknis Aircraft Maintenance, GSE, AVSEC & Cabin Crew",
+      "Buku & modul teknis GSE, AVSEC & Cabin Crew",
       "Area baca tenang dengan meja studi kondusif untuk pengayaan materi",
       "Akses modul e-learning dan materi referensi penerbangan terkini",
     ],

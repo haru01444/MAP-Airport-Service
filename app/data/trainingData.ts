@@ -22,41 +22,6 @@ export interface TrainingProgramItem {
 
 export const trainingPrograms: TrainingProgramItem[] = [
   {
-    id: "aircraft",
-    slug: "aircraft-maintenance",
-    tag: "AIRCRAFT MAINTENANCE",
-    code: "AMC-01",
-    icon: "fa-wrench",
-    title: "Aircraft Maintenance",
-    titleFirst: "Aircraft",
-    titleSecond: "Maintenance",
-    color: "#1967D2",
-    bgColor: "rgba(25,103,210,0.08)",
-    badgeBg: "#E0F2FE",
-    desc: "Program pelatihan perawatan & pemeliharaan teknis pesawat udara komprehensif, mencakup kelayakan terbang, inspeksi komponen, dan keselamatan di area ramp & hangar.",
-    fullDesc:
-      "Program Aircraft Maintenance di MAP Training Center dirancang khusus untuk mencetak teknisi dan personel perawatan pesawat udara yang andal, disiplin, dan menguasai standar regulasi Ditjen Hubud (DKPPU) serta ICAO. Peserta didik mendapatkan kombinasi instruksi teori audio-visual dan simulasi praktek lapangan teknis pesawat.",
-    duration: "Intensif • 6 Bulan",
-    targetCareer: "Aircraft Technician, Line Maintenance Agent, Quality Control Inspector",
-    requirements: [
-      "Usia minimal 18 tahun, sehat jasmani & rohani",
-      "Pendidikan min. SMA / SMK / D3 / S1 (diutamakan Teknik)",
-      "Bebas buta warna & tidak bertato/bertindik (pria)",
-      "Memiliki minat tinggi dalam bidang teknis aviasi",
-    ],
-    items: [
-      { text: "Line Maintenance Procedure", icon: "fa-gear" },
-      { text: "Aircraft Component Inspection", icon: "fa-plane" },
-      { text: "Ground Run & Engine Test", icon: "fa-shield-halved" },
-      { text: "Safety & Hazard Awareness", icon: "fa-triangle-exclamation" },
-      { text: "Documentation & Technical Log", icon: "fa-file-lines" },
-      { text: "Tool Control & GSE Calibration", icon: "fa-screwdriver-wrench" },
-    ],
-    imageUrl:
-      "/Aircraft-Maintenance-Training-MAP-Center.jpeg",
-    imageAlt: "Aircraft Maintenance Training MAP Center",
-  },
-  {
     id: "gse",
     slug: "gse-operations",
     tag: "GSE OPERATIONS",

@@ -42,7 +42,7 @@ export default function TrainingProgramsSlider() {
           __html: [
             ".prog-slider-container { max-width: 1200px; margin: 0 auto; padding: 48px 24px 80px; }",
             ".prog-tab-nav-container { background: #FFFFFF; border-radius: 8px; padding: 16px; border: 1px solid #E2E8F0; margin-bottom: 28px; }",
-            ".prog-tab-fullwidth-container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; width: 100%; }",
+            ".prog-tab-fullwidth-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; width: 100%; }",
             ".prog-category-btn { width: 100%; display: flex; align-items: center; justify-content: center; text-align: center; padding: 14px 18px; border-radius: 6px; font-size: 0.9rem; font-weight: 600; transition: all 0.2s ease; cursor: pointer; border: 1px solid transparent; }",
             ".prog-category-btn.active { background: #001F5B; color: #FFFFFF; border-color: #001F5B; box-shadow: 0 4px 12px rgba(0, 31, 91, 0.18); font-weight: 700; }",
             ".prog-category-btn.inactive { background: #FFFFFF; color: #475569; border-color: #E2E8F0; }",

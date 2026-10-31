@@ -58,7 +58,6 @@ const trainingAboutMenuItems: DropdownItem[] = [
 ];
 
 const trainingProgramsMenuItems: DropdownItem[] = [
-  { title: "Aircraft Maintenance (AMC)", href: "/training/programs/aircraft" },
   { title: "Ground Support Equipment (GSE)", href: "/training/programs/gse" },
   { title: "Aviation Security (AVSEC)", href: "/training/programs/avsec" },
   { title: "Pramugari & Pramugara", href: "/training/programs/pramugari" },

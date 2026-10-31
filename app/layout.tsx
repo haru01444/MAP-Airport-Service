@@ -197,7 +197,6 @@ export default function RootLayout({
                     "itemListElement": [
                       { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Aviation Security (AVSEC) Training & Certification" } },
                       { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "GSE (Ground Support Equipment) Operator Training" } },
-                      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Aircraft Maintenance Training" } },
                       { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Pramugari & Pramugara Flight Attendant Training" } }
                     ]
                   },
